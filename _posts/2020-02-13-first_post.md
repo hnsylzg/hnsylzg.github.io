@@ -1,5 +1,5 @@
 # Hello World!
-![Image description](images/first.jpg)
+![Image description](first.jpg)
 
 1. TOC
 {:toc}

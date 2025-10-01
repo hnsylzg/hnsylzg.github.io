@@ -1,634 +1,341 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yanm1ng&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
   
-  
+    <link rel="shortcut icon" href="/css/images/logo.png">
   
   <title>
     
-    Hi Folks.
-  </title>
-  <!-- Icon -->
-  
-    <link rel="shortcut icon" href="/favicon.ico">
+      Hi Folks.
     
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
   
 <link rel="stylesheet" href="/css/style.css">
 
   
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    
+<script src="/js/qrious.js"></script>
 
   
   
-<script src="/js/pace.min.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
 
 <meta name="generator" content="Hexo 8.0.0"></head>
-
-<body>
-  <main class="content">
-    <section class="jumbotron">
-  <div class="video">
-    
-    <div class="video-frame">
-      <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
-    </div>
-    
-    <div class="video-media">
-      <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
-        x5-video-player-type="h5">
-        <source src="/images/ocean/ocean.mp4" type="video/mp4">
-        <source src="/images/ocean/ocean.ogv" type="video/ogg">
-        <source src="/images/ocean/ocean.webm" type="video/webm">
-        <p>Your user agent does not support the HTML5 Video element.</p>
-      </video>
-      <div class="video-overlay"></div>
-    </div>
-    <div class="video-inner text-center text-white">
-      <h1><a href="/">Hi Folks.</a></h1>
-      <p></p>
-      <div><img src="/images/hexo-inverted.svg" class="brand" alt="Hi Folks."></div>
-    </div>
-    <div class="video-learn-more">
-      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
-    </div>
-  </div>
-</section>
-<div id="landingpage">
-  <section class="outer">
-  <article class="articles">
-    
-    <h1 class="page-type-title"></h1>
-    
-    
-    <article id="post-Markdown-Style-test" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2025/10/01/Markdown-Style-test/">Markdown Style test</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2025/10/01/Markdown-Style-test/" class="article-date">
-  <time datetime="2025-10-01T14:15:52.000Z" itemprop="datePublished">2025-10-01</time>
-</a>
-      
-<div class="article-category">
-  <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
 </div>
-
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hi Folks.</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/series/" class="item-link">Series</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
     </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
+    <div class="menu-mask">
+      <ul class="menu-list">
         
-      
-      
-        <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p><strong>加粗</strong>、<em>倾斜</em>、<u>下划线</u>、<del>删除线</del>、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标<del>下标</del>、<a href="%E9%93%BE%E6%8E%A5">链接</a>、[链接][链接]、<code>代码</code>、脚注 [^1]</p>
-<p><a href="./doc.doc">dddd</a>、<a href="./doc.mp3">dddd</a> <a href="./doc.jpg">dddd</a> <a href="./doc.mp4">dddd</a> <a href="./doc.css">dddd</a> <a href="./doc.pdf">dddd</a> </p>
-<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，猥自枉屈，三顾臣于草庐之中，咨臣以当世之事，由是感激，遂许先帝以驱驰。后值倾覆，受任于败军之际，奉命于危难之间，尔来二十有一年矣。</p>
-<p><strong>ある日</strong>、<em>おじいさん</em>は<u>山</u>へ<code>柴刈り</code>に、<del>おばあさん</del>は川へ洗濯に出かけました。すると川の上の方から、大きな桃が流れて来ました。おばあさんは喜んでその桃を拾い上げると、家に持ち帰りました。そしておじいさんが帰ると二人で桃を切って食べようとしました。すると桃の中から小さな男の子が飛び出してきました。</p>
-<p><strong>Lorem</strong> <u>ipsum</u> <del>dolor</del> &#x3D;&#x3D;sit amet&#x3D;&#x3D;, consectetur^sed^ adipiscing<del>sed</del> elit [do eiusmod](tempor incididunt) <code>ut labore</code> et dolore magna aliqua.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-<blockquote>
-<h6 id="标题六"><a href="#标题六" class="headerlink" title="标题六"></a>标题六</h6><p><strong>加粗</strong>、<em>倾斜</em>、<u>下划线</u>、<del>删除线</del>、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标<del>下标</del>、<a href="%E9%93%BE%E6%8E%A5">链接</a>、[链接][链接]、<code>代码</code>、脚注 [^1]</p>
-<blockquote>
-<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。</p>
-<blockquote>
-<p><em>ある日、おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に出かけました</em>。</p>
-</blockquote>
-</blockquote>
-<h5 id="标题五"><a href="#标题五" class="headerlink" title="标题五"></a>标题五</h5><p><strong>Lorem</strong> <u>ipsum</u> <del>dolor</del> &#x3D;&#x3D;sit amet&#x3D;&#x3D;, consectetur^sed^ adipiscing<del>sed</del> elit [do eiusmod](tempor incididunt) <code>ut labore</code> et dolore magna &amp; aliqua.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-</blockquote>
-<h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><blockquote>
-<h1 id="测试标题"><a href="#测试标题" class="headerlink" title="测试标题"></a>测试标题</h1><h2 id="测试标题-1"><a href="#测试标题-1" class="headerlink" title="测试标题"></a>测试标题</h2><h3 id="测试标题-2"><a href="#测试标题-2" class="headerlink" title="测试标题"></a>测试标题</h3><h4 id="测试标题-3"><a href="#测试标题-3" class="headerlink" title="测试标题"></a>测试标题</h4><h5 id="测试标题-4"><a href="#测试标题-4" class="headerlink" title="测试标题"></a>测试标题</h5><h6 id="测试标题-5"><a href="#测试标题-5" class="headerlink" title="测试标题"></a>测试标题</h6></blockquote>
-<h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><img src="https://i.loli.net/2021/04/17/2Q7tpYqLWledUJC.png" >
-
-<p><img src="https://i.loli.net/2021/04/17/2Q7tpYqLWledUJC.png" alt="no-shadow"></p>
-<p>块元素：</p>
-<ul>
-<li>无序列表</li>
-<li>充分等等<ul>
-<li>无序列表的递进</li>
-<li>仍然会好久哦经济<ol>
-<li>无序列表下的有序列表</li>
-<li>日日日动词<ol>
-<li>有序列表下的递进</li>
-<li>顶顶顶方法<ul>
-<li><input disabled="" type="checkbox"> 待办事项</li>
-<li><input checked="" disabled="" type="checkbox"> 待办事项</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<blockquote>
-<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。</p>
-<blockquote>
-<p><em>ある日、おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に出かけました</em>。</p>
-</blockquote>
-</blockquote>
-<ul>
-<li><p><input disabled="" type="checkbox"> 
-哈哈哈哈哈哈哈</p>
-</li>
-<li><p><input checked="" disabled="" type="checkbox"> 
-<em>ももたろう</em></p>
-</li>
-<li><p>无序列表</p>
-</li>
-<li><p>充分等等</p>
-<ul>
-<li>无序列表的递进</li>
-<li>仍然会好久哦经济</li>
-</ul>
-<ol>
-<li>无序列表下的有序列表</li>
-<li>日日日动词<ol>
-<li>有序列表下的递进<ol>
-<li>顶顶顶方法</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-</blockquote>
-<pre class="language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
- <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>titile</span><span class="token punctuation">></span></span>this is a html file<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>titile</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>head title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>para highlight<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>highlight paragraph<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>520px<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></code></pre>
-
-<hr>
-<hr width=50%>
-
-<hr width=30%>
-
-<center>居中文字</center>
-
-<p>其他内容：</p>
-<table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="right">右对齐</th>
-<th align="center">居中对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="right"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p>** 正常显示星号 **</p>
-<pre class="language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> LR
-A<span class="token text string">[方形]</span> <span class="token arrow operator">--></span>B<span class="token text string">(圆角)</span>
-    B <span class="token arrow operator">--></span> C<span class="token text string">&#123;条件 a&#125;</span>
-    C <span class="token arrow operator">--></span><span class="token label property">|a=1|</span> D<span class="token text string">[结果 1]</span>
-    C <span class="token arrow operator">--></span><span class="token label property">|a=2|</span> E<span class="token text string">[结果 2]</span>
-    F<span class="token text string">[横向流程图]</span></code></pre>
-
-<pre class="language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD
-A<span class="token text string">[方形]</span> <span class="token arrow operator">--></span> B<span class="token text string">(圆角)</span>
-B <span class="token arrow operator">--></span> C<span class="token text string">&#123;条件 a&#125;</span>
-C <span class="token arrow operator">--></span> <span class="token label property">|a=1|</span> D<span class="token text string">[结果 1]</span>
-C <span class="token arrow operator">--></span> <span class="token label property">|a=2|</span> E<span class="token text string">[结果 2]</span>
-F<span class="token text string">[竖向流程图]</span></code></pre>
-
-<p>[^1]: 脚注。Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/01/Markdown-Style-test/" data-id="cuid7SFAbvNXT1T85rhpeQfYT" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-Hello-World" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2025/10/01/Hello-World/">Hello World</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2025/10/01/Hello-World/" class="article-date">
-  <time datetime="2025-10-01T14:15:16.000Z" itemprop="datePublished">2025-10-01</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
         
-      
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
-
-      
+          <li class="menu-item">
+            
+              <a href="/series/" class="menu-link">Series</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/01/Hello-World/" data-id="cuidlx8mZH0RrinZUcj8kvmAy" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
     
-    <article id="post-code-highlight" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2025/10/01/code-highlight/">code-highlight</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2025/10/01/code-highlight/" class="article-date">
-  <time datetime="2025-10-01T14:13:37.000Z" itemprop="datePublished">2025-10-01</time>
-</a>
-      
-<div class="article-category">
-  <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
 </div>
-
-    </div>
     
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-        
-      
-      
-        <p>Make sure all the code blocks highlighted correctly. All the code samples are come from the demo of <a target="_blank" rel="noopener" href="https://highlightjs.org/">https://highlightjs.org</a></p>
-        
-          <p>
-            <a class="article-more-link" href="/2025/10/01/code-highlight/">
-              Read More...
-            </a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/01/code-highlight/" data-id="cuid0_bWKne9NAI0cLMxXTO7W" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
   </div>
+</header>
 
+    <main class="app-body">
   
-
-  
-
-</article>
-    
-    <article id="post-第二周蟒蛇绘制" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2025/10/01/Markdown-Style-test/">Markdown Style test</a>
+      </h2>
+      <p class="article-date">2025年10月1日</p>
       
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">第二周蟒蛇绘制</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/" class="article-date">
-  <time datetime="2025-10-01T14:11:02.000Z" itemprop="datePublished">2025-10-01</time>
-</a>
-      
-<div class="article-category">
-  <a class="article-category-link" href="/categories/Python/">Python</a>
-</div>
-
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
+      <div class="article-summary">
         
+          一级标题二级标题加粗、倾斜、下划线、删除线、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标下标、链接、[链接][链接]、代码、脚注 [^1]
+dddd、dddd dddd dddd dddd dddd 
+臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以 ...
+        
+      </div>
+      <a class="more" href="/2025/10/01/Markdown-Style-test/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2025/10/01/Hello-World/">Hello World</a>
+      </h2>
+      <p class="article-date">2025年10月1日</p>
       
+      <div class="article-summary">
+        
+          Welcome to Hexo! This is your very first post. Check documentation to learn how to use.
+
+        
+      </div>
+      <a class="more" href="/2025/10/01/Hello-World/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2025/10/01/code-highlight/">code-highlight</a>
+      </h2>
+      <p class="article-date">2025年10月1日</p>
       
-        <h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><pre class="language-none"><code class="language-none">#DrawPython.py
+      <div class="article-summary">
+        
+          <p>Make sure all the code blocks highlighted correctly. All the code samples are come from the demo of <a target="_blank" rel="noopener" href="https://highlightjs.org/">https://highlightjs.org</a></p>
+        
+      </div>
+      <a class="more" href="/2025/10/01/code-highlight/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">第二周蟒蛇绘制</a>
+      </h2>
+      <p class="article-date">2025年10月1日</p>
+      
+      <div class="article-summary">
+        
+          源代码#DrawPython.py
 import turtle
 turtle.setup(650, 350, 200, 200)
 turtle.penup()
 turtle.fd(-250)
 turtle.pendown()
 turtle.pensize(25)
-turtle.pencolor(&quot;purple&quot;)
-turtle.seth(-40)
-for i in range(4):
-    turtle.circle(40, 80)
-    turtle.circle(-40, 80)
-turtle.circle(40, 80&#x2F;2)
-turtle.fd(40)
-turtle.circle(16, 180)
-turtle.fd(40 * 2&#x2F;3)</code></pre>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/" data-id="cuidFhbWbNObldGjLwwkfxUez" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-第一周温度转换程序" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-  
-  <h2 class="article-title" itemprop="name">
-    <a href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">第一周温度转换程序</a>
-  </h2>
-  
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/" class="article-date">
-  <time datetime="2025-10-01T14:04:11.000Z" itemprop="datePublished">2025-10-01</time>
-</a>
-      
-<div class="article-category">
-  <a class="article-category-link" href="/categories/Python/">Python</a>
-</div>
-
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
+turtle.pencolo ...
         
-      
-      
-        <ul>
-<li>摄氏度：中国等世界大多数国家使用<br>以1标准大气压下水的结冰点为0度，沸点为100度，将温度进行等分刻画</li>
-<li>华氏度：美国、英国等国家使用<br>以1标准大气压下水的结冰点为32度，沸点为212度，将温度进行等分刻画</li>
-</ul>
-<h2 id="一、输入输出格式设计"><a href="#一、输入输出格式设计" class="headerlink" title="一、输入输出格式设计"></a>一、输入输出格式设计</h2><p>标识放在温度最后，F表示华氏度，C表示摄氏度</p>
-<p>82F表示华氏82度，28C表示摄氏28度</p>
-<h2 id="二、根据华氏和摄氏温度定义，利用转换公式如下："><a href="#二、根据华氏和摄氏温度定义，利用转换公式如下：" class="headerlink" title="二、根据华氏和摄氏温度定义，利用转换公式如下："></a>二、根据华氏和摄氏温度定义，利用转换公式如下：</h2><pre class="language-none"><code class="language-none">C &#x3D; ( F – 32 ) &#x2F; 1.8
-F &#x3D; C \* 1.8 + 32</code></pre>
-
-<p>其中，C表示摄氏温度，F表示华氏温度</p>
-<h2 id="三、源代码"><a href="#三、源代码" class="headerlink" title="三、源代码"></a>三、源代码</h2><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment">#TempConvert.py</span>
-TempStr <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入带有符号的温度值: "</span><span class="token punctuation">)</span>
-<span class="token keyword">if</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-    C <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">1.8</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;C"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">elif</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span><span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-    F <span class="token operator">=</span> <span class="token number">1.8</span><span class="token operator">*</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">32</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;F"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>F<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">else</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"输入格式错误"</span><span class="token punctuation">)</span></code></pre>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/" data-id="cuidOaTPWkHS3whvT9NcWr5VM" class="article-share-link">
-        分享
-      </a>
-      
-    </footer>
-
-  </div>
-
+      </div>
+      <a class="more" href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">Read more</a>
+    </article>
   
-
-  
-
-</article>
-    
-  </article>
-  
-
-  
-</section>
-</div>
-    <footer class="footer">
-  <div class="outer">
-    <ul class="list-inline">
-      <li>Hi Folks. &copy; 2025</li>
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">第一周温度转换程序</a>
+      </h2>
+      <p class="article-date">2025年10月1日</p>
       
-        <li>
+      <div class="article-summary">
+        
           
-            <a href="https://beian.miit.gov.cn/" target="_blank"></a>
-            
-        </li>
-      
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-    </ul>
-    <p><ul class="list-inline">
+摄氏度：中国等世界大多数国家使用以1标准大气压下水的结冰点为0度，沸点为100度，将温度进行等分刻画
+华氏度：美国、英国等国家使用以1标准大气压下水的结冰点为32度，沸点为212度，将温度进行等分刻画
+
+一、输入输出格式设计标识放在温度最后，F表示华氏度，C表示摄氏度
+82F表示华氏82度 ...
+        
+      </div>
+      <a class="more" href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">Read more</a>
+    </article>
   
-  <li><i class="fe fe-bar-chart tooltip" data-tooltip="PV"></i> <span id="busuanzi_value_site_pv"></span></li>
+
   
-  <li><i class="fe fe-smile-alt tooltip" data-tooltip="UV"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-</ul></p>
-  </div>
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2025 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+    
+  </p>
 </footer>
-  </main>
-  <aside class="sidebar">
-    <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-  <div class="logo">
-    <a href="/"><img src="/images/hexo.svg" alt="Hi Folks."></a>
-  </div>
-  
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">Home</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives">Archives</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/gallery">Gallery</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/about">About</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="搜索">
-        <i class="fe fe-search"></i>
-        搜索
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="fe fe-feed"></i>
-      </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-  </aside>
-  
-<script src="/js/jquery-2.0.3.min.js"></script>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
 
 
-<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/script.js"></script>
 
 
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-
-
-<script src="/js/ocean.js"></script>
-
-</body>
-
+  </body>
 </html>

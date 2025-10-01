@@ -1,341 +1,401 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta name="description" content="yanm1ng&#39;s blog">
-  <meta name="keyword" content="hexo-theme, vuejs">
-  
-    <link rel="shortcut icon" href="/css/images/logo.png">
-  
-  <title>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>Hi Folks.</title>
     
-      Hi Folks.
-    
-  </title>
-  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
-  
 <link rel="stylesheet" href="/css/style.css">
 
-  
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
-  
     
-<script src="/js/qrious.js"></script>
+<link rel="stylesheet" href="/css/gitment.css">
 
-  
-  
-  
-  
-    <!-- MathJax support START -->
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <!-- MathJax support END -->
-  
-
-
-  
-  
-    
-<script src="/js/local-search.js"></script>
-
-
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
 <meta name="generator" content="Hexo 8.0.0"></head>
-<div class="wechat-share">
-  <img src="/css/images/logo.png" />
-</div>
-  <body>
-    <header class="header fixed-header">
-  <div class="header-container">
-    <a class="home-link" href="/">
-      <div class="logo"></div>
-      <span>Hi Folks.</span>
-    </a>
-    <ul class="right-list">
-      
-        <li class="list-item">
-          
-            <a href="/" class="item-link active">Home</a>
-          
-        </li>
-      
-        <li class="list-item">
-          
-            <a href="/series/" class="item-link">Series</a>
-          
-        </li>
-      
-        <li class="list-item">
-          
-            <a href="/tags/" class="item-link">Tags</a>
-          
-        </li>
-      
-        <li class="list-item">
-          
-            <a href="/archives/" class="item-link">Archives</a>
-          
-        </li>
-      
-        <li class="list-item">
-          
-            <a href="/project/" class="item-link">Projects</a>
-          
-        </li>
-      
-        <li class="list-item">
-          
-            <a href="/about/" class="item-link">About</a>
-          
-        </li>
-      
-      
-        <li class="menu-item menu-item-search right-list">
-    <a role="button" class="popup-trigger">
-        <i class="fa fa-search fa-fw"></i>
-    </a>
-</li>
-      
-    </ul>
-    <div class="menu">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </div>
-    <div class="menu-mask">
-      <ul class="menu-list">
-        
-          <li class="menu-item">
-            
-              <a href="/" class="menu-link mobile-active">Home</a>
-            
-          </li>
-        
-          <li class="menu-item">
-            
-              <a href="/series/" class="menu-link">Series</a>
-            
-          </li>
-        
-          <li class="menu-item">
-            
-              <a href="/tags/" class="menu-link">Tags</a>
-            
-          </li>
-        
-          <li class="menu-item">
-            
-              <a href="/archives/" class="menu-link">Archives</a>
-            
-          </li>
-        
-          <li class="menu-item">
-            
-              <a href="/project/" class="menu-link">Projects</a>
-            
-          </li>
-        
-          <li class="menu-item">
-            
-              <a href="/about/" class="menu-link">About</a>
-            
-          </li>
-        
-      </ul>
-    </div>
-    
-      <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-            <span class="search-icon">
-                <i class="fa fa-search"></i>
-            </span>
-            <div class="search-input-container">
-                <input autocomplete="off" autocapitalize="off"
-                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
-                    type="search" class="search-input">
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa fa-times-circle"></i>
-            </span>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
         </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
     </div>
-</div>
-    
-  </div>
 </header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">Zhengang Li's Blog</a>
+        </div>
 
-    <main class="app-body">
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2025/10/01/Markdown-Style-test/">Markdown Style test</a>
-      </h2>
-      <p class="article-date">2025年10月1日</p>
-      
-      <div class="article-summary">
-        
-          一级标题二级标题加粗、倾斜、下划线、删除线、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标下标、链接、[链接][链接]、代码、脚注 [^1]
-dddd、dddd dddd dddd dddd dddd 
-臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以 ...
-        
-      </div>
-      <a class="more" href="/2025/10/01/Markdown-Style-test/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2025/10/01/Hello-World/">Hello World</a>
-      </h2>
-      <p class="article-date">2025年10月1日</p>
-      
-      <div class="article-summary">
-        
-          Welcome to Hexo! This is your very first post. Check documentation to learn how to use.
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2025/10/01/Markdown-Style-test/">Markdown Style test</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2025-10-01</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
+                    
+                </span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p><strong>加粗</strong>、<em>倾斜</em>、<u>下划线</u>、<del>删除线</del>、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标<del>下标</del>、<a href="%E9%93%BE%E6%8E%A5">链接</a>、[链接][链接]、<code>代码</code>、脚注 [^1]</p>
+<p><a href="./doc.doc">dddd</a>、<a href="./doc.mp3">dddd</a> <a href="./doc.jpg">dddd</a> <a href="./doc.mp4">dddd</a> <a href="./doc.css">dddd</a> <a href="./doc.pdf">dddd</a> </p>
+<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，猥自枉屈，三顾臣于草庐之中，咨臣以当世之事，由是感激，遂许先帝以驱驰。后值倾覆，受任于败军之际，奉命于危难之间，尔来二十有一年矣。</p>
+<p><strong>ある日</strong>、<em>おじいさん</em>は<u>山</u>へ<code>柴刈り</code>に、<del>おばあさん</del>は川へ洗濯に出かけました。すると川の上の方から、大きな桃が流れて来ました。おばあさんは喜んでその桃を拾い上げると、家に持ち帰りました。そしておじいさんが帰ると二人で桃を切って食べようとしました。すると桃の中から小さな男の子が飛び出してきました。</p>
+<p><strong>Lorem</strong> <u>ipsum</u> <del>dolor</del> &#x3D;&#x3D;sit amet&#x3D;&#x3D;, consectetur^sed^ adipiscing<del>sed</del> elit [do eiusmod](tempor incididunt) <code>ut labore</code> et dolore magna aliqua.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<blockquote>
+<h6 id="标题六"><a href="#标题六" class="headerlink" title="标题六"></a>标题六</h6><p><strong>加粗</strong>、<em>倾斜</em>、<u>下划线</u>、<del>删除线</del>、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标<del>下标</del>、<a href="%E9%93%BE%E6%8E%A5">链接</a>、[链接][链接]、<code>代码</code>、脚注 [^1]</p>
+<blockquote>
+<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。</p>
+<blockquote>
+<p><em>ある日、おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に出かけました</em>。</p>
+</blockquote>
+</blockquote>
+<h5 id="标题五"><a href="#标题五" class="headerlink" title="标题五"></a>标题五</h5><p><strong>Lorem</strong> <u>ipsum</u> <del>dolor</del> &#x3D;&#x3D;sit amet&#x3D;&#x3D;, consectetur^sed^ adipiscing<del>sed</del> elit [do eiusmod](tempor incididunt) <code>ut labore</code> et dolore magna &amp; aliqua.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+</blockquote>
+<h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><blockquote>
+<h1 id="测试标题"><a href="#测试标题" class="headerlink" title="测试标题"></a>测试标题</h1><h2 id="测试标题-1"><a href="#测试标题-1" class="headerlink" title="测试标题"></a>测试标题</h2><h3 id="测试标题-2"><a href="#测试标题-2" class="headerlink" title="测试标题"></a>测试标题</h3><h4 id="测试标题-3"><a href="#测试标题-3" class="headerlink" title="测试标题"></a>测试标题</h4><h5 id="测试标题-4"><a href="#测试标题-4" class="headerlink" title="测试标题"></a>测试标题</h5><h6 id="测试标题-5"><a href="#测试标题-5" class="headerlink" title="测试标题"></a>测试标题</h6></blockquote>
+<h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><img src="https://i.loli.net/2021/04/17/2Q7tpYqLWledUJC.png" >
 
-        
-      </div>
-      <a class="more" href="/2025/10/01/Hello-World/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2025/10/01/code-highlight/">code-highlight</a>
-      </h2>
-      <p class="article-date">2025年10月1日</p>
-      
-      <div class="article-summary">
-        
-          <p>Make sure all the code blocks highlighted correctly. All the code samples are come from the demo of <a target="_blank" rel="noopener" href="https://highlightjs.org/">https://highlightjs.org</a></p>
-        
-      </div>
-      <a class="more" href="/2025/10/01/code-highlight/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">第二周蟒蛇绘制</a>
-      </h2>
-      <p class="article-date">2025年10月1日</p>
-      
-      <div class="article-summary">
-        
-          源代码#DrawPython.py
+<p><img src="https://i.loli.net/2021/04/17/2Q7tpYqLWledUJC.png" alt="no-shadow"></p>
+<p>块元素：</p>
+<ul>
+<li>无序列表</li>
+<li>充分等等<ul>
+<li>无序列表的递进</li>
+<li>仍然会好久哦经济<ol>
+<li>无序列表下的有序列表</li>
+<li>日日日动词<ol>
+<li>有序列表下的递进</li>
+<li>顶顶顶方法<ul>
+<li><input disabled="" type="checkbox"> 待办事项</li>
+<li><input checked="" disabled="" type="checkbox"> 待办事项</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。</p>
+<blockquote>
+<p><em>ある日、おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に出かけました</em>。</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+哈哈哈哈哈哈哈</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<em>ももたろう</em></p>
+</li>
+<li><p>无序列表</p>
+</li>
+<li><p>充分等等</p>
+<ul>
+<li>无序列表的递进</li>
+<li>仍然会好久哦经济</li>
+</ul>
+<ol>
+<li>无序列表下的有序列表</li>
+<li>日日日动词<ol>
+<li>有序列表下的递进<ol>
+<li>顶顶顶方法</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<pre class="language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>titile</span><span class="token punctuation">></span></span>this is a html file<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>titile</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>head title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>para highlight<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>highlight paragraph<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>520px<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></code></pre>
+
+<hr>
+<hr width=50%>
+
+<hr width=30%>
+
+<center>居中文字</center>
+
+<p>其他内容：</p>
+<table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="right">右对齐</th>
+<th align="center">居中对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="right"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>** 正常显示星号 **</p>
+<pre class="language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> LR
+A<span class="token text string">[方形]</span> <span class="token arrow operator">--></span>B<span class="token text string">(圆角)</span>
+    B <span class="token arrow operator">--></span> C<span class="token text string">&#123;条件 a&#125;</span>
+    C <span class="token arrow operator">--></span><span class="token label property">|a=1|</span> D<span class="token text string">[结果 1]</span>
+    C <span class="token arrow operator">--></span><span class="token label property">|a=2|</span> E<span class="token text string">[结果 2]</span>
+    F<span class="token text string">[横向流程图]</span></code></pre>
+
+<pre class="language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD
+A<span class="token text string">[方形]</span> <span class="token arrow operator">--></span> B<span class="token text string">(圆角)</span>
+B <span class="token arrow operator">--></span> C<span class="token text string">&#123;条件 a&#125;</span>
+C <span class="token arrow operator">--></span> <span class="token label property">|a=1|</span> D<span class="token text string">[结果 1]</span>
+C <span class="token arrow operator">--></span> <span class="token label property">|a=2|</span> E<span class="token text string">[结果 2]</span>
+F<span class="token text string">[竖向流程图]</span></code></pre>
+
+<p>[^1]: 脚注。Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                
+            </div> -->
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2025/10/01/Hello-World/">Hello World</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2025-10-01</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>Welcome to <a target="_blank" rel="noopener" href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+
+                
+            </div> -->
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2025/10/01/code-highlight/">code-highlight</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2025-10-01</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
+                    
+                </span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <!-- <p>Make sure all the code blocks highlighted correctly. All the code samples are come from the demo of <a target="_blank" rel="noopener" href="https://highlightjs.org/">https://highlightjs.org</a></p>
+                    <div class="read-more">
+                        <a href="/2025/10/01/code-highlight/" class="read-more-link">
+                            阅读全文
+                            <i class="iconfont icon-readmore"></i>
+                        </a>
+                    </div>
+                
+            </div> -->
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">第二周蟒蛇绘制</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2025-10-01</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/Python/">Python</a>
+                    
+                </span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><pre class="language-none"><code class="language-none">#DrawPython.py
 import turtle
 turtle.setup(650, 350, 200, 200)
 turtle.penup()
 turtle.fd(-250)
 turtle.pendown()
 turtle.pensize(25)
-turtle.pencolo ...
-        
-      </div>
-      <a class="more" href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">第一周温度转换程序</a>
-      </h2>
-      <p class="article-date">2025年10月1日</p>
-      
-      <div class="article-summary">
-        
-          
-摄氏度：中国等世界大多数国家使用以1标准大气压下水的结冰点为0度，沸点为100度，将温度进行等分刻画
-华氏度：美国、英国等国家使用以1标准大气压下水的结冰点为32度，沸点为212度，将温度进行等分刻画
-
-一、输入输出格式设计标识放在温度最后，F表示华氏度，C表示摄氏度
-82F表示华氏82度 ...
-        
-      </div>
-      <a class="more" href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">Read more</a>
-    </article>
-  
-
-  
-</main>
+turtle.pencolor(&quot;purple&quot;)
+turtle.seth(-40)
+for i in range(4):
+    turtle.circle(40, 80)
+    turtle.circle(-40, 80)
+turtle.circle(40, 80&#x2F;2)
+turtle.fd(40)
+turtle.circle(16, 180)
+turtle.fd(40 * 2&#x2F;3)</code></pre>
 
 
-    <div class="scroll-top">
-  <span class="arrow-icon"></span>
-</div>
-    <footer class="app-footer">
-  <p class="copyright">
-    &copy; 2025 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
-    <br>
-    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+                
+            </div> -->
+        </article>
     
-  </p>
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">第一周温度转换程序</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2025-10-01</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/Python/">Python</a>
+                    
+                </span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <ul>
+<li>摄氏度：中国等世界大多数国家使用<br>以1标准大气压下水的结冰点为0度，沸点为100度，将温度进行等分刻画</li>
+<li>华氏度：美国、英国等国家使用<br>以1标准大气压下水的结冰点为32度，沸点为212度，将温度进行等分刻画</li>
+</ul>
+<h2 id="一、输入输出格式设计"><a href="#一、输入输出格式设计" class="headerlink" title="一、输入输出格式设计"></a>一、输入输出格式设计</h2><p>标识放在温度最后，F表示华氏度，C表示摄氏度</p>
+<p>82F表示华氏82度，28C表示摄氏28度</p>
+<h2 id="二、根据华氏和摄氏温度定义，利用转换公式如下："><a href="#二、根据华氏和摄氏温度定义，利用转换公式如下：" class="headerlink" title="二、根据华氏和摄氏温度定义，利用转换公式如下："></a>二、根据华氏和摄氏温度定义，利用转换公式如下：</h2><pre class="language-none"><code class="language-none">C &#x3D; ( F – 32 ) &#x2F; 1.8
+F &#x3D; C \* 1.8 + 32</code></pre>
+
+<p>其中，C表示摄氏温度，F表示华氏温度</p>
+<h2 id="三、源代码"><a href="#三、源代码" class="headerlink" title="三、源代码"></a>三、源代码</h2><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment">#TempConvert.py</span>
+TempStr <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入带有符号的温度值: "</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    C <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">1.8</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;C"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">elif</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span><span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    F <span class="token operator">=</span> <span class="token number">1.8</span><span class="token operator">*</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">32</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;F"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>F<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"输入格式错误"</span><span class="token punctuation">)</span></code></pre>
+
+
+                
+            </div> -->
+        </article>
+    
+</div>
+<div class="paginator">
+    
+        
+        
+    
+</div>
+
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2025
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">Zhengang Li</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
 </footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
-  function async(u, c) {
-    var d = document, t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-    s.parentNode.insertBefore(o, s);
-  }
+    
+
 </script>
-<script>
-  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
-    FastClick.attach(document.body);
-  })
-</script>
-
-<script>
-  var hasLine = 'false';
-  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
-    $('figure pre').each(function(i, block) {
-      var figure = $(this).parents('figure');
-      if (hasLine === 'false') {
-        figure.find('.gutter').hide();
-      }
-      hljs.configure({useBR: true});
-      var lang = figure.attr('class').split(' ')[1] || 'code';
-      var codeHtml = $(this).html();
-      var codeTag = document.createElement('code');
-      codeTag.className = lang;
-      codeTag.innerHTML = codeHtml;
-      $(this).attr('class', '').empty().html(codeTag);
-      figure.attr('data-lang', lang.toUpperCase());
-      hljs.highlightBlock(block);
-    });
-  })
-</script>
-<!-- Baidu Tongji -->
-
-
-<script src="/js/script.js"></script>
-
-
-  </body>
 </html>

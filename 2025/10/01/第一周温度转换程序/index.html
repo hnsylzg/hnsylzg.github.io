@@ -63,7 +63,18 @@
         </section>
         <article class="post-content">
         
-            <pre class="language-none"><code class="language-none">#TempConvert.py
+            <ul>
+<li>摄氏度：中国等世界大多数国家使用<br>以1标准大气压下水的结冰点为0度，沸点为100度，将温度进行等分刻画</li>
+<li>华氏度：美国、英国等国家使用<br>以1标准大气压下水的结冰点为32度，沸点为212度，将温度进行等分刻画</li>
+</ul>
+<p><strong>输入输出格式设计</strong></p>
+<p>标识放在温度最后，F表示华氏度，C表示摄氏度</p>
+<p>82F表示华氏82度，28C表示摄氏28度</p>
+<p><strong>根据华氏和摄氏温度定义，利用转换公式如下：</strong></p>
+<p>C &#x3D; ( F – 32 ) &#x2F; 1.8</p>
+<p>F &#x3D; C * 1.8 + 32</p>
+<p><strong>其中，</strong> <strong>C****表示摄氏温度，</strong> <strong>F****表示华氏温度</strong></p>
+<pre class="language-none"><code class="language-none">#TempConvert.py
 TempStr &#x3D; input(&quot;请输入带有符号的温度值: &quot;)
 if TempStr[-1] in [&#39;F&#39;,&#39;f&#39;]:
     C &#x3D; (eval(TempStr[0:-1]) - 32)&#x2F;1.8

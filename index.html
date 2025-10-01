@@ -469,10 +469,16 @@ turtle.fd(40 * 2&#x2F;3)</code></pre>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-10-01 22:04:11 / 修改时间：23:34:12" itemprop="dateCreated datePublished" datetime="2025-10-01T22:04:11+08:00">2025-10-01</time>
+              <time title="创建时间：2025-10-01 22:04:11" itemprop="dateCreated datePublished" datetime="2025-10-01T22:04:11+08:00">2025-10-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-02 00:55:58" itemprop="dateModified" datetime="2025-10-02T00:55:58+08:00">2025-10-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -498,24 +504,14 @@ turtle.fd(40 * 2&#x2F;3)</code></pre>
 <li>摄氏度：中国等世界大多数国家使用<br>以1标准大气压下水的结冰点为0度，沸点为100度，将温度进行等分刻画</li>
 <li>华氏度：美国、英国等国家使用<br>以1标准大气压下水的结冰点为32度，沸点为212度，将温度进行等分刻画</li>
 </ul>
-<h2 id="一、输入输出格式设计"><a href="#一、输入输出格式设计" class="headerlink" title="一、输入输出格式设计"></a>一、输入输出格式设计</h2><p>标识放在温度最后，F表示华氏度，C表示摄氏度</p>
-<p>82F表示华氏82度，28C表示摄氏28度</p>
-<h2 id="二、根据华氏和摄氏温度定义，利用转换公式如下："><a href="#二、根据华氏和摄氏温度定义，利用转换公式如下：" class="headerlink" title="二、根据华氏和摄氏温度定义，利用转换公式如下："></a>二、根据华氏和摄氏温度定义，利用转换公式如下：</h2><pre class="language-none"><code class="language-none">C &#x3D; ( F – 32 ) &#x2F; 1.8
-F &#x3D; C \* 1.8 + 32</code></pre>
-
-<p>其中，C表示摄氏温度，F表示华氏温度</p>
-<h2 id="三、源代码"><a href="#三、源代码" class="headerlink" title="三、源代码"></a>三、源代码</h2><pre class="language-python" data-language="python"><code class="language-python"><span class="token comment">#TempConvert.py</span>
-TempStr <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入带有符号的温度值: "</span><span class="token punctuation">)</span>
-<span class="token keyword">if</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-    C <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">1.8</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;C"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">elif</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span><span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-    F <span class="token operator">=</span> <span class="token number">1.8</span><span class="token operator">*</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">32</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;F"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>F<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">else</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"输入格式错误"</span><span class="token punctuation">)</span></code></pre>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

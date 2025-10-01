@@ -13,9 +13,9 @@
   
   <title>中文测试</title>
   
-  <link rel="canonical" href="http://example.com/2025/10/01/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95/">
+  <link rel="canonical" href="http://example.com/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E8%AF%BE%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">
   
-  <meta name="description" content="">
+  <meta name="description" content="温度转换程序#TempConvert.py TempStr &amp;#x3D; input(&amp;quot;请输入带有符号的温度值: &amp;quot;) if TempStr[-1] in [&amp;#39;F&amp;#39;,&amp;#39;f&amp;#39;]:     C &amp;#x3D; (eval(TempStr[0:-1]) -">
   
   
   <meta name="author" content="zack">
@@ -26,19 +26,19 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="中文测试" />
   
-  <meta property="og:description" content="">
+  <meta property="og:description" content="温度转换程序#TempConvert.py TempStr &amp;#x3D; input(&amp;quot;请输入带有符号的温度值: &amp;quot;) if TempStr[-1] in [&amp;#39;F&amp;#39;,&amp;#39;f&amp;#39;]:     C &amp;#x3D; (eval(TempStr[0:-1]) -">
   
-  <meta property="og:url" content="http://example.com/2025/10/01/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95/" />
+  <meta property="og:url" content="http://example.com/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E8%AF%BE%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="中文测试">
   
-  <meta name="twitter:description" content="">
+  <meta name="twitter:description" content="温度转换程序#TempConvert.py TempStr &amp;#x3D; input(&amp;quot;请输入带有符号的温度值: &amp;quot;) if TempStr[-1] in [&amp;#39;F&amp;#39;,&amp;#39;f&amp;#39;]:     C &amp;#x3D; (eval(TempStr[0:-1]) -">
   
   
   
   
-  <meta name="twitter:url" content="http://example.com/2025/10/01/%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95/" />
+  <meta name="twitter:url" content="http://example.com/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E8%AF%BE%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/" />
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -197,8 +197,19 @@
         <div class="trans">
             <h2>中文测试</h2>
 
-  
-  <p> — 2025年10月1日</p>
+  <h1 id="温度转换程序"><a href="#温度转换程序" class="headerlink" title="温度转换程序"></a>温度转换程序</h1><pre class="language-none"><code class="language-none">#TempConvert.py
+TempStr &#x3D; input(&quot;请输入带有符号的温度值: &quot;)
+if TempStr[-1] in [&#39;F&#39;,&#39;f&#39;]:
+    C &#x3D; (eval(TempStr[0:-1]) - 32)&#x2F;1.8
+    print(&quot;转换后的温度是&#123;:.2f&#125;C&quot;.format(C))
+elif TempStr[-1] in [&#39;C&#39;,&#39;c&#39;]:
+    F &#x3D; 1.8*eval(TempStr[0:-1]) + 32
+    print(&quot;转换后的温度是&#123;:.2f&#125;F&quot;.format(F))
+else:
+    print(&quot;输入格式错误&quot;)</code></pre>
+
+
+  <p><a class="classtest-link" href="/tags/%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag">源代码</a> — 2025年10月1日</p>
   
 
 

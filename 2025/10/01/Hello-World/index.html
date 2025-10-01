@@ -1,192 +1,261 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>  Hello World -    我的博客</title>
+  <meta name="description" content="A Pure Theme For Hexo">
+  <!-- 标签页图标 -->
   
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   
-  <title>Hello World | Hi Folks.</title>
-  
-<link rel="stylesheet" href="/css/fonts/Chinese-normal-normal.min.css">
 
-  
-<link rel="stylesheet" href="/css/fonts/ChineseMono-normal-normal.min.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
 
-  
-<link rel="stylesheet" href="/css/fonts/Chinese-italic-normal.min.css">
+      const themeIcon = document.getElementById("themeIcon");
+      if (savedTheme === "light") {
+        themeIcon.className = "ri-sun-line";  // 太阳图标
+      } else {
+        themeIcon.className = "ri-moon-line"; // 月亮图标
+      }
+    })();
+  </script>
 
-  
-<link rel="stylesheet" href="/css/fonts/Chinese-normal-bold.min.css">
+  <!-- 图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- css文件 -->
   
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation to learn how to use.
-">
-  
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/white.css">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css">
 
-  
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;700;900&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
 <meta name="generator" content="Hexo 8.0.0"></head>
+
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <div id="nav-outer">
-  <nav id="main-nav" class="outer">
-    <a id="main-nav-toggle" class="nav-icon"></a>
-    
-      <a class="main-nav-link" href="/">Home</a>
-    
-      <a class="main-nav-link" href="/archives">Archives</a>
-    
-    <div class="main-nav-space-between"></div>
-    
-  </nav>
-</div>
-<div id="header-title">
-  <h1 id="logo-wrap">
-    <a href="/" id="logo">Hi Folks.</a>
-  </h1>
-  
-</div>
 
-      <div id="content" class="outer">
-        <section id="main"><article id="post-Hello-World" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/01/Hello-World/" class="article-date">
-  <time class="dt-published" datetime="2025-10-01T14:15:16.000Z" itemprop="datePublished">2025-10-01</time>
-</a>
-    
-      
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+<div class="universal-outer">
   
-    <h1 class="p-name article-title" itemprop="headline name">
-      Hello World
-    </h1>
-  
+<div class="menu-outer">
+    <div class="menu-inner">
+        <div class="menu-site-name">
+            <a href="/">
+                我的博客
+            </a>
+        </div>
+        <div class="menu-group">
+            <ul class="menu-ul">
+                
+                <a href="/" class="nav-link">
+                    <li class="menu-li">
+                        首页
+                    </li>
+                </a>
+                
+                <a href="/page" class="nav-link">
+                    <li class="menu-li">
+                        页面
+                    </li>
+                </a>
+                
+                <li class="menu-li" id="mobile-menu">
+                    <i class="ri-menu-line"></i>
+                </li>
+                <li class="menu-li" id="theme-change-btn">
+                    <i class="ri-sun-line" id="themeIcon" ></i>
+                </li>
 
-      </header>
-    
-    
-      
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+            </ul>
 
-      
+        </div>
+
     </div>
-    
-      <footer class="article-footer">
+</div>
+<!--移动端-->
+<div id="mobile-main">
+    <div class="mobile-menu-inner">
+        <div class="mobile-menu-site-name">
+            <a href="/">
+                我的博客
+            </a>
+        </div>
+        <div class="mobile-menu-group" id="mobile-close">
+            <i class="ri-close-line"></i>
+        </div>
+
+    </div>
+
+    <div class="mobile-menu-div">
         
+        <a href="/" class="mobile-nav-link">
+            <div class="mobile-menu-child">
+                <span>首页</span>
+            </div>
+        </a>
         
+        <a href="/page" class="mobile-nav-link">
+            <div class="mobile-menu-child">
+                <span>页面</span>
+            </div>
+        </a>
         
-      </footer>
+    </div>
+
+
+</div>
+
+
+  <div class="body-outer">
+    <div class="body-inner">
+      <article class="post-inner">
+  <div class="post-content-outer">
+    <div class="post-intro">
+      
+      <div class="post-title">
+        Hello World
+      </div>
+      <div class="post-meta">
+        <img src="https://cdn.jsdelivr.net/gh/fushaolei/img/20200524104925.jpg">
+        <div class="post-meta-name">fushaolei</div>
+        <div class="post-meta-date">发布于 2025/10/01</div>
+      </div>
+    </div>
+    <div class="post-content-inner common-typographic">
+      <div class="post-placeholder"></div>
+      <div class="post-content-main">
+        <div class="post-content">
+          <p>Welcome to <a target="_blank" rel="noopener" href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+
+
+
+          <div class="post-nav-wrapper">
+            <div class="divider"></div>
+            <nav class="post-nav">
+              <div>
+                
+                  <a href="/2025/10/01/Markdown-Style-test/" class="prev">
+                    上一篇：Markdown Style test
+                  </a>
+                
+              </div>
+
+              <div>
+                
+                  <a href="/2025/10/01/code-highlight/" class="next">
+                    下一篇：code-highlight
+                  </a>
+                
+              </div>
+            </nav>
+            <div class="divider"></div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="post-placeholder post-toc-container">
+        <!-- toc -->
+        
+      </div>
+   </div>
+
+    <!-- 评论 -->
     
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2025/10/01/Markdown-Style-test/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Markdown Style test
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2025/10/01/code-highlight/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">
-        
-          code-highlight
-        
-      </div>
-    </a>
-  
-</nav>
-
-  
 </article>
+<!-- tocbot begin -->
 
-
-</section>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 Zhengang Li<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a><br>
-      
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/clipboard.min.js"></script>
-
-
-<script src="/js/jquery-1.4.3.min.js"></script>
-
-
-  
-<script src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-
+<script src="/lib/tocbot/tocbot.min.js"></script>
 
 <script>
-  MathJax = {
-    options: {
-      enableMenu: false
-    },
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    }
-  };
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
 
-<script type="text/javascript" id="MathJax-script" async
-  src="/mathjax/tex-chtml.js">
-</script>
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.post-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.post-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3',
+            // For headings inside relative or absolute positioned containers within content.
+            hasInnerContainers: true,
+        });
+    });
 
+</script>
+<!-- tocbot end -->
+
+
+    </div>
   </div>
+
+
+  <div class="footer-outer">
+    <div class="footer-inner">
+        <div class="footer-text">
+            <p>Made by <a target="_blank" rel="noopener" href="https://github.com/FuShaoLei">FuShaoLei</a></p>
+
+        </div>
+        <div class="footer-contact">
+            <ul class="footer-ul">
+                
+                <li class="footer-li">
+                    <a href="https://github.com/FuShaoLei/hexo-theme-white" target="_blank">
+                        <i class="ri-github-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="mailto:1563250958@qq.com" target="_blank">
+                        <i class="ri-mail-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="https://music.163.com/" target="_blank">
+                        <i class="ri-netease-cloud-music-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="https://bilibili.com/" target="_blank">
+                        <i class="ri-bilibili-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="https://youtube.com/" target="_blank">
+                        <i class="ri-youtube-line"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+
+
+<script src="/js/white.js"></script>
+
+<script>
+    hljs.highlightAll();
+</script>
+
+
 </body>
 </html>

@@ -1,86 +1,94 @@
-(function () {
-    'use strict';
 
-    function Sky(config) {
+var index = function(){
 
-    }
+	var handleHighlight = function(){	//处理代码高亮
+		hljs.initHighlightingOnLoad();
+	}
 
-    Sky.prototype.init = function () {
-        this.tocFixed();
-        this.tocActive();
-        this.backToTop();
-        this.mobileNavToggle();
-    };
+	var handleScroll = function(){	//处理滚动条
 
-    // make toc stay in the visible area
-    Sky.prototype.tocFixed = function () {
-        var HEADER_OFFSET = 20;
-        var $toc = $('#post-toc');
-        if ($toc.length) {
-            var minScrollTop = $toc.offset().top;
-            $(window).scroll(function () {
-                var scrollTop = $(window).scrollTop();
-                if (scrollTop < minScrollTop) {
-                    $toc.css({'position': 'absolute', 'top': minScrollTop - 70});
-                } else {
-                    $toc.css({'position': 'fixed', 'top': HEADER_OFFSET + 'px'});
-                }
-            });
-        }
-    };
+		var header = $("#site-header-id");
 
-    // current toc follows the content when scrolling
-    Sky.prototype.tocActive = function () {
-        var HEADER_OFFSET = 30;
-        var $toclink = $('.toc-link');
-        var $headerlink = $('.headerlink');
+		scroll(); //防止在滚动范围内刷新头部现实不正常
 
-        var headerlinkTop = $.map($headerlink, function (link) {
-            return $(link).offset().top;
-        });
-        $(window).scroll(function () {
-            var scrollTop = $(window).scrollTop();
-            for (var i = 0; i < $toclink.length; i++) {
-                var currentHeaderTop = headerlinkTop[i] - HEADER_OFFSET,
-                    nextHeaderTop = i + 1 === $toclink.length ? Infinity : headerlinkTop[i + 1] - HEADER_OFFSET;
+	    function scroll(){
+	        var scrollPos = $(this).scrollTop();
+	        if ($(window).scrollTop() > 70) {
+	            header.addClass('site-header-nav-scrolled');
+	        } else {
+	            header.removeClass('site-header-nav-scrolled');
+	        }
+	    }
+	    $(window).scroll(scroll);
 
-                if (currentHeaderTop < scrollTop && scrollTop <= nextHeaderTop) {
-                    $($toclink[i]).addClass('active');
-                } else {
-                    $($toclink[i]).removeClass('active');
-                }
-            }
-        });
-    };
+	};
 
-    // back to top
-    Sky.prototype.backToTop = function () {
-        var $backToTop = $('#back-to-top');
+	var handleGeoPattern = function(){	
+		$(".geopattern").each(function(){			
+			$(this).geopattern($(this).data('pattern-id'));
+		});
+	}
 
-        $backToTop.click(function () {
-            console.log('click');
-            $('html,body').animate({ scrollTop: 0 });
-        });
-    };
+	var handlePager = function(){ //处理分页btn样式
+		$(".btn-group>.page-number,.btn-group>.extend.prev,.btn-group>.extend.next").each(function(){
+			$(this).addClass("btn btn-outline");
+		});
+	};
 
-    // mobile nav toggle
-    Sky.prototype.mobileNavToggle = function () {
-        var $mobileNav = $('.mobile-nav-icon'),
-            $mobileMenu = $('.mobile-menu');
+	var handleEvent = function(){
 
-        $mobileNav.click(function () {
-            if (!$mobileMenu.hasClass('show-menu')) {
-                $mobileMenu.addClass('show-menu');
-                $mobileMenu.removeClass('hide-menu');
-                $mobileNav.addClass('show-menu').removeClass('hide-menu');
-            } else {
-                $mobileMenu.addClass('hide-menu');
-                $mobileMenu.removeClass('show-menu');
-                $mobileNav.removeClass('show-menu').addClass('hide-menu');
-            }
-        })
-    };
+		var searchBox = $("#search_box");
 
-    var sky = new Sky();
-    sky.init();
-})(window);
+		searchBox.keydown(function(event){
+			var keyCode = event.keyCode;
+			if(keyCode == 13){
+				$("#site_search_do").trigger("click");				
+				return false;	
+			} 
+		})
+
+
+		$("#site_search_do").click(function(){
+			var parent = $(this).parent("form");
+
+			var site = parent.data("site");
+			site = site.replace("http://","");
+
+			var value = site + " " + searchBox.val();
+
+			var href = parent.attr("action") + "q=site:" + value
+			
+			location.href = href;	
+		})
+
+	}
+
+	var handleFancyBox = function(){
+		$(".article-content img").each(function(){
+			var href = $(this).attr("src");
+			var title = $(this).attr("alt");
+			var parentNode = $(this).parent();
+
+			$(this).appendTo($("<a class='fancybox' rel='group' href='"+href+"' title='"+title+"'></a>").appendTo(parentNode));
+		})
+
+		$(".fancybox").fancybox({
+			openEffect	: 'none',
+			closeEffect	: 'none'
+		});
+
+	}
+
+	return {
+		init:function(){
+			//handleScroll();
+			handleGeoPattern();
+			handleHighlight();
+			handleFancyBox();
+			handlePager();
+			handleEvent();
+		}
+	}
+};
+
+$(index().init());

@@ -177,19 +177,19 @@
 </tr>
 </tbody></table>
 <p>** 正常显示星号 **</p>
-<pre class="language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> LR
-A<span class="token text string">[方形]</span> <span class="token arrow operator">--></span>B<span class="token text string">(圆角)</span>
-    B <span class="token arrow operator">--></span> C<span class="token text string">&#123;条件 a&#125;</span>
-    C <span class="token arrow operator">--></span><span class="token label property">|a=1|</span> D<span class="token text string">[结果 1]</span>
-    C <span class="token arrow operator">--></span><span class="token label property">|a=2|</span> E<span class="token text string">[结果 2]</span>
-    F<span class="token text string">[横向流程图]</span></code></pre>
+<pre class="mermaid">graph LR
+A[方形] -->B(圆角)
+    B --> C{条件 a}
+    C -->|a=1| D[结果 1]
+    C -->|a=2| E[结果 2]
+    F[横向流程图]</pre>
 
-<pre class="language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD
-A<span class="token text string">[方形]</span> <span class="token arrow operator">--></span> B<span class="token text string">(圆角)</span>
-B <span class="token arrow operator">--></span> C<span class="token text string">&#123;条件 a&#125;</span>
-C <span class="token arrow operator">--></span> <span class="token label property">|a=1|</span> D<span class="token text string">[结果 1]</span>
-C <span class="token arrow operator">--></span> <span class="token label property">|a=2|</span> E<span class="token text string">[结果 2]</span>
-F<span class="token text string">[竖向流程图]</span></code></pre>
+<pre class="mermaid">graph TD
+A[方形] --> B(圆角)
+B --> C{条件 a}
+C --> |a=1| D[结果 1]
+C --> |a=2| E[结果 2]
+F[竖向流程图]</pre>
 
 <p>[^1]: 脚注。Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 

@@ -1,210 +1,106 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
+<html>
 <head>
-
-  <!-- Minima -->
-  <!-- Hexo theme created by @adisaktijrs -->
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
+  
+  
+  <title>Markdown Style test | Hi Folks.</title>
+  
+<link rel="stylesheet" href="/css/fonts/Chinese-normal-normal.min.css">
 
   
-  <title>Markdown Style test</title>
-  
-  <link rel="canonical" href="http://example.com/2025/10/01/Markdown-Style-test/">
-  
-  <meta name="description" content="一级标题二级标题加粗、倾斜、下划线、删除线、&amp;#x3D;&amp;#x3D;高亮&amp;#x3D;&amp;#x3D;、上标^上标^、下标下标、链接、[链接][链接]、代码、脚注 [^1] dddd、dddd dddd dddd dddd dddd  臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，">
-  
-  
-  <meta name="author" content="Zhengang Li">
-  
-  
-  
-  <meta property="og:site_name" content="Hi Folks." />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Markdown Style test" />
-  
-  <meta property="og:description" content="一级标题二级标题加粗、倾斜、下划线、删除线、&amp;#x3D;&amp;#x3D;高亮&amp;#x3D;&amp;#x3D;、上标^上标^、下标下标、链接、[链接][链接]、代码、脚注 [^1] dddd、dddd dddd dddd dddd dddd  臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，">
-  
-  <meta property="og:url" content="http://example.com/2025/10/01/Markdown-Style-test/" />
+<link rel="stylesheet" href="/css/fonts/ChineseMono-normal-normal.min.css">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Markdown Style test">
   
-  <meta name="twitter:description" content="一级标题二级标题加粗、倾斜、下划线、删除线、&amp;#x3D;&amp;#x3D;高亮&amp;#x3D;&amp;#x3D;、上标^上标^、下标下标、链接、[链接][链接]、代码、脚注 [^1] dddd、dddd dddd dddd dddd dddd  臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，">
-  
-  
-  
-  
-  <meta name="twitter:url" content="http://example.com/2025/10/01/Markdown-Style-test/" />
+<link rel="stylesheet" href="/css/fonts/Chinese-italic-normal.min.css">
 
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/fonts/Chinese-normal-bold.min.css">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Preload fonts
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   
-<link rel="stylesheet" href="/css/normalize.css">
-
-  
-<link rel="stylesheet" href="/css/skeleton.css">
-
-  
-<link rel="stylesheet" href="/css/custom.css">
-
-  
-<link rel="stylesheet" href="/css/prism-dark.css">
-
-  
-<link rel="stylesheet" href="/css/prism-line-numbers.css">
-
-  <!-- User css -->
+  <meta name="description" content="一级标题二级标题加粗、倾斜、下划线、删除线、&amp;#x3D;&amp;#x3D;高亮&amp;#x3D;&amp;#x3D;、上标^上标^、下标下标、链接、[链接][链接]、代码、脚注 [^1]
+dddd、dddd dddd dddd dddd dddd 
+臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，">
   
   
-<link rel="stylesheet" href="/css/user.css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
   
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-
-  <!-- Custom Theme Color Style
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <style>
-  a:not(.icon) {
-    text-decoration-color: #0FA0CE;
-    background-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0) 50%,
-      #0FA0CE 50%
-    );
-  }
-  blockquote {
-    border-left: 8px solid #0FA0CE;
-  }
-  .nanobar .bar {
-    background: #0FA0CE;
-  }
-  .button.button-primary:hover,
-  button.button-primary:hover,
-  input[type="submit"].button-primary:hover,
-  input[type="reset"].button-primary:hover,
-  input[type="button"].button-primary:hover,
-  .button.button-primary:focus,
-  button.button-primary:focus,
-  input[type="submit"].button-primary:focus,
-  input[type="reset"].button-primary:focus,
-  input[type="button"].button-primary:focus {
-    background-color: #0FA0CE;
-    border-color: #0FA0CE;
-  }
-  input[type="email"]:focus,
-  input[type="number"]:focus,
-  input[type="search"]:focus,
-  input[type="text"]:focus,
-  input[type="tel"]:focus,
-  input[type="url"]:focus,
-  input[type="password"]:focus,
-  textarea:focus,
-  select:focus {
-    border: 1px solid #0FA0CE;
-  }
-</style>
-
-  <!-- Google Analytics (With Privacy Settings On)
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css">
 
   
-  <script src="/js/pic.min.js" defer></script>
   
-
-  
-
 <meta name="generator" content="Hexo 8.0.0"></head>
-
 <body>
-  <div class="container">
-    <div class="row">
-      <div>
-
-        <div class="row">
-  <div class="two columns" style="max-width: 50px">
-    <h1 class="mt-2 mode">
-      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
-      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
-      <script >
-        if (localStorage.getItem('preferredTheme') == 'dark') {
-          setDarkMode(true)
-        }
-        function setDarkMode(isDark) {
-          var darkBtn = document.getElementById('darkBtn')
-          var lightBtn = document.getElementById('lightBtn')
-          if (isDark) {
-            lightBtn.style.display = "block"
-            darkBtn.style.display = "none"
-            localStorage.setItem('preferredTheme', 'dark');
-          } else {
-            lightBtn.style.display = "none"
-            darkBtn.style.display = "block"
-            localStorage.removeItem('preferredTheme');
-          }
-          document.body.classList.toggle("darkmode");
-        }
-      </script>
-    </h1>
-  </div>
-
-  <div class="six columns ml-1">
-    <h1 class="mt-2">
-      Hi Folks.
-    </h1>
-  </div>
-
-  <div class="twelve columns">
-    <div class="row">
-      <div class="nine columns left">
-        <a href="/">Home</a>
-        
-          
-          <a href="/about" class="ml">About</a>
-          
-        
-        
-          
-            <a href="mailto:test@test.test" target="_blank" class="ml">Email</a>
-          
-        
-      </div>
-    </div>
-    <hr style="margin-bottom: 2.6rem">
-  </div>
+  <div id="container">
+    <div id="wrap">
+      <div id="nav-outer">
+  <nav id="main-nav" class="outer">
+    <a id="main-nav-toggle" class="nav-icon"></a>
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+    <div class="main-nav-space-between"></div>
+    
+  </nav>
+</div>
+<div id="header-title">
+  <h1 id="logo-wrap">
+    <a href="/" id="logo">Hi Folks.</a>
+  </h1>
+  
 </div>
 
-        <div class="trans">
-            <h2>Markdown Style test</h2>
+      <div id="content" class="outer">
+        <section id="main"><article id="post-Markdown-Style-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/10/01/Markdown-Style-test/" class="article-date">
+  <time class="dt-published" datetime="2025-10-01T14:15:52.000Z" itemprop="datePublished">2025-10-01</time>
+</a>
+    
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
+  </div>
 
-  <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p><strong>加粗</strong>、<em>倾斜</em>、<u>下划线</u>、<del>删除线</del>、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标<del>下标</del>、<a href="%E9%93%BE%E6%8E%A5">链接</a>、[链接][链接]、<code>代码</code>、脚注 [^1]</p>
-<p><a href="./doc.doc">dddd</a>、<a href="./doc.mp3">dddd</a> <a href="./doc.jpg">dddd</a> <a href="./doc.mp4">dddd</a> <a href="./doc.css">dddd</a> <a href="./doc.pdf">dddd</a> </p>
-<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。先帝不以臣卑鄙，猥自枉屈，三顾臣于草庐之中，咨臣以当世之事，由是感激，遂许先帝以驱驰。后值倾覆，受任于败军之际，奉命于危难之间，尔来二十有一年矣。</p>
-<p><strong>ある日</strong>、<em>おじいさん</em>は<u>山</u>へ<code>柴刈り</code>に、<del>おばあさん</del>は川へ洗濯に出かけました。すると川の上の方から、大きな桃が流れて来ました。おばあさんは喜んでその桃を拾い上げると、家に持ち帰りました。そしておじいさんが帰ると二人で桃を切って食べようとしました。すると桃の中から小さな男の子が飛び出してきました。</p>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Markdown Style test
+    </h1>
+  
+
+      </header>
+    
+    
+      
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p><strong>加粗</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><em>倾斜</em><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><u>下划线</u><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><del>删除线</del><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>&#x3D;&#x3D;高亮&#x3D;&#x3D;<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>上标^上标^<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>下标<del>下标</del><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><a href="%E9%93%BE%E6%8E%A5">链接</a><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>[链接][链接]<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><code>代码</code><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>脚注 [^1]</p>
+<p><a href="./doc.doc">dddd</a><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><a href="./doc.mp3">dddd</a> <a href="./doc.jpg">dddd</a> <a href="./doc.mp4">dddd</a> <a href="./doc.css">dddd</a> <a href="./doc.pdf">dddd</a> </p>
+<p>臣本布衣<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>躬耕于南阳<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>苟全性命于乱世<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>不求闻达于诸侯<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>先帝不以臣卑鄙<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>猥自枉屈<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>三顾臣于草庐之中<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>咨臣以当世之事<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>由是感激<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>遂许先帝以驱驰<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>后值倾覆<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>受任于败军之际<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>奉命于危难之间<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>尔来二十有一年矣<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span></p>
+<p><strong>ある日</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><em>おじいさん</em>は<u>山</u>へ<code>柴刈り</code>に<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><del>おばあさん</del>は川へ洗濯に出かけました<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>すると川の上の方から<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>大きな桃が流れて来ました<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>おばあさんは喜んでその桃を拾い上げると<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>家に持ち帰りました<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>そしておじいさんが帰ると二人で桃を切って食べようとしました<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>すると桃の中から小さな男の子が飛び出してきました<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span></p>
 <p><strong>Lorem</strong> <u>ipsum</u> <del>dolor</del> &#x3D;&#x3D;sit amet&#x3D;&#x3D;, consectetur^sed^ adipiscing<del>sed</del> elit [do eiusmod](tempor incididunt) <code>ut labore</code> et dolore magna aliqua.</p>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 <blockquote>
-<h6 id="标题六"><a href="#标题六" class="headerlink" title="标题六"></a>标题六</h6><p><strong>加粗</strong>、<em>倾斜</em>、<u>下划线</u>、<del>删除线</del>、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标<del>下标</del>、<a href="%E9%93%BE%E6%8E%A5">链接</a>、[链接][链接]、<code>代码</code>、脚注 [^1]</p>
+<h6 id="标题六"><a href="#标题六" class="headerlink" title="标题六"></a>标题六</h6><p><strong>加粗</strong><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><em>倾斜</em><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><u>下划线</u><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><del>删除线</del><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>&#x3D;&#x3D;高亮&#x3D;&#x3D;<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>上标^上标^<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>下标<del>下标</del><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><a href="%E9%93%BE%E6%8E%A5">链接</a><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>[链接][链接]<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span><code>代码</code><span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>脚注 [^1]</p>
 <blockquote>
-<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。</p>
+<p>臣本布衣<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>躬耕于南阳<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>苟全性命于乱世<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>不求闻达于诸侯<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span></p>
 <blockquote>
-<p><em>ある日、おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に出かけました</em>。</p>
+<p><em>ある日<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>おじいさんは山へ柴刈りに<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>おばあさんは川へ洗濯に出かけました</em><span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span></p>
 </blockquote>
 </blockquote>
 <h5 id="标题五"><a href="#标题五" class="headerlink" title="标题五"></a>标题五</h5><p><strong>Lorem</strong> <u>ipsum</u> <del>dolor</del> &#x3D;&#x3D;sit amet&#x3D;&#x3D;, consectetur^sed^ adipiscing<del>sed</del> elit [do eiusmod](tempor incididunt) <code>ut labore</code> et dolore magna &amp; aliqua.</p>
@@ -215,7 +111,7 @@
 <h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><img src="https://i.loli.net/2021/04/17/2Q7tpYqLWledUJC.png" >
 
 <p><img src="https://i.loli.net/2021/04/17/2Q7tpYqLWledUJC.png" alt="no-shadow"></p>
-<p>块元素：</p>
+<p>块元素<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span></p>
 <ul>
 <li>无序列表</li>
 <li>充分等等<ul>
@@ -238,9 +134,9 @@
 </ul>
 <blockquote>
 <blockquote>
-<p>臣本布衣，躬耕于南阳，苟全性命于乱世，不求闻达于诸侯。</p>
+<p>臣本布衣<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>躬耕于南阳<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>苟全性命于乱世<span class="bd-box"><h-char class="bd bd-beg"><h-inner>，</h-inner></h-char></span>不求闻达于诸侯<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span></p>
 <blockquote>
-<p><em>ある日、おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に出かけました</em>。</p>
+<p><em>ある日<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>おじいさんは山へ柴刈りに<span class="bd-box"><h-char class="bd bd-beg"><h-inner>、</h-inner></h-char></span>おばあさんは川へ洗濯に出かけました</em><span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span></p>
 </blockquote>
 </blockquote>
 <ul>
@@ -290,7 +186,7 @@
 
 <center>居中文字</center>
 
-<p>其他内容：</p>
+<p>其他内容<span class="bd-box"><h-char class="bd bd-beg"><h-inner>：</h-inner></h-char></span></p>
 <table>
 <thead>
 <tr>
@@ -325,70 +221,100 @@ C <span class="token arrow operator">--></span> <span class="token label propert
 C <span class="token arrow operator">--></span> <span class="token label property">|a=2|</span> E<span class="token text string">[结果 2]</span>
 F<span class="token text string">[竖向流程图]</span></code></pre>
 
-<p>[^1]: 脚注。Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<p>[^1]: 脚注<span class="bd-box"><h-char class="bd bd-beg"><h-inner>。</h-inner></h-char></span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-  <p> — 2025年10月1日</p>
-  
-
-
-        </div>
-        <div class="row mt-2">
-  <h3>Search</h3>
-  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
-  <div style="margin-top: 1.5rem;">
-    <ul id="result"></ul>
+      
+    </div>
+    
+      <footer class="article-footer">
+        
+        
+        
+      </footer>
+    
   </div>
-</div>
-        <div class="row mt-2">
   
-    <div class="eight columns">
-      <p id="madewith">Made with ❤ and
-        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
-        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
-        </a>
-        
-        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
-        
-    </div>
-
-    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
-    <div class="four columns mb-3 posisi" >
-      
-      <a class="ml-0 footer-link icon" href="https://github.com/hnsylzg" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
-        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-      </a>
-      
-
-      
-
-      
-
-      
-
-      
-
-    </div>
+    
+<nav id="article-nav">
   
-</div>
-
+  
+    <a href="/2025/10/01/Hello-World/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
       </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 Zhengang Li<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a><br>
+      
+    </div>
+  </div>
+</footer>
 
     </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/clipboard.min.js"></script>
+
+
+<script src="/js/jquery-1.4.3.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+<script>
+  MathJax = {
+    options: {
+      enableMenu: false
+    },
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    }
+  };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="/mathjax/tex-chtml.js">
+</script>
 
   </div>
-  <script src="/js/nanobar.min.js"></script>
-
-  <script>
-    var options = {
-      classname: 'nanobar',
-      id: 'myNanobar'
-    };
-    var nanobar = new Nanobar(options);
-    nanobar.go(30);
-    nanobar.go(76);
-    nanobar.go(100);
-  </script>
-
 </body>
-
 </html>

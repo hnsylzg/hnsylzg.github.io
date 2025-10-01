@@ -1,424 +1,300 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 8.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>   我的博客</title>
+  <meta name="description" content="A Pure Theme For Hexo">
+  <!-- 标签页图标 -->
+  
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  
 
-<link rel="stylesheet" href="/css/main.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
 
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+      const themeIcon = document.getElementById("themeIcon");
+      if (savedTheme === "light") {
+        themeIcon.className = "ri-sun-line";  // 太阳图标
+      } else {
+        themeIcon.className = "ri-moon-line"; // 月亮图标
+      }
+    })();
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hi Folks.">
-<meta property="og:url" content="http://example.com/archives/2025/index.html">
-<meta property="og:site_name" content="Hi Folks.">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="Zhengang Li">
-<meta name="twitter:card" content="summary">
+  <!-- 图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 
-<link rel="canonical" href="http://example.com/archives/2025/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>归档 | Hi Folks.</title>
+  <!-- css文件 -->
   
+<link rel="stylesheet" href="/css/white.css">
 
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;700;900&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+<meta name="generator" content="Hexo 8.0.0"></head>
 
 
+<body>
 
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hi Folks.</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content archive">
-            
-
+<div class="universal-outer">
   
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 5 篇日志。 继续努力。</span>
-      </div>
+<div class="menu-outer">
+    <div class="menu-inner">
+        <div class="menu-site-name">
+            <a href="/">
+                我的博客
+            </a>
+        </div>
+        <div class="menu-group">
+            <ul class="menu-ul">
+                
+                <a href="/" class="nav-link">
+                    <li class="menu-li">
+                        首页
+                    </li>
+                </a>
+                
+                <a href="/page" class="nav-link">
+                    <li class="menu-li">
+                        页面
+                    </li>
+                </a>
+                
+                <li class="menu-li" id="mobile-menu">
+                    <i class="ri-menu-line"></i>
+                </li>
+                <li class="menu-li" id="theme-change-btn">
+                    <i class="ri-sun-line" id="themeIcon" ></i>
+                </li>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-10-01T22:15:52+08:00"
-              content="2025-10-01">
-          10-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/10/01/Markdown-Style-test/" itemprop="url">
-            <span itemprop="name">Markdown Style test</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-10-01T22:15:16+08:00"
-              content="2025-10-01">
-          10-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/10/01/Hello-World/" itemprop="url">
-            <span itemprop="name">Hello World</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-10-01T22:13:37+08:00"
-              content="2025-10-01">
-          10-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/10/01/code-highlight/" itemprop="url">
-            <span itemprop="name">code-highlight</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-10-01T22:11:02+08:00"
-              content="2025-10-01">
-          10-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/" itemprop="url">
-            <span itemprop="name">第二周蟒蛇绘制</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-10-01T22:04:11+08:00"
-              content="2025-10-01">
-          10-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/" itemprop="url">
-            <span itemprop="name">第一周温度转换程序</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
-    </div>
-  </div>
-  
-  
-  
-
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
+            </ul>
 
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Zhengang Li</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">5</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">分类</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2025</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Zhengang Li</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
+<!--移动端-->
+<div id="mobile-main">
+    <div class="mobile-menu-inner">
+        <div class="mobile-menu-site-name">
+            <a href="/">
+                我的博客
+            </a>
+        </div>
+        <div class="mobile-menu-group" id="mobile-close">
+            <i class="ri-close-line"></i>
+        </div>
 
+    </div>
+
+    <div class="mobile-menu-div">
         
+        <a href="/" class="mobile-nav-link">
+            <div class="mobile-menu-child">
+                <span>首页</span>
+            </div>
+        </a>
+        
+        <a href="/page" class="mobile-nav-link">
+            <div class="mobile-menu-child">
+                <span>页面</span>
+            </div>
+        </a>
+        
+    </div>
+
+
+</div>
+
+
+  <div class="body-outer">
+    <div class="body-inner">
+      <section class="simple-outer">
+    <section class="simple-inner common-typographic">
+        <div class="simple-post-list">
+            
+            
+                <div class="simple-post-item item-divider">
+                    <div class="simple-item-left">
+                        <div class="simple-item-meta">
+                            <div class="simple-meta-date">2025年10月01日</div>
+                        </div>
+                        <a href="/2025/10/01/Markdown-Style-test/">
+                            <div class="simple-post-title">
+                                
+                                    Markdown Style test
+                                
+                            </div>
+                        <div class="simple-post-excerpt">
+                            一级标题二级标题加粗、倾斜、下划线、删除线、&#x3D;&#x3D;高亮&#x3D;&#x3D;、上标^上标^、下标下标、链接、[链接][链接]、代码、脚注 [^1]
+dddd、dddd dddd dddd dddd ...
+                        </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            
+                <div class="simple-post-item item-divider">
+                    <div class="simple-item-left">
+                        <div class="simple-item-meta">
+                            <div class="simple-meta-date">2025年10月01日</div>
+                        </div>
+                        <a href="/2025/10/01/Hello-World/">
+                            <div class="simple-post-title">
+                                
+                                    Hello World
+                                
+                            </div>
+                        <div class="simple-post-excerpt">
+                            Welcome to Hexo! This is your very first post. Check documentation to learn how to use.
+
+                        </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            
+                <div class="simple-post-item item-divider">
+                    <div class="simple-item-left">
+                        <div class="simple-item-meta">
+                            <div class="simple-meta-date">2025年10月01日</div>
+                        </div>
+                        <a href="/2025/10/01/code-highlight/">
+                            <div class="simple-post-title">
+                                
+                                    code-highlight
+                                
+                            </div>
+                        <div class="simple-post-excerpt">
+                            Make sure all the code blocks highlighted correctly. All the code samples are come from the demo of https://h...
+                        </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            
+                <div class="simple-post-item item-divider">
+                    <div class="simple-item-left">
+                        <div class="simple-item-meta">
+                            <div class="simple-meta-date">2025年10月01日</div>
+                        </div>
+                        <a href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">
+                            <div class="simple-post-title">
+                                
+                                    第二周蟒蛇绘制
+                                
+                            </div>
+                        <div class="simple-post-excerpt">
+                            源代码#DrawPython.py
+import turtle
+turtle.setup(650, 350, 200, 200)
+turtle.penup()
+turtle.fd(-250)
+turtle.pendow...
+                        </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            
+                <div class="simple-post-item item-divider">
+                    <div class="simple-item-left">
+                        <div class="simple-item-meta">
+                            <div class="simple-meta-date">2025年10月01日</div>
+                        </div>
+                        <a href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">
+                            <div class="simple-post-title">
+                                
+                                    第一周温度转换程序
+                                
+                            </div>
+                        <div class="simple-post-excerpt">
+                            
+摄氏度：中国等世界大多数国家使用以1标准大气压下水的结冰点为0度，沸点为100度，将温度进行等分刻画
+华氏度：美国、英国等国家使用以1标准大气压下水的结冰点为32度，沸点为212度，将温度进行等分刻画
 
 
 
+一、输入...
+                        </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            
+        </div>
+    </section>
+    
+</section>
 
-
-
-
-
-      </div>
-    </footer>
+    </div>
   </div>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  <div class="footer-outer">
+    <div class="footer-inner">
+        <div class="footer-text">
+            <p>Made by <a target="_blank" rel="noopener" href="https://github.com/FuShaoLei">FuShaoLei</a></p>
 
-<script src="/js/motion.js"></script>
+        </div>
+        <div class="footer-contact">
+            <ul class="footer-ul">
+                
+                <li class="footer-li">
+                    <a href="https://github.com/FuShaoLei/hexo-theme-white" target="_blank">
+                        <i class="ri-github-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="mailto:1563250958@qq.com" target="_blank">
+                        <i class="ri-mail-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="https://music.163.com/" target="_blank">
+                        <i class="ri-netease-cloud-music-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="https://bilibili.com/" target="_blank">
+                        <i class="ri-bilibili-line"></i>
+                    </a>
+                </li>
+                
+                <li class="footer-li">
+                    <a href="https://youtube.com/" target="_blank">
+                        <i class="ri-youtube-line"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
 
 
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+</div>
 
 
 
 
-  
+<script src="/js/white.js"></script>
 
+<script>
+    hljs.highlightAll();
+</script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

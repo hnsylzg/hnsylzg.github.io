@@ -59,7 +59,7 @@
         </section>
         <article class="post-content">
         
-            <p>想深入挖掘硬件潜力，追求“按键即进入桌面”的极致体验，我们就进入内核配置的**“手术室”**。针对现代硬件（NVMe、高性能显卡、多核架构），以下是精密的调优参数。</p>
+            <p>想深入挖掘硬件潜力，追求“按键即进入桌面”的极致体验，我们就进入内核配置的“<strong>手术室</strong>”。针对现代硬件（NVMe、高性能显卡、多核架构），以下是精密的调优参数。</p>
 <h2 id="一、-核心组件：从-转为-内建化"><a href="#一、-核心组件：从-转为-内建化" class="headerlink" title="一、 核心组件：从 &lt;M&gt; 转为 &lt;*&gt; (内建化)"></a>一、 核心组件：从 <code>&lt;M&gt;</code> 转为 <code>&lt;*&gt;</code> (内建化)</h2><p>要实现 <strong>不使用 Initramfs 启动</strong>，以下驱动必须直接编译进内核。</p>
 <h3 id="1-存储控制器-NVMe-SATA"><a href="#1-存储控制器-NVMe-SATA" class="headerlink" title="1. 存储控制器 (NVMe&#x2F;SATA)"></a>1. 存储控制器 (NVMe&#x2F;SATA)</h3><p>如果你的系统在 NVMe 硬盘上，通用的显卡驱动或 SATA 驱动反而会拖累初始化速度。</p>
 <ul>

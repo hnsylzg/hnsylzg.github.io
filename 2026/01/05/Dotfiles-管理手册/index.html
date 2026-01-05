@@ -72,13 +72,13 @@ alias dotfiles&#x3D;&#39;&#x2F;usr&#x2F;bin&#x2F;git --git-dir&#x3D;$HOME&#x2F;.
 dotfiles config --local status.showUntrackedFiles no
 
 # 关联远程库并推送
-dotfiles remote add origin git@github.com:hnsylzg&#x2F;dotfiles.git
+dotfiles remote add origin git@github.com:username&#x2F;dotfiles.git
 dotfiles push --set-upstream origin main</code></pre>
 
 <h3 id="2-新机器部署-Clone"><a href="#2-新机器部署-Clone" class="headerlink" title="2. 新机器部署 (Clone)"></a>2. 新机器部署 (Clone)</h3><p>在新环境下快速恢复配置：</p>
 <p>Bash</p>
 <pre class="language-none"><code class="language-none"># 克隆仓库
-git clone --bare git@github.com:hnsylzg&#x2F;dotfiles.git $HOME&#x2F;.dotfiles
+git clone --bare git@github.com:username&#x2F;dotfiles.git $HOME&#x2F;.dotfiles
 
 # 定义别名
 alias dotfiles&#x3D;&#39;&#x2F;usr&#x2F;bin&#x2F;git --git-dir&#x3D;$HOME&#x2F;.dotfiles&#x2F; --work-tree&#x3D;$HOME&#39;

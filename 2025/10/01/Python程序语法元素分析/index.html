@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>Python程序语法元素分析 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="Python程序语法元素分析"/>
+    
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Python程序语法元素分析</h2>
+            <div class="post-meta">
+                <time class="date">2025.10.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Python/">Python</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a><strong>引言</strong></h3><p>本单元将围绕经典的“<strong>温度转换实例</strong>”，系统地讲解Python编程中的核心语法元素。无论你是初次接触编程的新手，还是已有一定基础的学习者，都可以通过本节内容建立起对Python程序结构的清晰认知。</p>
+<p>我们将逐一解析：</p>
+<ul>
+<li>程序的格式框架</li>
+<li>命名规则与保留字</li>
+<li>数据类型（整数、浮点数、字符串、列表）</li>
+<li>语句与函数的基本用法</li>
+<li>输入输出机制</li>
+</ul>
+<p>最后，我们会对整个温度转换程序进行逐行代码分析，帮助你理解一个完整Python小程序的运行逻辑。</p>
+<p>目标是：<strong>让你能够读懂并理解10行左右的Python程序</strong>。</p>
+<h3 id="一、程序的格式框架"><a href="#一、程序的格式框架" class="headerlink" title="一、程序的格式框架"></a><strong>一、程序的格式框架</strong></h3><p>我们先来看一段典型的Python代码——温度转换程序：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 该程序用于实现华氏温度与摄氏温度之间的相互转换</span>
+TempStr <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入带有符号的温度值: "</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span> <span class="token string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    C <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1.8</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;C"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">elif</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    F <span class="token operator">=</span> <span class="token number">1.8</span> <span class="token operator">*</span> <span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">32</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;F"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>F<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"输入格式错误"</span><span class="token punctuation">)</span></code></pre>
+
+<h4 id="1-代码高亮（非语法要求）"><a href="#1-代码高亮（非语法要求）" class="headerlink" title="1. 代码高亮（非语法要求）"></a>1. 代码高亮（非语法要求）</h4><ul>
+<li>在编辑器中，不同部分会以不同颜色显示（如关键字蓝色、字符串绿色等）。</li>
+<li>这是<strong>代码高亮</strong>，由开发环境提供，用于提升可读性。</li>
+<li><strong>注意</strong>：颜色不影响程序执行，仅是视觉辅助。</li>
+</ul>
+<h4 id="2-缩进（Indentation）——Python的核心语法之一"><a href="#2-缩进（Indentation）——Python的核心语法之一" class="headerlink" title="2. 缩进（Indentation）——Python的核心语法之一"></a>2. 缩进（Indentation）——Python的核心语法之一</h4><ul>
+<li><strong>定义</strong>：一行代码前的空白区域（空格或Tab）。</li>
+<li><strong>作用</strong>：表达程序的层次结构和包含关系。</li>
+<li><strong>重要性</strong>：缩进是Python语法的一部分，错误的缩进会导致程序报错。</li>
+</ul>
+<blockquote>
+<p>✅ 正确示例：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> condition<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"这是缩进块内的语句"</span><span class="token punctuation">)</span>  <span class="token comment"># 属于if分支</span></code></pre></blockquote>
+<blockquote>
+<p>❌ 错误示例：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> condition<span class="token punctuation">:</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"缺少缩进！"</span><span class="token punctuation">)</span>  <span class="token comment"># 报错：Expected an indented block</span></code></pre></blockquote>
+<h4 id="缩进规则："><a href="#缩进规则：" class="headerlink" title="缩进规则："></a>缩进规则：</h4><ul>
+<li>同一级别的代码块必须使用<strong>相同数量的缩进</strong>。</li>
+<li>推荐使用 <strong>4个空格</strong> 作为一级缩进（PEP 8规范）。</li>
+<li>不建议混合使用空格和Tab，容易导致混乱。</li>
+</ul>
+<p>在上述程序中：</p>
+<ul>
+<li><code>if</code>、<code>elif</code>、<code>else</code> 后的语句都有一层缩进，表示它们属于各自的条件分支。</li>
+</ul>
+<h4 id="3-注释（Comments）"><a href="#3-注释（Comments）" class="headerlink" title="3. 注释（Comments）"></a>3. 注释（Comments）</h4><ul>
+<li><strong>定义</strong>：程序员写的说明性文字，不被计算机执行。</li>
+<li><strong>作用</strong>：提高代码可读性和维护性。</li>
+</ul>
+<h4 id="Python支持两种注释方式："><a href="#Python支持两种注释方式：" class="headerlink" title="Python支持两种注释方式："></a>Python支持两种注释方式：</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>写法</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单行注释</td>
+<td><code>#</code> 开头</td>
+<td><code># 这是一个注释</code></td>
+</tr>
+<tr>
+<td>多行注释</td>
+<td><code>&#39;&#39;&#39; ... &#39;&#39;&#39;</code> 或 <code>&quot;&quot;&quot; ... &quot;&quot;&quot;</code></td>
+<td></td>
+</tr>
+</tbody></table>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''
+这是一个多行注释
+可以跨越多行
+'''</span></code></pre>
+
+<blockquote>
+<p>⚠️ 注意：虽然多行字符串可以用作文档字符串（docstring），但真正意义上的“多行注释”其实是多个单行注释更常见。</p>
+</blockquote>
+<h3 id="二、命名与保留字"><a href="#二、命名与保留字" class="headerlink" title="二、命名与保留字"></a><strong>二、命名与保留字</strong></h3><h4 id="1-变量（Variable）"><a href="#1-变量（Variable）" class="headerlink" title="1. 变量（Variable）"></a>1. 变量（Variable）</h4><ul>
+<li><strong>定义</strong>：用于存储和表示数据的占位符。</li>
+<li><strong>命名过程</strong>：为变量赋予一个名字，称为“命名”。</li>
+</ul>
+<p>例如：</p>
+<pre class="language-python" data-language="python"><code class="language-python">TempStr <span class="token operator">=</span> <span class="token string">"82F"</span></code></pre>
+
+<ul>
+<li><code>TempStr</code> 是变量名，代表用户输入的温度字符串。</li>
+</ul>
+<h4 id="命名规则："><a href="#命名规则：" class="headerlink" title="命名规则："></a><strong>命名规则：</strong></h4><ol>
+<li>使用字母、数字、下划线 <code>_</code> 和汉字等字符组合；</li>
+<li>首字符不能是数字（如 <code>123abc</code> ❌）；</li>
+<li>区分大小写（<code>TempStr</code> ≠ <code>tempstr</code>）；</li>
+<li>不能与<strong>保留字</strong>重名。</li>
+</ol>
+<p>✅ 合法命名示例：</p>
+<ul>
+<li><code>my_var</code></li>
+<li><code>temperature</code></li>
+<li><code>姓名</code></li>
+<li><code>Python_课程</code></li>
+</ul>
+<p>❌ 非法命名示例：</p>
+<ul>
+<li><code>1var</code> （首字符为数字）</li>
+<li><code>for</code> （与保留字冲突）</li>
+</ul>
+<h4 id="2-保留字（Reserved-Words-Keywords）"><a href="#2-保留字（Reserved-Words-Keywords）" class="headerlink" title="2. 保留字（Reserved Words &#x2F; Keywords）"></a>2. 保留字（Reserved Words &#x2F; Keywords）</h4><ul>
+<li><strong>定义</strong>：被Python语言内部定义并保留使用的标识符，不能用作变量名。</li>
+<li>共有 <strong>33个</strong> 保留字。</li>
+</ul>
+<h4 id="Python保留字列表："><a href="#Python保留字列表：" class="headerlink" title="Python保留字列表："></a>Python保留字列表：</h4><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>关键词</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>逻辑运算</strong></td>
+<td><code>and</code>, <code>or</code>, <code>not</code></td>
+</tr>
+<tr>
+<td><strong>条件控制</strong></td>
+<td><code>if</code>, <code>elif</code>, <code>else</code></td>
+</tr>
+<tr>
+<td><strong>循环结构</strong></td>
+<td><code>for</code>, <code>while</code>, <code>break</code>, <code>continue</code></td>
+</tr>
+<tr>
+<td><strong>函数定义</strong></td>
+<td><code>def</code>, <code>return</code>, <code>lambda</code></td>
+</tr>
+<tr>
+<td><strong>异常处理</strong></td>
+<td><code>try</code>, <code>except</code>, <code>finally</code>, <code>raise</code></td>
+</tr>
+<tr>
+<td><strong>类与对象</strong></td>
+<td><code>class</code>, <code>self</code>, <code>super</code></td>
+</tr>
+<tr>
+<td><strong>模块导入</strong></td>
+<td><code>import</code>, <code>from</code>, <code>as</code></td>
+</tr>
+<tr>
+<td><strong>特殊值</strong></td>
+<td><code>True</code>, <code>False</code>, <code>None</code></td>
+</tr>
+<tr>
+<td><strong>其他</strong></td>
+<td><code>assert</code>, <code>del</code>, <code>global</code>, <code>nonlocal</code>, <code>pass</code>, <code>with</code>, <code>yield</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>🔹 本课程重点掌握其中 <strong>26个基础语法相关保留字</strong>。<br>🔹 <code>True</code>, <code>False</code>, <code>None</code> 首字母大写，是常量而非变量。</p>
+</blockquote>
+<p>📌 在温度转换程序中出现的保留字：</p>
+<ul>
+<li><code>if</code>, <code>elif</code>, <code>else</code>：构成分支结构</li>
+<li><code>in</code>：判断成员是否存在于集合中</li>
+</ul>
+<blockquote>
+<p>💡 小技巧：小写 <code>if</code> 是保留字；大写 <code>If</code> 可作为变量名（但不推荐）。</p>
+</blockquote>
+<h3 id="三、数据类型"><a href="#三、数据类型" class="headerlink" title="三、数据类型"></a><strong>三、数据类型</strong></h3><p>Python中有多种数据类型。本程序涉及以下四种基本类型：</p>
+<h4 id="1-字符串（String）"><a href="#1-字符串（String）" class="headerlink" title="1. 字符串（String）"></a>1. 字符串（String）</h4><ul>
+<li><strong>定义</strong>：由零个或多个字符组成的有序序列。</li>
+<li><strong>表示方法</strong>：用单引号 <code>&#39; &#39;</code> 或双引号 <code>&quot; &quot;</code> 括起来。</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token string">"Hello"</span>
+<span class="token string">'Python'</span>
+<span class="token string">"请输入带有符号的温度值"</span></code></pre>
+
+<h4 id="字符串索引与切片"><a href="#字符串索引与切片" class="headerlink" title="字符串索引与切片"></a>字符串索引与切片</h4><p>由于字符串是<strong>有序序列</strong>，可以通过索引访问单个字符。</p>
+<p>有两种索引体系：</p>
+<table>
+<thead>
+<tr>
+<th>正向递增索引</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符</td>
+<td>P</td>
+<td>y</td>
+<td>t</td>
+<td>h</td>
+<td>o</td>
+<td>n</td>
+<td></td>
+</tr>
+<tr>
+<td>反向递减索引</td>
+<td>-6</td>
+<td>-5</td>
+<td>-4</td>
+<td>-3</td>
+<td>-2</td>
+<td>-1</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<pre class="language-python" data-language="python"><code class="language-python">s <span class="token operator">=</span> <span class="token string">"Python"</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>   <span class="token comment"># 输出 'P'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment"># 输出 'n'</span></code></pre>
+
+<h4 id="切片操作（Substring-Extraction）"><a href="#切片操作（Substring-Extraction）" class="headerlink" title="切片操作（Substring Extraction）"></a>切片操作（Substring Extraction）</h4><p>语法：<code>[M:N]</code> 表示从索引 M 到 N-1 的子串。</p>
+<pre class="language-python" data-language="python"><code class="language-python">s <span class="token operator">=</span> <span class="token string">"Python"</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment"># 输出 'yth'（索引1~3）</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment"># 输出 'Pytho'（去掉最后一个字符）</span></code></pre>
+
+<p>在程序中的应用：</p>
+<pre class="language-python" data-language="python"><code class="language-python">TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>  <span class="token comment"># 去掉最后一个字符（如"82F" → "82"）</span>
+TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>    <span class="token comment"># 获取最后一个字符（如"F"）</span></code></pre>
+
+<h4 id="2-整数类型（int）"><a href="#2-整数类型（int）" class="headerlink" title="2. 整数类型（int）"></a>2. 整数类型（int）</h4><ul>
+<li>对应数学中的整数，包括正负整数。</li>
+<li>示例：<code>32</code>, <code>-10</code>, <code>100</code></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">a <span class="token operator">=</span> <span class="token number">32</span>
+b <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">5</span></code></pre>
+
+<h4 id="3-浮点数类型（float）"><a href="#3-浮点数类型（float）" class="headerlink" title="3. 浮点数类型（float）"></a>3. 浮点数类型（float）</h4><ul>
+<li>对应实数，带小数点的数字。</li>
+<li>示例：<code>1.8</code>, <code>3.14159</code>, <code>-0.5</code></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">pi <span class="token operator">=</span> <span class="token number">3.14159</span>
+rate <span class="token operator">=</span> <span class="token number">1.8</span></code></pre>
+
+<h4 id="4-列表类型（list）"><a href="#4-列表类型（list）" class="headerlink" title="4. 列表类型（list）"></a>4. 列表类型（list）</h4><ul>
+<li><strong>定义</strong>：由零个或多个元素组成的有序序列。</li>
+<li><strong>表示方法</strong>：用方括号 <code>[ ]</code> 括起，元素间用逗号分隔。</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span> <span class="token string">'f'</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span></code></pre>
+
+<h4 id="成员检测：in-操作符"><a href="#成员检测：in-操作符" class="headerlink" title="成员检测：in 操作符"></a>成员检测：<code>in</code> 操作符</h4><pre class="language-python" data-language="python"><code class="language-python">x <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>  <span class="token comment"># 如果x在列表中返回True，否则False</span></code></pre>
+
+<p>在程序中的应用：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span> <span class="token string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token comment"># 如果最后一个字符是'F'或'f'，执行转换逻辑</span></code></pre>
+
+<h3 id="四、语句与函数"><a href="#四、语句与函数" class="headerlink" title="四、语句与函数"></a><strong>四、语句与函数</strong></h3><h4 id="1-赋值语句（Assignment-Statement）"><a href="#1-赋值语句（Assignment-Statement）" class="headerlink" title="1. 赋值语句（Assignment Statement）"></a>1. 赋值语句（Assignment Statement）</h4><ul>
+<li>使用 <code>=</code>（赋值符号）将右侧表达式的值赋给左侧变量。</li>
+<li>语法：<code>变量 = 表达式</code></li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">TempStr <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入..."</span><span class="token punctuation">)</span>
+C <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1.8</span></code></pre>
+
+<blockquote>
+<p>⚠️ 注意：<code>=</code> 是赋值，不是数学中的等于。比较相等使用 <code>==</code>。</p>
+</blockquote>
+<h4 id="2-分支语句（Conditional-Statements）"><a href="#2-分支语句（Conditional-Statements）" class="headerlink" title="2. 分支语句（Conditional Statements）"></a>2. 分支语句（Conditional Statements）</h4><p>根据条件决定执行哪段代码。</p>
+<h4 id="结构："><a href="#结构：" class="headerlink" title="结构："></a>结构：</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> 条件<span class="token number">1</span><span class="token punctuation">:</span>
+    语句块<span class="token number">1</span>
+<span class="token keyword">elif</span> 条件<span class="token number">2</span><span class="token punctuation">:</span>
+    语句块<span class="token number">2</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    语句块<span class="token number">3</span></code></pre>
+
+<h4 id="关键点："><a href="#关键点：" class="headerlink" title="关键点："></a>关键点：</h4><ul>
+<li>每个条件后必须加冒号 <code>:</code>；</li>
+<li>条件成立时执行对应缩进块；</li>
+<li><code>elif</code> 和 <code>else</code> 可选。</li>
+</ul>
+<p>在程序中的体现：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>      <span class="token comment"># 判断是否为华氏度</span>
+    C <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">elif</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span><span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>    <span class="token comment"># 判断是否为摄氏度</span>
+    F <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>                             <span class="token comment"># 其他情况</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"输入格式错误"</span><span class="token punctuation">)</span></code></pre>
+
+<h4 id="3-函数（Function）"><a href="#3-函数（Function）" class="headerlink" title="3. 函数（Function）"></a>3. 函数（Function）</h4><ul>
+<li><strong>定义</strong>：封装了一段可重复使用的代码，接受输入参数并返回结果。</li>
+<li>类似于数学中的 $ y &#x3D; f(x) $</li>
+</ul>
+<h4 id="函数调用语法："><a href="#函数调用语法：" class="headerlink" title="函数调用语法："></a>函数调用语法：</h4><pre class="language-python" data-language="python"><code class="language-python">函数名<span class="token punctuation">(</span>参数<span class="token punctuation">)</span></code></pre>
+
+<p>程序中使用的三个关键函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>input()</code></td>
+<td>从键盘获取用户输入</td>
+<td><code>input(&quot;提示信息&quot;)</code></td>
+</tr>
+<tr>
+<td><code>print()</code></td>
+<td>向屏幕输出结果</td>
+<td><code>print(&quot;hello&quot;)</code></td>
+</tr>
+<tr>
+<td><code>eval()</code></td>
+<td>执行字符串形式的Python表达式</td>
+<td><code>eval(&quot;1+2&quot;) → 3</code></td>
+</tr>
+</tbody></table>
+<h3 id="五、Python程序的输入输出"><a href="#五、Python程序的输入输出" class="headerlink" title="五、Python程序的输入输出"></a><strong>五、Python程序的输入输出</strong></h3><h4 id="1-输入函数：input"><a href="#1-输入函数：input" class="headerlink" title="1. 输入函数：input()"></a>1. 输入函数：<code>input()</code></h4><ul>
+<li><strong>功能</strong>：从控制台接收用户输入的信息。</li>
+<li><strong>返回值</strong>：<strong>字符串类型</strong>（即使输入的是数字）。</li>
+</ul>
+<pre class="language-python" data-language="python"><code class="language-python">TempStr <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入带有符号的温度值: "</span><span class="token punctuation">)</span></code></pre>
+
+<ul>
+<li>用户输入 <code>82F</code>，则 <code>TempStr = &quot;82F&quot;</code></li>
+<li>提示字符串 <code>&quot;请输入...&quot;</code> 不会被存入变量</li>
+</ul>
+<blockquote>
+<p>📌 特别注意：所有输入默认都是字符串，若需数值运算，必须转换！</p>
+</blockquote>
+<h4 id="2-输出函数：print"><a href="#2-输出函数：print" class="headerlink" title="2. 输出函数：print()"></a>2. 输出函数：<code>print()</code></h4><ul>
+<li><strong>功能</strong>：将信息打印到屏幕。</li>
+</ul>
+<h4 id="基本用法："><a href="#基本用法：" class="headerlink" title="基本用法："></a>基本用法：</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;C"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<h4 id="格式化输出详解："><a href="#格式化输出详解：" class="headerlink" title="格式化输出详解："></a>格式化输出详解：</h4><ul>
+<li><code>{}</code>：称为“槽”（slot），表示待填充的位置；</li>
+<li><code>.format(C)</code>：将变量 <code>C</code> 的值填入第一个 <code>{}</code> 中；</li>
+<li><code>:.2f</code>：格式化为浮点数，保留两位小数。</li>
+</ul>
+<p>示例：</p>
+<pre class="language-python" data-language="python"><code class="language-python">C <span class="token operator">=</span> <span class="token number">27.777777</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"结果是&#123;:.2f&#125;"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># 输出：结果是27.78</span></code></pre>
+
+<blockquote>
+<p>💡 记忆口诀：“<strong>大括号占位置，format来填充，:.2f取两位</strong>”</p>
+</blockquote>
+<h4 id="3-评估函数：eval"><a href="#3-评估函数：eval" class="headerlink" title="3. 评估函数：eval()"></a>3. 评估函数：<code>eval()</code></h4><ul>
+<li><strong>功能</strong>：去掉字符串最外层引号，并执行其内容作为Python表达式。</li>
+<li><strong>俗称</strong>：“求值函数”或“评估函数”</li>
+</ul>
+<h4 id="工作原理："><a href="#工作原理：" class="headerlink" title="工作原理："></a>工作原理：</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span>        → <span class="token number">1</span>           <span class="token comment"># 字符串转整数</span>
+<span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token string">"1+2"</span><span class="token punctuation">)</span>      → <span class="token number">3</span>           <span class="token comment"># 执行加法运算</span>
+<span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token string">"'Hello'"</span><span class="token punctuation">)</span>  → <span class="token string">"Hello"</span>     <span class="token comment"># 去掉外层引号</span>
+<span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token string">"print('Hi')"</span><span class="token punctuation">)</span> → 执行<span class="token keyword">print</span>，输出 Hi</code></pre>
+
+<h4 id="在程序中的应用："><a href="#在程序中的应用：" class="headerlink" title="在程序中的应用："></a>在程序中的应用：</h4><pre class="language-python" data-language="python"><code class="language-python">TempStr <span class="token operator">=</span> <span class="token string">"82F"</span>
+num_str <span class="token operator">=</span> TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>   <span class="token comment"># 得到 "82"</span>
+num <span class="token operator">=</span> <span class="token builtin">eval</span><span class="token punctuation">(</span>num_str<span class="token punctuation">)</span>       <span class="token comment"># 得到 数字 82（可用于计算）</span></code></pre>
+
+<blockquote>
+<p>⚠️ 安全警告：<code>eval()</code> 执行任意代码，慎用于不可信输入！</p>
+</blockquote>
+<h3 id="六、温度转换程序逐行分析"><a href="#六、温度转换程序逐行分析" class="headerlink" title="六、温度转换程序逐行分析"></a><strong>六、温度转换程序逐行分析</strong></h3><p>现在我们结合以上知识，逐行解读这个程序：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># 1. 注释：说明程序用途，不被执行</span>
+<span class="token comment"># 该程序用于实现华氏温度与摄氏温度之间的相互转换</span>
+
+<span class="token comment"># 2. 输入：获取用户输入的温度字符串</span>
+TempStr <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"请输入带有符号的温度值: "</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 3. 分支判断：检查是否为华氏温度（结尾为F或f）</span>
+<span class="token keyword">if</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'F'</span><span class="token punctuation">,</span> <span class="token string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token comment"># 4. 提取数值部分（去掉最后一位），并用eval转为数字</span>
+    C <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1.8</span>
+    <span class="token comment"># 5. 输出转换后的摄氏温度，保留两位小数</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;C"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>C<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 6. 否则如果结尾是C或c，视为摄氏温度</span>
+<span class="token keyword">elif</span> TempStr<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token comment"># 7. 提取数值并转换为华氏温度</span>
+    F <span class="token operator">=</span> <span class="token number">1.8</span> <span class="token operator">*</span> <span class="token builtin">eval</span><span class="token punctuation">(</span>TempStr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">32</span>
+    <span class="token comment"># 8. 输出结果</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"转换后的温度是&#123;:.2f&#125;F"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>F<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 9. 其他情况：输入格式不符合预期</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token comment"># 10. 提示错误</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"输入格式错误"</span><span class="token punctuation">)</span></code></pre>
+
+<h4 id="✅-程序运行流程图解："><a href="#✅-程序运行流程图解：" class="headerlink" title="✅ 程序运行流程图解："></a>✅ 程序运行流程图解：</h4><pre class="language-none"><code class="language-none">开始
+ ↓
+输入温度字符串（如 &quot;82F&quot;）
+ ↓
+判断最后一个字符
+ ├─ 是 &#39;F&#39;&#x2F;&#39;f&#39; → 计算 C &#x3D; (82 - 32)&#x2F;1.8 ≈ 27.78 → 输出 &quot;27.78C&quot;
+ ├─ 是 &#39;C&#39;&#x2F;&#39;c&#39; → 计算 F &#x3D; 1.8*数值 + 32 → 输出 &quot;XX.XXF&quot;
+ └─ 否则 → 输出 &quot;输入格式错误&quot;
+ ↓
+结束</code></pre>
+
+<h3 id="七、单元小结"><a href="#七、单元小结" class="headerlink" title="七、单元小结"></a><strong>七、单元小结</strong></h3><h4 id="本单元核心知识点回顾："><a href="#本单元核心知识点回顾：" class="headerlink" title="本单元核心知识点回顾："></a>本单元核心知识点回顾：</h4><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>格式框架</strong></td>
+<td>缩进（语法强制）、注释（# 和 ‘’’…’’’）</td>
+</tr>
+<tr>
+<td><strong>命名规则</strong></td>
+<td>变量命名合法字符、区分大小写、不能用保留字</td>
+</tr>
+<tr>
+<td><strong>保留字</strong></td>
+<td>共33个，重点掌握 <code>if/elif/else/in/True/False/None</code> 等26个</td>
+</tr>
+<tr>
+<td><strong>数据类型</strong></td>
+<td>字符串（str）、整数（int）、浮点数（float）、列表（list）</td>
+</tr>
+<tr>
+<td><strong>语句</strong></td>
+<td>赋值语句（&#x3D;）、分支语句（if-elif-else）</td>
+</tr>
+<tr>
+<td><strong>函数</strong></td>
+<td><code>input()</code>（输入）、<code>print()</code>（输出）、<code>eval()</code>（求值）</td>
+</tr>
+<tr>
+<td><strong>输入输出</strong></td>
+<td><code>input</code> 返回字符串；<code>print</code> 支持格式化输出 <code>{:.2f}.format()</code></td>
+</tr>
+</tbody></table>
+<h4 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a><strong>学习建议</strong></h4><ol>
+<li><p><strong>动手实践</strong>：将代码复制到IDLE中运行，尝试修改输入值观察结果。</p>
+</li>
+<li><p><strong>调试练习</strong>：故意制造缩进错误、拼写错误，查看报错信息。</p>
+</li>
+<li><p>扩展思考</p>
+<p>：</p>
+<ul>
+<li>如果用户输入 <code>100X</code>，程序如何反应？</li>
+<li>如何让程序支持更多单位（如K开尔文）？</li>
+<li>如何避免使用 <code>eval()</code> 实现安全转换？</li>
+</ul>
+</li>
+</ol>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a><strong>结语</strong></h4><p>万事开头难。本单元内容较多，概念密集，初学者可能会感到有些抽象。</p>
+<p>请记住：<strong>不要试图一次性完全掌握所有细节</strong>。随着后续课程的推进，这些概念会不断重现、深化。</p>
+<p>当你能独立写出类似“温度转换”的小程序时，你就已经迈出了成为Python程序员的第一步！</p>
+<blockquote>
+<p>正如古人所说：“千里之行，始于足下。”<br>今天你学懂了这10行代码，明天就能写出更强大的程序！</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2025/10/01/turtle%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">turtle库的使用</a></li>
+                
+                
+                    <li>下一篇: 看完啦 (つд⊂)</li>
+                
+            </ul>
+        </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Dotfiles-%E7%AE%A1%E7%90%86%E6%89%8B%E5%86%8C/">Dotfiles 管理手册</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/turtle%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">turtle库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/Python%E7%A8%8B%E5%BA%8F%E8%AF%AD%E6%B3%95%E5%85%83%E7%B4%A0%E5%88%86%E6%9E%90/">Python程序语法元素分析</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

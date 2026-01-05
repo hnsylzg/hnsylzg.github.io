@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面"/>
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</h2>
+            <div class="post-meta">
+                <time class="date">2026.01.05</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Linux/">Linux</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>桌面</p>
+<p>Gentoo 以其极致的可定制性著称。本文将基于 <strong>systemd</strong> 架构和 <strong>二进制包（binpkg）</strong> 加速方案，带你走完从裸机到完整桌面环境的全过程。</p>
+<h2 id="一、-准备工作与磁盘分区"><a href="#一、-准备工作与磁盘分区" class="headerlink" title="一、 准备工作与磁盘分区"></a>一、 准备工作与磁盘分区</h2><p>在 Gentoo LiveCD 或其他 Linux 运行环境中开启安装：</p>
+<h3 id="1-初始配置"><a href="#1-初始配置" class="headerlink" title="1. 初始配置"></a>1. 初始配置</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">passwd                # 设置Live环境密码
+rc-service sshd start # 开启远程，方便从另一台电脑操作</code></pre>
+
+<h3 id="2-磁盘分区"><a href="#2-磁盘分区" class="headerlink" title="2. 磁盘分区"></a>2. 磁盘分区</h3><p>以 <code>/dev/sda</code> 为例，建立 EFI 分区、Swap 和 Root。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 格式化
+mkfs.vfat -F 32 &#x2F;dev&#x2F;sda1
+mkswap &#x2F;dev&#x2F;sda2 &amp;&amp; swapon &#x2F;dev&#x2F;sda2
+mkfs.ext4 &#x2F;dev&#x2F;sda3
+
+# 挂载
+mount &#x2F;dev&#x2F;sda3 &#x2F;mnt&#x2F;gentoo
+mkdir -p &#x2F;mnt&#x2F;gentoo&#x2F;efi
+mount &#x2F;dev&#x2F;sda1 &#x2F;mnt&#x2F;gentoo&#x2F;efi</code></pre>
+
+<hr>
+<h2 id="二、-部署-Stage3-与-Chroot-准备"><a href="#二、-部署-Stage3-与-Chroot-准备" class="headerlink" title="二、 部署 Stage3 与 Chroot 准备"></a>二、 部署 Stage3 与 Chroot 准备</h2><h3 id="1-下载并解压"><a href="#1-下载并解压" class="headerlink" title="1. 下载并解压"></a>1. 下载并解压</h3><p>进入 <code>/mnt/gentoo</code>，下载对应的 Stage3 包并解压：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">tar xpvf stage3-*.tar.xz --xattrs-include&#x3D;&#39;*.*&#39; --numeric-owner -C &#x2F;mnt&#x2F;gentoo</code></pre>
+
+<h3 id="2-挂载必要文件系统"><a href="#2-挂载必要文件系统" class="headerlink" title="2. 挂载必要文件系统"></a>2. 挂载必要文件系统</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">cp --dereference &#x2F;etc&#x2F;resolv.conf &#x2F;mnt&#x2F;gentoo&#x2F;etc&#x2F;
+mount --types proc &#x2F;proc &#x2F;mnt&#x2F;gentoo&#x2F;proc
+mount --rbind &#x2F;sys &#x2F;mnt&#x2F;gentoo&#x2F;sys &amp;&amp; mount --make-rslave &#x2F;mnt&#x2F;gentoo&#x2F;sys
+mount --rbind &#x2F;dev &#x2F;mnt&#x2F;gentoo&#x2F;dev &amp;&amp; mount --make-rslave &#x2F;mnt&#x2F;gentoo&#x2F;dev
+mount --bind &#x2F;run &#x2F;mnt&#x2F;gentoo&#x2F;run &amp;&amp; mount --make-slave &#x2F;mnt&#x2F;gentoo&#x2F;run</code></pre>
+
+<h3 id="3-进入-Chroot"><a href="#3-进入-Chroot" class="headerlink" title="3. 进入 Chroot"></a>3. 进入 Chroot</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">chroot &#x2F;mnt&#x2F;gentoo &#x2F;bin&#x2F;bash
+source &#x2F;etc&#x2F;profile
+export PS1&#x3D;&quot;(chroot) $&#123;PS1&#125;&quot;</code></pre>
+
+<hr>
+<h2 id="三、-配置-Portage-与系统方案"><a href="#三、-配置-Portage-与系统方案" class="headerlink" title="三、 配置 Portage 与系统方案"></a>三、 配置 Portage 与系统方案</h2><h3 id="1-优化编译参数-make-conf"><a href="#1-优化编译参数-make-conf" class="headerlink" title="1. 优化编译参数 (make.conf)"></a>1. 优化编译参数 (make.conf)</h3><p>编辑 <code>/etc/portage/make.conf</code>，设置 <code>MAKEOPTS</code> 为 CPU 核心数 +1。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 示例：16核处理器
+MAKEOPTS&#x3D;&quot;-j17&quot;
+# 开启二进制包支持，极大缩短安装时间
+FEATURES&#x3D;&quot;$&#123;FEATURES&#125; getbinpkg binpkg-request-signature&quot;
+# 接受所有自由许可证
+ACCEPT_LICENSE&#x3D;&quot;-* @FREE @BINARY-REDISTRIBUTABLE&quot;</code></pre>
+
+<h3 id="2-配置二进制仓库"><a href="#2-配置二进制仓库" class="headerlink" title="2. 配置二进制仓库"></a>2. 配置二进制仓库</h3><p>编辑 <code>/etc/portage/binrepos.conf/gentoobinhost.conf</code>，使用国内镜像加速：</p>
+<p>Ini, TOML</p>
+<pre class="language-none"><code class="language-none">[gentoobinhost]
+priority &#x3D; 9999
+sync-uri &#x3D; https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;gentoo&#x2F;releases&#x2F;amd64&#x2F;binpackages&#x2F;23.0&#x2F;x86-64</code></pre>
+
+<p>运行 <code>getuto</code> 生成密钥环。</p>
+<h3 id="3-硬件标记与-Profile"><a href="#3-硬件标记与-Profile" class="headerlink" title="3. 硬件标记与 Profile"></a>3. 硬件标记与 Profile</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">emerge-webrsync
+emerge --ask app-portage&#x2F;cpuid2cpuflags
+echo &quot;*&#x2F;* $(cpuid2cpuflags)&quot; &gt; &#x2F;etc&#x2F;portage&#x2F;package.use&#x2F;00cpu-flags
+
+# 选择 systemd&#x2F;plasma 方案
+eselect profile list
+eselect profile set 28 # 需确认序号对应 systemd&#x2F;plasma</code></pre>
+
+<hr>
+<h2 id="四、-内核安装：发行版内核方案-推荐"><a href="#四、-内核安装：发行版内核方案-推荐" class="headerlink" title="四、 内核安装：发行版内核方案 (推荐)"></a>四、 内核安装：发行版内核方案 (推荐)</h2><p>对于初学者或追求稳定的人，<strong>Distribution Kernels</strong> 是最佳选择，它会自动生成 initramfs。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 启用发行版内核和固件
+emerge --ask sys-kernel&#x2F;linux-firmware
+emerge --ask sys-kernel&#x2F;gentoo-kernel-bin  # 二进制版最快
+# 或者源码版（会自动编译配置）
+# emerge --ask sys-kernel&#x2F;gentoo-kernel
+
+# 确保外部模块随内核自动更新
+echo &quot;sys-kernel&#x2F;gentoo-kernel-bin dist-kernel&quot; &gt;&gt; &#x2F;etc&#x2F;portage&#x2F;package.use&#x2F;kernel</code></pre>
+
+<hr>
+<h2 id="五、-系统基本设置"><a href="#五、-系统基本设置" class="headerlink" title="五、 系统基本设置"></a>五、 系统基本设置</h2><h3 id="1-区域与时间"><a href="#1-区域与时间" class="headerlink" title="1. 区域与时间"></a>1. 区域与时间</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">ln -sf ..&#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime
+echo &quot;en_US.UTF-8 UTF-8&quot; &gt;&gt; &#x2F;etc&#x2F;locale.gen
+echo &quot;zh_CN.UTF-8 UTF-8&quot; &gt;&gt; &#x2F;etc&#x2F;locale.gen
+locale-gen
+echo &quot;LANG&#x3D;en_US.UTF-8&quot; &gt; &#x2F;etc&#x2F;locale.conf</code></pre>
+
+<h3 id="2-Fstab-分区表"><a href="#2-Fstab-分区表" class="headerlink" title="2. Fstab 分区表"></a>2. Fstab 分区表</h3><p>获取 UUID 并填入 <code>/etc/fstab</code>：</p>
+<pre class="language-none"><code class="language-none">blkid</code></pre>
+
+<p>Plaintext</p>
+<pre class="language-none"><code class="language-none">UUID&#x3D;xxxx &#x2F;efi vfat umask&#x3D;0077 0 2
+UUID&#x3D;xxxx none swap sw 0 0
+UUID&#x3D;xxxx &#x2F; ext4 defaults,noatime 0 1</code></pre>
+
+<h3 id="3-网络与-Systemd-初始化"><a href="#3-网络与-Systemd-初始化" class="headerlink" title="3. 网络与 Systemd 初始化"></a>3. 网络与 Systemd 初始化</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">echo &quot;gentoo&quot; &gt; &#x2F;etc&#x2F;hostname
+emerge --ask net-misc&#x2F;dhcpcd
+systemctl enable dhcpcd
+
+# systemd 首次启动初始化
+systemd-machine-id-setup
+systemd-firstboot --prompt
+systemctl preset-all</code></pre>
+
+<hr>
+<h2 id="六、-引导程序-GRUB"><a href="#六、-引导程序-GRUB" class="headerlink" title="六、 引导程序 (GRUB)"></a>六、 引导程序 (GRUB)</h2><p>Bash</p>
+<pre class="language-none"><code class="language-none">echo &#39;GRUB_PLATFORMS&#x3D;&quot;efi-64&quot;&#39; &gt;&gt; &#x2F;etc&#x2F;portage&#x2F;make.conf
+emerge --ask sys-boot&#x2F;grub sys-boot&#x2F;efibootmgr
+grub-install --efi-directory&#x3D;&#x2F;efi --removable
+grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg</code></pre>
+
+<hr>
+<h2 id="七、-桌面环境：Plasma-5-6-与常用软件"><a href="#七、-桌面环境：Plasma-5-6-与常用软件" class="headerlink" title="七、 桌面环境：Plasma 5&#x2F;6 与常用软件"></a>七、 桌面环境：Plasma 5&#x2F;6 与常用软件</h2><h3 id="1-安装-KDE-Plasma"><a href="#1-安装-KDE-Plasma" class="headerlink" title="1. 安装 KDE Plasma"></a>1. 安装 KDE Plasma</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none"># 安装基础显示驱动
+emerge --ask x11-base&#x2F;xorg-server
+# 安装桌面套件
+emerge --ask kde-plasma&#x2F;plasma-meta
+systemctl enable sddm</code></pre>
+
+<h3 id="2-音频与字体"><a href="#2-音频与字体" class="headerlink" title="2. 音频与字体"></a>2. 音频与字体</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none"># 启用 Pipewire
+systemctl --user enable --now pipewire.service pipewire-pulse.socket wireplumber.service
+# 中文字体
+emerge --ask wqy-zenhei</code></pre>
+
+<h3 id="3-常用软件与第三方仓库-gentoo-zh"><a href="#3-常用软件与第三方仓库-gentoo-zh" class="headerlink" title="3. 常用软件与第三方仓库 (gentoo-zh)"></a>3. 常用软件与第三方仓库 (gentoo-zh)</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">emerge --ask app-eselect&#x2F;eselect-repository
+eselect repository enable gentoo-zh
+emaint sync -r gentoo-zh
+
+# 安装微信&#x2F;QQ&#x2F;WPS (处理许可证)
+echo &quot;net-im&#x2F;wechat all-rights-reserved&quot; &gt;&gt; &#x2F;etc&#x2F;portage&#x2F;package.license
+emerge --ask net-im&#x2F;wechat</code></pre>
+
+<hr>
+<h2 id="八、-系统维护技巧"><a href="#八、-系统维护技巧" class="headerlink" title="八、 系统维护技巧"></a>八、 系统维护技巧</h2><h3 id="1-深度更新世界"><a href="#1-深度更新世界" class="headerlink" title="1. 深度更新世界"></a>1. 深度更新世界</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">emerge -avuDN --with-bdeps&#x3D;y --binpkg-respect-use&#x3D;y @world</code></pre>
+
+<h3 id="2-清理包"><a href="#2-清理包" class="headerlink" title="2. 清理包"></a>2. 清理包</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">emerge --ask --depclean # 删除无用依赖
+eclean-dist             # 清理下载的源码包
+eclean-pkg              # 清理二进制包</code></pre>
+
+<h3 id="3-虚拟机优化-VMware"><a href="#3-虚拟机优化-VMware" class="headerlink" title="3. 虚拟机优化 (VMware)"></a>3. 虚拟机优化 (VMware)</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">echo &quot;app-emulation&#x2F;open-vm-tools gtkmm&quot; &gt;&gt; &#x2F;etc&#x2F;portage&#x2F;package.use&#x2F;open-vm-tools
+emerge --ask app-emulation&#x2F;open-vm-tools
+systemctl enable --now vmtoolsd.service</code></pre>
+
+<hr>
+<h3 id="💡-结语"><a href="#💡-结语" class="headerlink" title="💡 结语"></a>💡 结语</h3><p>Gentoo 的初次安装可能需要数小时，但一旦配置完成，你将拥有一个完全契合硬件、极致流畅的操作系统。<strong>建议在安装后第一时间建立一次 Stage4 备份</strong>，以便在配置出错时快速回滚。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2026/01/05/Arch-Linux-%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9B%E9%98%B6%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/">Arch Linux 安装与进阶配置指南</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/gentoo/" rel="tag">gentoo</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-Linux-%E6%9E%81%E8%87%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E-Stage3-%E5%88%B0-Plasma-%E6%A1%8C%E9%9D%A2/">Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Arch-Linux-%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9B%E9%98%B6%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/">Arch Linux 安装与进阶配置指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Dotfiles-%E7%AE%A1%E7%90%86%E6%89%8B%E5%86%8C/">Dotfiles 管理手册</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/turtle%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">turtle库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/Python%E7%A8%8B%E5%BA%8F%E8%AF%AD%E6%B3%95%E5%85%83%E7%B4%A0%E5%88%86%E6%9E%90/">Python程序语法元素分析</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/arch/" style="font-size: 10px;">arch</a> <a href="/tags/gentoo/" style="font-size: 10px;">gentoo</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

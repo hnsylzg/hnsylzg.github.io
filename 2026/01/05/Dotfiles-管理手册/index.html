@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>Dotfiles 管理手册 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="Dotfiles 管理手册"/>
+    
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Dotfiles 管理手册</h2>
+            <div class="post-meta">
+                <time class="date">2026.01.05</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>利用 <code>git --bare</code> 库管理家目录下的配置文件，既能保持目录整洁，又能实现跨设备同步。</p>
+<h2 id="一、-初始化与基础配置"><a href="#一、-初始化与基础配置" class="headerlink" title="一、 初始化与基础配置"></a>一、 初始化与基础配置</h2><h3 id="1-远端仓库初始化"><a href="#1-远端仓库初始化" class="headerlink" title="1. 远端仓库初始化"></a>1. 远端仓库初始化</h3><p>在 GitHub 或 GitLab 上创建一个名为 <code>dotfiles</code> 的私有仓库，然后在本地执行：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 初始化 Bare 仓库到指定目录
+git init --bare $HOME&#x2F;.dotfiles
+
+# 设置临时别名（建议将其写入 .zshrc 或 .bashrc）
+alias dotfiles&#x3D;&#39;&#x2F;usr&#x2F;bin&#x2F;git --git-dir&#x3D;$HOME&#x2F;.dotfiles&#x2F; --work-tree&#x3D;$HOME&#39;
+
+# 隐藏未追踪的文件（避免 git status 列出整个家目录）
+dotfiles config --local status.showUntrackedFiles no
+
+# 关联远程库并推送
+dotfiles remote add origin git@github.com:hnsylzg&#x2F;dotfiles.git
+dotfiles push --set-upstream origin main</code></pre>
+
+<h3 id="2-新机器部署-Clone"><a href="#2-新机器部署-Clone" class="headerlink" title="2. 新机器部署 (Clone)"></a>2. 新机器部署 (Clone)</h3><p>在新环境下快速恢复配置：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 克隆仓库
+git clone --bare git@github.com:hnsylzg&#x2F;dotfiles.git $HOME&#x2F;.dotfiles
+
+# 定义别名
+alias dotfiles&#x3D;&#39;&#x2F;usr&#x2F;bin&#x2F;git --git-dir&#x3D;$HOME&#x2F;.dotfiles&#x2F; --work-tree&#x3D;$HOME&#39;
+
+# 签出文件到工作区 ($HOME)
+dotfiles checkout</code></pre>
+
+<blockquote>
+<p><strong>注意</strong>：如果 checkout 报错提示文件冲突，请先备份或删除本地已存在的同名配置文件。</p>
+</blockquote>
+<h2 id="二、-分支与同步策略"><a href="#二、-分支与同步策略" class="headerlink" title="二、 分支与同步策略"></a>二、 分支与同步策略</h2><p>为了在不同机器或环境下使用不同主题（如 Matugen 动态配色 vs 静态配色），建议采用多分支管理。</p>
+<h3 id="1-分支classic创建与推送"><a href="#1-分支classic创建与推送" class="headerlink" title="1. 分支classic创建与推送"></a>1. 分支classic创建与推送</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none"># 创建并立即切换分支
+dotfiles checkout -b classic &lt;commit-id&gt;
+
+# 只创建分支，不切换
+dotfiles branch classic &lt;commit-id&gt;
+
+# 第一次推送并建立跟踪关系
+dotfiles push -u origin classic
+
+# 以后仅需直接推送
+dotfiles push</code></pre>
+
+<h3 id="2-Bare-库分支可见性设置"><a href="#2-Bare-库分支可见性设置" class="headerlink" title="2. Bare 库分支可见性设置"></a>2. Bare 库分支可见性设置</h3><p>由于是 Bare 库，有时无法直接看到远程分支。需要显式配置 fetch 规则：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 修复远程分支追踪关系
+dotfiles config remote.origin.fetch &quot;+refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*&quot;
+
+# 获取更新
+dotfiles fetch --all --prune
+dotfiles checkout classic</code></pre>
+
+<h2 id="三、-跨分支逻辑同步"><a href="#三、-跨分支逻辑同步" class="headerlink" title="三、 跨分支逻辑同步"></a>三、 跨分支逻辑同步</h2><p>当你在 <code>main</code> 分支改进了功能（如快捷键），希望同步到 <code>classic</code> 分支，但又不想要 <code>main</code> 的配色时，可采用以下方案：</p>
+<h3 id="方案-A：精准拣选-Cherry-pick"><a href="#方案-A：精准拣选-Cherry-pick" class="headerlink" title="方案 A：精准拣选 (Cherry-pick)"></a>方案 A：精准拣选 (Cherry-pick)</h3><p>适用于同步某次特定的代码改动。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">dotfiles checkout classic
+dotfiles cherry-pick &lt;commit-id&gt;  # 仅将该提交的改动应用到当前分支
+dotfiles push</code></pre>
+
+<h3 id="方案-B：覆盖特定文件-Checkout-file"><a href="#方案-B：覆盖特定文件-Checkout-file" class="headerlink" title="方案 B：覆盖特定文件 (Checkout file)"></a>方案 B：覆盖特定文件 (Checkout file)</h3><p>适用于直接同步某个脚本或配置文件的最新版本。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">dotfiles checkout classic
+# 从 main 分支“借用”特定文件覆盖到当前分支
+dotfiles checkout main -- .config&#x2F;hypr&#x2F;scripts&#x2F;waybar_logic.sh
+
+dotfiles commit -m &quot;sync: update waybar logic from main&quot;
+dotfiles push</code></pre>
+
+<h2 id="四、-进阶：架构层面的解耦-强烈推荐"><a href="#四、-进阶：架构层面的解耦-强烈推荐" class="headerlink" title="四、 进阶：架构层面的解耦 (强烈推荐)"></a>四、 进阶：架构层面的解耦 (强烈推荐)</h2><p>与其事后同步，不如在设计配置时就实现<strong>逻辑与样式的解耦</strong>。</p>
+<h3 id="1-目录结构规范"><a href="#1-目录结构规范" class="headerlink" title="1. 目录结构规范"></a>1. 目录结构规范</h3><p>将配置文件拆分为“功能逻辑”与“视觉样式”：</p>
+<ul>
+<li><code>keybinds.conf</code>: 存放快捷键、窗口规则（各分支通用）。</li>
+<li><code>theme.conf</code>: 存放颜色、边框、阴影（各分支独立）。</li>
+</ul>
+<h3 id="2-引用机制"><a href="#2-引用机制" class="headerlink" title="2. 引用机制"></a>2. 引用机制</h3><p>在主配置文件 <code>hyprland.conf</code> 中使用 <code>source</code> 命令：</p>
+<p>代码段</p>
+<pre class="language-none"><code class="language-none"># .config&#x2F;hypr&#x2F;hyprland.conf
+source &#x3D; ~&#x2F;.config&#x2F;hypr&#x2F;keybinds.conf
+source &#x3D; ~&#x2F;.config&#x2F;hypr&#x2F;theme.conf</code></pre>
+
+<h3 id="3-同步工作流"><a href="#3-同步工作流" class="headerlink" title="3. 同步工作流"></a>3. 同步工作流</h3><p>当你修改了快捷键逻辑，只需在 <code>classic</code> 分支执行一行命令即可完成完美同步，绝不污染配色：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">dotfiles checkout main -- .config&#x2F;hypr&#x2F;keybinds.conf</code></pre>
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2025/10/01/Markdown-Style-test/">Markdown Style test</a></li>
+                
+            </ul>
+        </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Dotfiles-%E7%AE%A1%E7%90%86%E6%89%8B%E5%86%8C/">Dotfiles 管理手册</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/Markdown-Style-test/">Markdown Style test</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/Hello-World/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/code-highlight/">code-highlight</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/%E7%AC%AC%E4%BA%8C%E5%91%A8%E8%9F%92%E8%9B%87%E7%BB%98%E5%88%B6/">第二周蟒蛇绘制</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/%E7%AC%AC%E4%B8%80%E5%91%A8%E6%B8%A9%E5%BA%A6%E8%BD%AC%E6%8D%A2%E7%A8%8B%E5%BA%8F/">第一周温度转换程序</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

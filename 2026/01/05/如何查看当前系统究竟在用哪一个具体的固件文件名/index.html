@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>如何查看当前系统究竟在用哪一个具体的固件文件名 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="如何查看当前系统究竟在用哪一个具体的固件文件名"/>
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>如何查看当前系统究竟在用哪一个具体的固件文件名</h2>
+            <div class="post-meta">
+                <time class="date">2026.01.05</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Linux/">Linux</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>确定具体固件文件名是定制内核中最关键的一步，因为填错一个字母就会导致内核找不到驱动。这里提供三个“降维打击”式的命令，让你精准抓取当前硬件正在调用的固件。</p>
+<h3 id="1-终极大法：从当前运行的内核提取-最准确"><a href="#1-终极大法：从当前运行的内核提取-最准确" class="headerlink" title="1. 终极大法：从当前运行的内核提取 (最准确)"></a>1. 终极大法：从当前运行的内核提取 (最准确)</h3><p>如果你目前使用的是通用内核（如 <code>gentoo-kernel-bin</code>）且硬件工作正常，直接运行此命令：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 扫描当前已加载模块并列出它们关联的固件文件
+find &#x2F;sys&#x2F;devices -name modalias -print0 | xargs -0 modprobe -C &#x2F;dev&#x2F;null --show-exports | grep firmware | awk &#39;&#123;print $2&#125;&#39; | sort -u</code></pre>
+
+<p>输出示例：</p>
+<p>i915&#x2F;adlp_dmc_ver2_16.bin</p>
+<p>iwlwifi-ty-a0-gf-a0-72.ucode</p>
+<h3 id="2-追溯日志大法-最直观"><a href="#2-追溯日志大法-最直观" class="headerlink" title="2. 追溯日志大法 (最直观)"></a>2. 追溯日志大法 (最直观)</h3><p>内核在启动时如果加载了固件，或者因为找不到固件而报错，都会在 <code>dmesg</code> 中留下痕迹。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 查看所有固件相关的加载记录
+dmesg | grep -i firmware</code></pre>
+
+<p><strong>关注点：</strong></p>
+<ul>
+<li>如果看到 <code>Direct firmware load for ... succeeded</code>，那这个路径就是你要填入 <code>CONFIG_EXTRA_FIRMWARE</code> 的准确值。</li>
+<li>如果看到 <code>failed with error -2</code>，说明你漏掉了这个固件。</li>
+</ul>
+<h3 id="3-Modinfo-逆向查寻-针对特定驱动"><a href="#3-Modinfo-逆向查寻-针对特定驱动" class="headerlink" title="3. Modinfo 逆向查寻 (针对特定驱动)"></a>3. Modinfo 逆向查寻 (针对特定驱动)</h3><p>如果你知道你的显卡驱动是 <code>i915</code> 或 <code>amdgpu</code>，可以直接查它支持的所有固件列表：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 以 Intel 核显为例
+modinfo -F firmware i915</code></pre>
+
+<h2 id="🛠️-实操：将获取到的路径填入内核"><a href="#🛠️-实操：将获取到的路径填入内核" class="headerlink" title="🛠️ 实操：将获取到的路径填入内核"></a>🛠️ 实操：将获取到的路径填入内核</h2><p>假设你通过上述命令确认了你的 Intel 12代核显需要三个固件：</p>
+<ol>
+<li><p><strong>进入配置界面：</strong> <code>make menuconfig</code></p>
+</li>
+<li><p><strong>定位路径：</strong> <code>Device Drivers</code> -&gt; <code>Generic Driver Options</code></p>
+</li>
+<li><p><strong>填入参数：</strong></p>
+<ul>
+<li><p>External firmware blobs to build into the kernel binary:</p>
+<p>i915&#x2F;adlp_dmc_ver2_16.bin i915&#x2F;tgl_huc_7.9.3.bin i915&#x2F;tgl_guc_70.1.1.bin</p>
+<p>(注意：多个固件之间用空格分隔，不要加引号)</p>
+</li>
+<li><p>Firmware blobs root directory:</p>
+<p>&#x2F;lib&#x2F;firmware</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="🚀-极致启动的最后一块拼图：禁用冗余服务"><a href="#🚀-极致启动的最后一块拼图：禁用冗余服务" class="headerlink" title="🚀 极致启动的最后一块拼图：禁用冗余服务"></a>🚀 极致启动的最后一块拼图：禁用冗余服务</h2><p>内核精简到极致后，剩下的耗时大户就是 <strong>User Space（用户空间）</strong> 的服务了。</p>
+<h3 id="1-禁用不必要的-Systemd-等待"><a href="#1-禁用不必要的-Systemd-等待" class="headerlink" title="1. 禁用不必要的 Systemd 等待"></a>1. 禁用不必要的 Systemd 等待</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none"># 检查哪些服务在拖后腿
+systemd-analyze blame</code></pre>
+
+<ul>
+<li><p>网络等待： 如果你发现 NetworkManager-wait-online.service 耗时很长，可以禁用它：</p>
+<p>systemctl disable NetworkManager-wait-online.service</p>
+</li>
+<li><p><strong>磁盘挂载：</strong> 检查 <code>/etc/fstab</code>，对于非系统分区（如数据盘），加入 <code>noauto,x-systemd.automount</code> 参数，让它在进入桌面后再挂载。</p>
+</li>
+</ul>
+<h3 id="2-压缩-LZO-LZ4-内核"><a href="#2-压缩-LZO-LZ4-内核" class="headerlink" title="2. 压缩 LZO&#x2F;LZ4 内核"></a>2. 压缩 LZO&#x2F;LZ4 内核</h3><p>在 <code>Processor type and features</code> -&gt; <code>Kernel compression mode</code> 中：</p>
+<ul>
+<li>选择 <strong>LZ4</strong>：解压速度最快，虽然内核体积比 XZ 大一点，但现代 CPU 的解压性能远超磁盘读取性能，LZ4 能减少约 100ms 的解压耗时。</li>
+</ul>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/01/05/%F0%9F%9B%A0%EF%B8%8F-Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">🛠️ Gentoo 极致快启：一键内核更新脚本</a></li>
+                
+                
+                    <li>下一篇: <a href="/2026/01/05/%E7%89%B9%E5%AE%9A%E6%98%BE%E5%8D%A1%EF%BC%88%E5%A6%82-NVIDIA-%E9%97%AD%E6%BA%90%E9%A9%B1%E5%8A%A8%E6%88%96-Intel-%E6%A0%B8%E6%98%BE%EF%BC%89%E7%9A%84-firmware-%E8%B7%AF%E5%BE%84%E5%AF%B9%E7%85%A7%E8%A1%A8/">特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/gentoo/" rel="tag">gentoo</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%F0%9F%9B%A0%EF%B8%8F-Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">🛠️ Gentoo 极致快启：一键内核更新脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E7%A9%B6%E7%AB%9F%E5%9C%A8%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%9B%BA%E4%BB%B6%E6%96%87%E4%BB%B6%E5%90%8D/">如何查看当前系统究竟在用哪一个具体的固件文件名</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E7%89%B9%E5%AE%9A%E6%98%BE%E5%8D%A1%EF%BC%88%E5%A6%82-NVIDIA-%E9%97%AD%E6%BA%90%E9%A9%B1%E5%8A%A8%E6%88%96-Intel-%E6%A0%B8%E6%98%BE%EF%BC%89%E7%9A%84-firmware-%E8%B7%AF%E5%BE%84%E5%AF%B9%E7%85%A7%E8%A1%A8/">特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E9%92%88%E5%AF%B9%E4%BD%A0%E7%9A%84%E5%85%B7%E4%BD%93%E7%A1%AC%E4%BB%B6%EF%BC%88%E5%A6%82%E7%89%B9%E5%AE%9A%E7%9A%84%E6%98%BE%E5%8D%A1%E6%88%96-NVMe-%E5%9E%8B%E5%8F%B7%EF%BC%89%E8%BF%9B%E8%A1%8C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E7%9A%84%E5%BE%AE%E8%B0%83/">针对你的具体硬件（如特定的显卡或 NVMe 型号）进行内核参数的微调</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%B7%B1%E5%BA%A6%E5%AE%9A%E5%88%B6%E5%86%85%E6%A0%B8%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%9E%81%E8%87%B4%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6/">如何深度定制内核以获得极致启动速度</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-Linux-%E6%9E%81%E8%87%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E-Stage3-%E5%88%B0-Plasma-%E6%A1%8C%E9%9D%A2/">Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/arch/" style="font-size: 10px;">arch</a> <a href="/tags/gentoo/" style="font-size: 20px;">gentoo</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

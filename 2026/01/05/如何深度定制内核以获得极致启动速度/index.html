@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>如何深度定制内核以获得极致启动速度 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="如何深度定制内核以获得极致启动速度"/>
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>如何深度定制内核以获得极致启动速度</h2>
+            <div class="post-meta">
+                <time class="date">2026.01.05</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Linux/">Linux</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>深度定制内核是 Gentoo 玩家的“成人礼”，也是将开机速度压制在秒级单位的关键。要获得极致的启动速度，核心逻辑是：<strong>把内核做小、把驱动内置、把多余的扫描关掉。</strong></p>
+<p>以下是深度定制内核以实现极致启动速度的进阶指南。</p>
+<h2 id="一、-预备工作：获取硬件指纹"><a href="#一、-预备工作：获取硬件指纹" class="headerlink" title="一、 预备工作：获取硬件指纹"></a>一、 预备工作：获取硬件指纹</h2><p>在精简内核前，你必须明确知道哪些驱动是<strong>绝对必须</strong>的，否则系统将无法引导（通常导致 Kernel Panic）。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 安装硬件检测工具
+emerge --ask sys-apps&#x2F;pciutils sys-apps&#x2F;usbutils
+# 查看当前正在使用的模块（如果你正在使用通用内核或 LiveCD 成功引导）
+lsmod
+# 获取内核配置建议（非常有用）
+lsinitrd &#x2F;boot&#x2F;initramfs-xxxx.img | grep modules # 查看 initramfs 依赖了哪些模块</code></pre>
+
+<h2 id="二、-极致精简：内核配置策略-make-menuconfig"><a href="#二、-极致精简：内核配置策略-make-menuconfig" class="headerlink" title="二、 极致精简：内核配置策略 (make menuconfig)"></a>二、 极致精简：内核配置策略 (<code>make menuconfig</code>)</h2><p>进入 <code>/usr/src/linux</code>，开启你的裁剪之旅。</p>
+<h3 id="1-禁用-Initramfs-启动加速的核心"><a href="#1-禁用-Initramfs-启动加速的核心" class="headerlink" title="1. 禁用 Initramfs (启动加速的核心)"></a>1. 禁用 Initramfs (启动加速的核心)</h3><p>Initramfs 的存在是为了加载磁盘驱动，但这会多出一道解压和扫描的过程。</p>
+<ul>
+<li><strong>做法：</strong> 将你的 <strong>磁盘控制器驱动</strong>（如 NVMe 或 SATA）和 <strong>根文件系统驱动</strong>（如 Ext4）直接编译进内核（标记为 <code>&lt;*&gt;</code> 而非 <code>&lt;M&gt;</code>）。</li>
+<li><strong>配置位置：</strong><ul>
+<li><code>Device Drivers</code> -&gt; <code>NVME Support</code> -&gt; <code>&lt;*&gt;</code></li>
+<li><code>File systems</code> -&gt; <code>&lt;*&gt;</code> (例如 Ext4)</li>
+</ul>
+</li>
+<li><strong>结果：</strong> 启动时内核直接挂载根分区，无需加载 Initramfs，节省 0.5~2 秒。</li>
+</ul>
+<h3 id="2-精简处理器特性"><a href="#2-精简处理器特性" class="headerlink" title="2. 精简处理器特性"></a>2. 精简处理器特性</h3><p>通用内核会包含对几十年前 CPU 的兼容代码。</p>
+<ul>
+<li><strong>做法：</strong> 开启针对你当前架构的优化。</li>
+<li><strong>配置位置：</strong><ul>
+<li><code>Processor type and features</code> -&gt; <code>Processor family</code> -&gt; 选择你的具体架构 (如 Core i7 或 Zen)。</li>
+<li>关闭 <code>Support for 32-bit ELF binaries</code>（如果你不需要运行 32 位老旧软件）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-去除冗余驱动（最耗时的环节）"><a href="#3-去除冗余驱动（最耗时的环节）" class="headerlink" title="3. 去除冗余驱动（最耗时的环节）"></a>3. 去除冗余驱动（最耗时的环节）</h3><p>内核在启动时会扫描各种总线，关掉你没有的硬件可以减少扫描等待。</p>
+<ul>
+<li><strong>必关项：</strong><ul>
+<li><strong>Amateur Radio support</strong> (业余无线电)</li>
+<li><strong>ISDN support</strong> (老式调制解调器)</li>
+<li><strong>Accessibility support</strong> (辅助功能)</li>
+<li><strong>Industrial I&#x2F;O support</strong> (工业传感器)</li>
+</ul>
+</li>
+<li><strong>网络：</strong> 只保留你的网卡驱动（通常是 Intel e1000e 或 Realtek），关闭所有其他的 Token Ring, FDDI 设备驱动。</li>
+</ul>
+<h3 id="4-优化控制台回显"><a href="#4-优化控制台回显" class="headerlink" title="4. 优化控制台回显"></a>4. 优化控制台回显</h3><p>大量的内核日志（dmesg）输出到屏幕实际上是非常耗时的（特别是串口控制台）。</p>
+<ul>
+<li><strong>做法：</strong> * <code>Device Drivers</code> -&gt; <code>Graphics support</code> -&gt; <code>Console display driver support</code> -&gt; 关闭多余的字体。<ul>
+<li>在引导参数中加入 <code>quiet</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="三、-编译与静态化内置"><a href="#三、-编译与静态化内置" class="headerlink" title="三、 编译与静态化内置"></a>三、 编译与静态化内置</h2><h3 id="1-编译参数优化"><a href="#1-编译参数优化" class="headerlink" title="1. 编译参数优化"></a>1. 编译参数优化</h3><p>在编译内核时，确保利用所有 CPU 核心。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">make -j$(nproc)</code></pre>
+
+<h3 id="2-静态内置-vs-模块"><a href="#2-静态内置-vs-模块" class="headerlink" title="2. 静态内置 vs 模块"></a>2. 静态内置 vs 模块</h3><ul>
+<li><strong>内置 (<code>&lt;\*&gt;</code>):</strong> 启动时直接运行，速度最快，内核文件略大。</li>
+<li><strong>模块 (<code>&lt;M&gt;</code>):</strong> 启动后再按需加载。</li>
+<li><strong>极致原则：</strong> 启动必须的驱动（显卡、键盘、磁盘）全部内置；非必须的（USB 蓝牙、打印机）做成模块或直接剔除。</li>
+</ul>
+<h2 id="四、-配合引导器的极致优化"><a href="#四、-配合引导器的极致优化" class="headerlink" title="四、 配合引导器的极致优化"></a>四、 配合引导器的极致优化</h2><p>即使内核做到了极致，引导器（GRUB）的等待时间也可能成为瓶颈。</p>
+<h3 id="1-减少-GRUB-等待"><a href="#1-减少-GRUB-等待" class="headerlink" title="1. 减少 GRUB 等待"></a>1. 减少 GRUB 等待</h3><p>编辑 <code>/etc/default/grub</code>:</p>
+<p>Plaintext</p>
+<pre class="language-none"><code class="language-none">GRUB_TIMEOUT&#x3D;0
+GRUB_CMDLINE_LINUX_DEFAULT&#x3D;&quot;quiet rootwait nowatchdog&quot;</code></pre>
+
+<ul>
+<li><code>nowatchdog</code>: 禁用软件看门狗，减少启动时的时钟自检。</li>
+</ul>
+<h3 id="2-使用-EFISTUB-跳过-GRUB"><a href="#2-使用-EFISTUB-跳过-GRUB" class="headerlink" title="2. 使用 EFISTUB (跳过 GRUB)"></a>2. 使用 EFISTUB (跳过 GRUB)</h3><p>如果你真的追求极致，可以不使用 GRUB，直接让 UEFI 固件加载内核。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 使用 efibootmgr 直接向主板注册内核
+efibootmgr --create --disk &#x2F;dev&#x2F;nvme0n1 --part 1 --loader &#x2F;vmlinuz-gentoo --label &quot;Gentoo FastBoot&quot; --unicode &quot;root&#x3D;&#x2F;dev&#x2F;nvme0n1p3 rw quiet&quot;</code></pre>
+
+<h2 id="五、-启动速度度量指标"><a href="#五、-启动速度度量指标" class="headerlink" title="五、 启动速度度量指标"></a>五、 启动速度度量指标</h2><p>安装完成后，使用 systemd 自带工具分析瓶颈：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">systemd-analyze
+# 详细查看哪个服务拖慢了速度
+systemd-analyze blame
+# 生成精美的启动流程图
+systemd-analyze plot &gt; boot.svg</code></pre>
+
+<h3 id="常见瓶颈修复建议："><a href="#常见瓶颈修复建议：" class="headerlink" title="常见瓶颈修复建议："></a>常见瓶颈修复建议：</h3><ul>
+<li><strong>DHCP 等待：</strong> 启动慢往往是因为在等网络分配 IP。改为静态 IP 或使用 <code>NetworkManager</code> 的异步启动。</li>
+<li><strong>文件系统检查：</strong> 确保 <code>/etc/fstab</code> 中的 <code>pass</code> 字段配置正确，避免每次开机都全盘扫描。</li>
+</ul>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/01/05/%E9%92%88%E5%AF%B9%E4%BD%A0%E7%9A%84%E5%85%B7%E4%BD%93%E7%A1%AC%E4%BB%B6%EF%BC%88%E5%A6%82%E7%89%B9%E5%AE%9A%E7%9A%84%E6%98%BE%E5%8D%A1%E6%88%96-NVMe-%E5%9E%8B%E5%8F%B7%EF%BC%89%E8%BF%9B%E8%A1%8C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E7%9A%84%E5%BE%AE%E8%B0%83/">针对你的具体硬件（如特定的显卡或 NVMe 型号）进行内核参数的微调</a></li>
+                
+                
+                    <li>下一篇: <a href="/2026/01/05/Gentoo-Linux-%E6%9E%81%E8%87%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E-Stage3-%E5%88%B0-Plasma-%E6%A1%8C%E9%9D%A2/">Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/gentoo/" rel="tag">gentoo</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%F0%9F%9B%A0%EF%B8%8F-Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">🛠️ Gentoo 极致快启：一键内核更新脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E7%A9%B6%E7%AB%9F%E5%9C%A8%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%9B%BA%E4%BB%B6%E6%96%87%E4%BB%B6%E5%90%8D/">如何查看当前系统究竟在用哪一个具体的固件文件名</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E7%89%B9%E5%AE%9A%E6%98%BE%E5%8D%A1%EF%BC%88%E5%A6%82-NVIDIA-%E9%97%AD%E6%BA%90%E9%A9%B1%E5%8A%A8%E6%88%96-Intel-%E6%A0%B8%E6%98%BE%EF%BC%89%E7%9A%84-firmware-%E8%B7%AF%E5%BE%84%E5%AF%B9%E7%85%A7%E8%A1%A8/">特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E9%92%88%E5%AF%B9%E4%BD%A0%E7%9A%84%E5%85%B7%E4%BD%93%E7%A1%AC%E4%BB%B6%EF%BC%88%E5%A6%82%E7%89%B9%E5%AE%9A%E7%9A%84%E6%98%BE%E5%8D%A1%E6%88%96-NVMe-%E5%9E%8B%E5%8F%B7%EF%BC%89%E8%BF%9B%E8%A1%8C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E7%9A%84%E5%BE%AE%E8%B0%83/">针对你的具体硬件（如特定的显卡或 NVMe 型号）进行内核参数的微调</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%B7%B1%E5%BA%A6%E5%AE%9A%E5%88%B6%E5%86%85%E6%A0%B8%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%9E%81%E8%87%B4%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6/">如何深度定制内核以获得极致启动速度</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-Linux-%E6%9E%81%E8%87%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E-Stage3-%E5%88%B0-Plasma-%E6%A1%8C%E9%9D%A2/">Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/arch/" style="font-size: 10px;">arch</a> <a href="/tags/gentoo/" style="font-size: 20px;">gentoo</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

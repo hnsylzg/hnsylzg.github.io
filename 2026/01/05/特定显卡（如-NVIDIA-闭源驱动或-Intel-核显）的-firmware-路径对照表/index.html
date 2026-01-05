@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表"/>
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表</h2>
+            <div class="post-meta">
+                <time class="date">2026.01.05</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Linux/">Linux</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>针对现代主流硬件（Intel&#x2F;AMD 核显、NVIDIA 显卡、NVMe 硬盘），以下是精密的 firmware 路径对照表。将这些路径填入内核配置的 <code>CONFIG_EXTRA_FIRMWARE</code> 中，可以让内核在启动早期直接驱动显卡，实现真正意义上的“闪电无缝开机”。</p>
+<h2 id="一、-固件内建配置-内核设置"><a href="#一、-固件内建配置-内核设置" class="headerlink" title="一、 固件内建配置 (内核设置)"></a>一、 固件内建配置 (内核设置)</h2><p>在 make menuconfig 中定位到：</p>
+<p>Device Drivers -&gt; Generic Driver Options</p>
+<ul>
+<li><strong>CONFIG_FW_LOADER&#x3D;y</strong></li>
+<li><strong>CONFIG_EXTRA_FIRMWARE&#x3D;”[下方表格中的对应路径]”</strong></li>
+<li><strong>CONFIG_EXTRA_FIRMWARE_DIR&#x3D;”&#x2F;lib&#x2F;firmware”</strong></li>
+</ul>
+<h2 id="二、-常用硬件-Firmware-路径对照表"><a href="#二、-常用硬件-Firmware-路径对照表" class="headerlink" title="二、 常用硬件 Firmware 路径对照表"></a>二、 常用硬件 Firmware 路径对照表</h2><h3 id="1-Intel-集成显卡-i915"><a href="#1-Intel-集成显卡-i915" class="headerlink" title="1. Intel 集成显卡 (i915)"></a>1. Intel 集成显卡 (i915)</h3><p>Intel 核显需要 DMC（显示微控制器）固件来实现高性能电源管理和快速初始化。</p>
+<table>
+<thead>
+<tr>
+<th><strong>CPU 架构</strong></th>
+<th><strong>对应路径 (填入 CONFIG_EXTRA_FIRMWARE)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Skylake (6th)</strong></td>
+<td><code>i915/skl_dmc_ver1_27.bin</code></td>
+</tr>
+<tr>
+<td><strong>Kaby Lake (7th)</strong></td>
+<td><code>i915/kbl_dmc_ver1_04.bin</code></td>
+</tr>
+<tr>
+<td><strong>Coffee&#x2F;Whiskey Lake</strong></td>
+<td><code>i915/cml_dmc_ver1_08.bin</code></td>
+</tr>
+<tr>
+<td><strong>Ice Lake &#x2F; Tiger Lake</strong></td>
+<td><code>i915/tgl_dmc_ver2_12.bin</code></td>
+</tr>
+<tr>
+<td><strong>Alder&#x2F;Raptor Lake (12&#x2F;13&#x2F;14th)</strong></td>
+<td><code>i915/adlp_dmc_ver2_16.bin</code></td>
+</tr>
+</tbody></table>
+<h3 id="2-AMD-Radeon-显卡-amdgpu"><a href="#2-AMD-Radeon-显卡-amdgpu" class="headerlink" title="2. AMD Radeon 显卡 (amdgpu)"></a>2. AMD Radeon 显卡 (amdgpu)</h3><p>AMD 驱动较为复杂，通常需要包含多个模块（VCN, SDMA, PSP, GPU_INFO）。建议使用空格分隔填入多个路径。</p>
+<table>
+<thead>
+<tr>
+<th><strong>显卡系列 (代号)</strong></th>
+<th><strong>建议填入的核心固件路径 (示例)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Renoir (Ryzen 4000&#x2F;5000G)</strong></td>
+<td><code>amdgpu/renoir_asd.bin amdgpu/renoir_gpu_info.bin amdgpu/renoir_me.bin amdgpu/renoir_pfp.bin amdgpu/renoir_vcn.bin</code></td>
+</tr>
+<tr>
+<td><strong>Cezanne (Ryzen 5000G)</strong></td>
+<td><code>amdgpu/green_sardine_asd.bin amdgpu/green_sardine_me.bin</code></td>
+</tr>
+<tr>
+<td><strong>Navi 21 (RX 6800&#x2F;6900)</strong></td>
+<td><code>amdgpu/sienna_cichlid_cap.bin amdgpu/sienna_cichlid_mes.bin</code></td>
+</tr>
+<tr>
+<td><strong>Navi 3x (RX 7000 系列)</strong></td>
+<td><code>amdgpu/gc_11_0_0_mes.bin amdgpu/psp_13_0_0_ta.bin</code></td>
+</tr>
+</tbody></table>
+<h3 id="3-NVIDIA-显卡-开源驱动-Nouveau"><a href="#3-NVIDIA-显卡-开源驱动-Nouveau" class="headerlink" title="3. NVIDIA 显卡 (开源驱动 Nouveau)"></a>3. NVIDIA 显卡 (开源驱动 Nouveau)</h3><p>注意：如果你使用 NVIDIA 官方闭源驱动，则<strong>无需</strong>在内核中内建固件。如果你坚持使用开源驱动 <code>nouveau</code>：</p>
+<ul>
+<li><strong>路径：</strong> <code>nvidia/gm204/gr/fecs_bl.bin</code> (以 Maxwell 架构为例)</li>
+<li><em>提示：由于 NVIDIA 授权限制，建议用户优先使用官方驱动而非手动内建固件到内核。</em></li>
+</ul>
+<h2 id="三、-NVMe-硬盘与网卡微码-可选"><a href="#三、-NVMe-硬盘与网卡微码-可选" class="headerlink" title="三、 NVMe 硬盘与网卡微码 (可选)"></a>三、 NVMe 硬盘与网卡微码 (可选)</h2><p>虽然大多数 NVMe 硬盘不需要内核加载外部固件，但部分 Intel 网卡和蓝牙需要固件才能在启动瞬间联网。</p>
+<ul>
+<li><strong>Intel Wi-Fi (iwlwifi):</strong> <code>iwlwifi-ty-a0-gf-a0-59.ucode</code> (WiFi 6 示例)</li>
+<li><strong>Realtek 网卡:</strong> <code>rtl_nic/rtl8168h-2.fw</code></li>
+</ul>
+<h2 id="四、-极致调优：内核启动参数-Boot-Parameters"><a href="#四、-极致调优：内核启动参数-Boot-Parameters" class="headerlink" title="四、 极致调优：内核启动参数 (Boot Parameters)"></a>四、 极致调优：内核启动参数 (Boot Parameters)</h2><p>除了内建驱动，还要在 GRUB 或引导加载程序中加入以下参数来禁用那些拖慢速度的“检测扫描”：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none"># 编辑 &#x2F;etc&#x2F;default&#x2F;grub 的 GRUB_CMDLINE_LINUX_DEFAULT
+# quiet: 减少回显
+# lpj&#x3D;xxxx: 预设时钟校准值 (通过 dmesg | grep lpj 获取后填入，跳过计算)
+# rootwait: 减少文件系统挂载等待
+# video&#x3D;efifb:libo: 指定使用 EFI 帧缓冲
+# intel_iommu&#x3D;igfx_off: 略微提升核显性能
+
+GRUB_CMDLINE_LINUX_DEFAULT&#x3D;&quot;quiet rootwait lpj&#x3D;xxxx video&#x3D;efifb:libo nowatchdog&quot;</code></pre>
+
+<h2 id="五、-最后的杀手锏：预载-Init-init-bin-systemd"><a href="#五、-最后的杀手锏：预载-Init-init-bin-systemd" class="headerlink" title="五、 最后的杀手锏：预载 Init (init&#x3D;&#x2F;bin&#x2F;systemd)"></a>五、 最后的杀手锏：预载 Init (init&#x3D;&#x2F;bin&#x2F;systemd)</h2><p>如果你已经把磁盘和文件系统驱动全部内建（<code>&lt;*&gt;</code>），你可以尝试删除根分区的 <code>initramfs</code>。</p>
+<ol>
+<li><strong>修改 GRUB：</strong> 移除 <code>initrd</code> 所在的行。</li>
+<li><strong>更新内核：</strong> 重新编译并确保没有生成 <code>.img</code> 镜像。</li>
+<li><strong>直接挂载：</strong> 在内核参数中指定 <code>root=/dev/nvme0n1p3 rw rootfstype=ext4</code>。</li>
+</ol>
+<p><strong>完成后，你可以通过 <code>dmesg | head -n 20</code> 看到内核加载固件的精确时间。如果显示 <code>Direct firmware load for i915/... succeeded</code> 且耗时小于 0.01s，恭喜你，已达巅峰。</strong></p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E7%A9%B6%E7%AB%9F%E5%9C%A8%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%9B%BA%E4%BB%B6%E6%96%87%E4%BB%B6%E5%90%8D/">如何查看当前系统究竟在用哪一个具体的固件文件名</a></li>
+                
+                
+                    <li>下一篇: <a href="/2026/01/05/%E9%92%88%E5%AF%B9%E4%BD%A0%E7%9A%84%E5%85%B7%E4%BD%93%E7%A1%AC%E4%BB%B6%EF%BC%88%E5%A6%82%E7%89%B9%E5%AE%9A%E7%9A%84%E6%98%BE%E5%8D%A1%E6%88%96-NVMe-%E5%9E%8B%E5%8F%B7%EF%BC%89%E8%BF%9B%E8%A1%8C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E7%9A%84%E5%BE%AE%E8%B0%83/">针对你的具体硬件（如特定的显卡或 NVMe 型号）进行内核参数的微调</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/gentoo/" rel="tag">gentoo</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%F0%9F%9B%A0%EF%B8%8F-Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">🛠️ Gentoo 极致快启：一键内核更新脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E7%A9%B6%E7%AB%9F%E5%9C%A8%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%9B%BA%E4%BB%B6%E6%96%87%E4%BB%B6%E5%90%8D/">如何查看当前系统究竟在用哪一个具体的固件文件名</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E7%89%B9%E5%AE%9A%E6%98%BE%E5%8D%A1%EF%BC%88%E5%A6%82-NVIDIA-%E9%97%AD%E6%BA%90%E9%A9%B1%E5%8A%A8%E6%88%96-Intel-%E6%A0%B8%E6%98%BE%EF%BC%89%E7%9A%84-firmware-%E8%B7%AF%E5%BE%84%E5%AF%B9%E7%85%A7%E8%A1%A8/">特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E9%92%88%E5%AF%B9%E4%BD%A0%E7%9A%84%E5%85%B7%E4%BD%93%E7%A1%AC%E4%BB%B6%EF%BC%88%E5%A6%82%E7%89%B9%E5%AE%9A%E7%9A%84%E6%98%BE%E5%8D%A1%E6%88%96-NVMe-%E5%9E%8B%E5%8F%B7%EF%BC%89%E8%BF%9B%E8%A1%8C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E7%9A%84%E5%BE%AE%E8%B0%83/">针对你的具体硬件（如特定的显卡或 NVMe 型号）进行内核参数的微调</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%B7%B1%E5%BA%A6%E5%AE%9A%E5%88%B6%E5%86%85%E6%A0%B8%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%9E%81%E8%87%B4%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6/">如何深度定制内核以获得极致启动速度</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-Linux-%E6%9E%81%E8%87%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E-Stage3-%E5%88%B0-Plasma-%E6%A1%8C%E9%9D%A2/">Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/arch/" style="font-size: 10px;">arch</a> <a href="/tags/gentoo/" style="font-size: 20px;">gentoo</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

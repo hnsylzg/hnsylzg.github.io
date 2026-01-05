@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>🛠️ Gentoo 极致快启：一键内核更新脚本 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="🛠️ Gentoo 极致快启：一键内核更新脚本"/>
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>🛠️ Gentoo 极致快启：一键内核更新脚本</h2>
+            <div class="post-meta">
+                <time class="date">2026.01.05</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Linux/">Linux</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>创建一个名为 <code>fast_kernel_update.sh</code> 的文件：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">#!&#x2F;bin&#x2F;bash
+
+# --- 配置区 ---
+KERNEL_VERSION&#x3D;$(make -s kernelrelease)
+EFI_PART&#x3D;&quot;&#x2F;dev&#x2F;nvme0n1p1&quot;  # 你的EFI分区设备路径
+MOUNT_POINT&#x3D;&quot;&#x2F;boot&#x2F;efi&quot;
+LOADER_NAME&#x3D;&quot;Gentoo_FastBoot&quot;
+# --- --- --- ---
+
+echo &quot;开始为内核 $KERNEL_VERSION 进行极致加速编译...&quot;
+
+# 1. 自动根据逻辑核心数进行编译
+echo &quot;正在编译内核...&quot;
+make -j$(nproc) || &#123; echo &quot;编译失败&quot;; exit 1; &#125;
+
+# 2. 挂载 EFI 分区
+if ! mountpoint -q &quot;$MOUNT_POINT&quot;; then
+    mount &quot;$EFI_PART&quot; &quot;$MOUNT_POINT&quot;
+fi
+
+# 3. 拷贝内核到 EFI 分区 (不带 initramfs，因为我们已经内建了驱动)
+echo &quot;拷贝内核镜像到 EFI 分区...&quot;
+cp arch&#x2F;x86&#x2F;boot&#x2F;bzImage &quot;$MOUNT_POINT&#x2F;vmlinuz-fast&quot;
+
+# 4. 移除旧的 EFI 启动项并创建新的 (实现 EFISTUB 直接引导)
+echo &quot;更新 UEFI 引导项...&quot;
+# 删除同名的旧启动项
+OLD_ID&#x3D;$(efibootmgr | grep &quot;$LOADER_NAME&quot; | awk &#39;&#123;print $1&#125;&#39; | sed &#39;s&#x2F;Boot&#x2F;&#x2F;;s&#x2F;\*&#x2F;&#x2F;&#39;)
+if [ -n &quot;$OLD_ID&quot; ]; then
+    efibootmgr -b &quot;$OLD_ID&quot; -B &gt; &#x2F;dev&#x2F;null
+fi
+
+# 注册新的引导项 (请根据你的根分区 UUID 修改 root&#x3D; 部分)
+# quiet: 安静模式  rootwait: 等待磁盘就绪  rw: 读写挂载
+ROOT_UUID&#x3D;$(blkid -s UUID -o value &#x2F;dev&#x2F;nvme0n1p3) # 自动获取根分区UUID
+efibootmgr --create --disk &quot;$EFI_PART&quot; --part 1 \
+    --loader &#x2F;vmlinuz-fast --label &quot;$LOADER_NAME&quot; \
+    --unicode &quot;root&#x3D;UUID&#x3D;$ROOT_UUID rw quiet nowatchdog lpj&#x3D;$(dmesg | grep lpj | head -n 1 | awk &#39;&#123;print $NF&#125;&#39;)&quot;
+
+echo &quot;完成！现在的启动流程：BIOS -&gt; $LOADER_NAME -&gt; Desktop&quot;
+echo &quot;建议下次重启后运行 &#39;systemd-analyze&#39; 查看成绩。&quot;</code></pre>
+
+<h2 id="💡-脚本背后的“快”细节"><a href="#💡-脚本背后的“快”细节" class="headerlink" title="💡 脚本背后的“快”细节"></a>💡 脚本背后的“快”细节</h2><ol>
+<li><strong>EFISTUB 直接引导</strong>：我们跳过了 GRUB。GRUB 扫描磁盘、显示菜单、加载模块至少需要 <strong>1.5 到 3 秒</strong>。而 EFISTUB 由主板固件直接拉起内核，时间几乎为 <strong>0</strong>。</li>
+<li><strong>Lpj 参数预设</strong>：脚本中的 <code>lpj=$(dmesg | ...)</code> 会抓取你当前 CPU 的 <code>loops_per_jiffy</code>。将其传给内核后，内核启动时就不再需要执行“校准延迟循环”这一检测步骤，节省约 <strong>100ms</strong>。</li>
+<li><strong>内建驱动 (<code>vmlinuz-fast</code>)</strong>：因为你已经把显卡、磁盘固件编译进了内核，所以脚本不再调用 <code>genkernel</code> 或 <code>dracut</code> 生成 <code>initramfs</code>。这省去了内存盘解压的时间。</li>
+</ol>
+<h2 id="🏎️-检查你的“战果”"><a href="#🏎️-检查你的“战果”" class="headerlink" title="🏎️ 检查你的“战果”"></a>🏎️ 检查你的“战果”</h2><p>当你使用该脚本重启后，你的系统启动链条会变成这样：</p>
+<p>在进入桌面后，请务必执行：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">systemd-analyze plot &gt; fast_boot.svg</code></pre>
+
+<p>使用浏览器打开这个 <code>svg</code> 文件。你会看到一条非常“陡峭”且紧凑的横条图。如果 <code>Kernel</code> 和 <code>Initrd</code>（由于没用 initrd，这部分应该接近0）的总和在 <strong>1 秒</strong>以内，那么你已经站在了 Gentoo 优化的巅峰。</p>
+<h3 id="最后一步建议："><a href="#最后一步建议：" class="headerlink" title="最后一步建议："></a>最后一步建议：</h3><p>为了保证系统万无一失，<strong>千万不要删掉你的旧内核和旧 GRUB 引导</strong>。这个脚本创建的是一个新的 EFI 启动条目。如果新内核 Panic 了，你只需要在主板开机时按 <code>F12</code>（或对应的 BIOS 菜单键）选回原来的 GRUB 即可。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E7%A9%B6%E7%AB%9F%E5%9C%A8%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%9B%BA%E4%BB%B6%E6%96%87%E4%BB%B6%E5%90%8D/">如何查看当前系统究竟在用哪一个具体的固件文件名</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/gentoo/" rel="tag">gentoo</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%F0%9F%9B%A0%EF%B8%8F-Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">🛠️ Gentoo 极致快启：一键内核更新脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E7%A9%B6%E7%AB%9F%E5%9C%A8%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%9B%BA%E4%BB%B6%E6%96%87%E4%BB%B6%E5%90%8D/">如何查看当前系统究竟在用哪一个具体的固件文件名</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E7%89%B9%E5%AE%9A%E6%98%BE%E5%8D%A1%EF%BC%88%E5%A6%82-NVIDIA-%E9%97%AD%E6%BA%90%E9%A9%B1%E5%8A%A8%E6%88%96-Intel-%E6%A0%B8%E6%98%BE%EF%BC%89%E7%9A%84-firmware-%E8%B7%AF%E5%BE%84%E5%AF%B9%E7%85%A7%E8%A1%A8/">特定显卡（如 NVIDIA 闭源驱动或 Intel 核显）的 firmware 路径对照表</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E9%92%88%E5%AF%B9%E4%BD%A0%E7%9A%84%E5%85%B7%E4%BD%93%E7%A1%AC%E4%BB%B6%EF%BC%88%E5%A6%82%E7%89%B9%E5%AE%9A%E7%9A%84%E6%98%BE%E5%8D%A1%E6%88%96-NVMe-%E5%9E%8B%E5%8F%B7%EF%BC%89%E8%BF%9B%E8%A1%8C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E7%9A%84%E5%BE%AE%E8%B0%83/">针对你的具体硬件（如特定的显卡或 NVMe 型号）进行内核参数的微调</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/%E5%A6%82%E4%BD%95%E6%B7%B1%E5%BA%A6%E5%AE%9A%E5%88%B6%E5%86%85%E6%A0%B8%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%9E%81%E8%87%B4%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6/">如何深度定制内核以获得极致启动速度</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-Linux-%E6%9E%81%E8%87%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E-Stage3-%E5%88%B0-Plasma-%E6%A1%8C%E9%9D%A2/">Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/arch/" style="font-size: 10px;">arch</a> <a href="/tags/gentoo/" style="font-size: 20px;">gentoo</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

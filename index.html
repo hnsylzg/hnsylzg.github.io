@@ -101,12 +101,8 @@
             <a href="/2026/01/05/Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">Gentoo 极致快启：一键内核更新脚本</a>
         </h2>
     
-        <p>创建一个名为 fast_kernel_update.sh 的文件：
-Bash
-#!&amp;#x2F;bin&amp;#x2F;bash
-
-# --- 配置区 ---
-KERNEL_VERSION&amp;#x3D;$...</p>
+        <p>既然我们要实现“极致快”，那就不能把时间浪费在手动输入 make、cp 和 efibootmgr 命令上。
+下面这个脚本它会自动完成内核编译、固件嵌入检查、自动挂载 EFI 分区以及更新主板启动...</p>
     
         <div class="post-meta">
             <time class="date">2026.01.05</time>

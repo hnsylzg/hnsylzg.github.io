@@ -59,7 +59,9 @@
         </section>
         <article class="post-content">
         
-            <p>创建一个名为 <code>fast_kernel_update.sh</code> 的文件：</p>
+            <p>既然我们要实现“极致快”，那就不能把时间浪费在手动输入 <code>make</code>、<code>cp</code> 和 <code>efibootmgr</code> 命令上。</p>
+<p>下面这个脚本它会自动完成<strong>内核编译</strong>、<strong>固件嵌入检查</strong>、<strong>自动挂载 EFI 分区</strong>以及<strong>更新主板启动项</strong>的全流程。</p>
+<p>创建一个名为 <code>fast_kernel_update.sh</code> 的文件：</p>
 <p>Bash</p>
 <pre class="language-none"><code class="language-none">#!&#x2F;bin&#x2F;bash
 

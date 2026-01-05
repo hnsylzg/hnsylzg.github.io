@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>Turtle 库的使用 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="Turtle 库的使用"/>
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Turtle 库的使用</h2>
+            <div class="post-meta">
+                <time class="date">2025.10.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Python/">Python</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <h3 id="一、turtle库的基本介绍"><a href="#一、turtle库的基本介绍" class="headerlink" title="一、turtle库的基本介绍"></a><strong>一、turtle库的基本介绍</strong></h3><p>在本模块中，我们将学习：</p>
+<ul>
+<li>turtle库的基本概念</li>
+<li>绘图窗体的布局设置</li>
+<li>空间坐标体系与角度坐标体系</li>
+<li>RGB色彩体系的基础知识</li>
+</ul>
+<p>通过本单元的学习，你将掌握如何用Python控制一只“海龟”在屏幕上绘制图形，开启你的图形化编程之旅。</p>
+<h4 id="什么是turtle库？"><a href="#什么是turtle库？" class="headerlink" title="什么是turtle库？"></a>什么是turtle库？</h4><p><strong>turtle</strong>（中文意为“海龟”），也被称为<strong>海龟绘图系统（Turtle Graphics）</strong>，是一种经典的图形绘制方法。它最早于1969年由Logo语言引入，专为程序设计初学者设计，强调“可视化编程”的理念。</p>
+<blockquote>
+<p>🐢 想象一下：有一只小海龟，趴在一张白纸上，它的尾巴会留下痕迹。我们通过代码指挥这只海龟前进、后退、转弯……它走过的路径就形成了图形。</p>
+</blockquote>
+<ul>
+<li><strong>地位</strong>：turtle是Python的<strong>标准库</strong>之一，无需额外安装，直接导入即可使用。</li>
+<li><strong>用途</strong>：非常适合编程入门者理解循环、条件、函数等基本概念，并实现有趣的图形绘制。</li>
+</ul>
+<blockquote>
+<p>💡 小知识：Python的标准库是随解释器一起安装的功能模块（如 <code>math</code>, <code>random</code>, <code>turtle</code>）；而第三方库需要手动安装（如 <code>pygame</code>, <code>requests</code>）。</p>
+</blockquote>
+<p>虽然在专业术语中，“库”、“包”、“模块”有细微区别，但在本课程中，我们统一称为“模块”。</p>
+<h4 id="turtle的魅力"><a href="#turtle的魅力" class="headerlink" title="turtle的魅力"></a>turtle的魅力</h4><p>不要小看这只“小海龟”！它能绘制出非常复杂的图案。比如北京理工大学的学生们，仅用两周时间就创作出了令人惊叹的作品：</p>
+<ul>
+<li>几何艺术</li>
+<li>动画效果</li>
+<li>数据可视化雏形</li>
+</ul>
+<p>你也可以做到！让我们从基础开始，一步步探索turtle的强大功能。</p>
+<h3 id="二、turtle绘图窗体布局"><a href="#二、turtle绘图窗体布局" class="headerlink" title="二、turtle绘图窗体布局"></a><strong>二、turtle绘图窗体布局</strong></h3><p>要开始绘图，首先需要一个“画布”——也就是一个独立的窗口。</p>
+<p>这个窗口就是turtle的绘图区域，在操作系统中表现为一个图形窗口，最小单位是<strong>像素（pixel）</strong>。</p>
+<p>例如：<code>fd(100)</code> 表示让海龟向前移动100个像素。</p>
+<h4 id="设置窗体：turtle-setup"><a href="#设置窗体：turtle-setup" class="headerlink" title="设置窗体：turtle.setup()"></a>设置窗体：<code>turtle.setup()</code></h4><p>我们可以使用 <code>setup()</code> 函数来定义窗口的大小和位置。</p>
+<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><pre class="language-python" data-language="python"><code class="language-python">turtle<span class="token punctuation">.</span>setup<span class="token punctuation">(</span>width<span class="token punctuation">,</span> height<span class="token punctuation">,</span> startx<span class="token punctuation">,</span> starty<span class="token punctuation">)</span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>width</code></td>
+<td>窗口宽度（像素）</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>窗口高度（像素）</td>
+</tr>
+<tr>
+<td><code>startx</code></td>
+<td>窗口左上角在屏幕中的X坐标（可选）</td>
+</tr>
+<tr>
+<td><code>starty</code></td>
+<td>窗口左上角在屏幕中的Y坐标（可选）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ 注意：屏幕坐标系的原点 <code>(0,0)</code> 位于<strong>屏幕左上角</strong>，X向右增加，Y向下增加。</p>
+</blockquote>
+<h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> turtle
+
+<span class="token comment"># 示例1：窗口宽800，高400，左上角位于屏幕左上角</span>
+turtle<span class="token punctuation">.</span>setup<span class="token punctuation">(</span><span class="token number">800</span><span class="token punctuation">,</span> <span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 示例2：只设置大小，位置由系统自动居中</span>
+turtle<span class="token punctuation">.</span>setup<span class="token punctuation">(</span><span class="token number">800</span><span class="token punctuation">,</span> <span class="token number">400</span><span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>✅ 提示：<code>setup()</code> 不是必须的。如果不调用，系统会使用默认大小并居中显示窗口。</p>
+</blockquote>
+<h3 id="三、turtle空间坐标体系"><a href="#三、turtle空间坐标体系" class="headerlink" title="三、turtle空间坐标体系"></a><strong>三、turtle空间坐标体系</strong></h3><p>在turtle的绘图窗口内部，有一个以<strong>画布中心为原点 (0, 0)</strong> 的坐标系。</p>
+<h4 id="1-绝对坐标系（Fixed-Coordinate-System）"><a href="#1-绝对坐标系（Fixed-Coordinate-System）" class="headerlink" title="1. 绝对坐标系（Fixed Coordinate System）"></a>1. 绝对坐标系（Fixed Coordinate System）</h4><ul>
+<li>原点 <code>(0, 0)</code> 在窗口正中心。</li>
+<li>X轴向右为正，Y轴向上为正。</li>
+<li>整个窗口形成一个二维平面坐标系。</li>
+</ul>
+<h4 id="移动到指定坐标：goto-x-y"><a href="#移动到指定坐标：goto-x-y" class="headerlink" title="移动到指定坐标：goto(x, y)"></a>移动到指定坐标：<code>goto(x, y)</code></h4><pre class="language-python" data-language="python"><code class="language-python">turtle<span class="token punctuation">.</span>goto<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span></code></pre>
+
+<p>将海龟从当前位置直接移动到坐标 <code>(x, y)</code>，并画出连线。</p>
+<blockquote>
+<p>🐢 初始位置：程序启动时，海龟位于 <code>(0, 0)</code>，面向右侧（X轴正方向）。</p>
+</blockquote>
+<h4 id="示例：绘制一个正方形轮廓"><a href="#示例：绘制一个正方形轮廓" class="headerlink" title="示例：绘制一个正方形轮廓"></a>示例：绘制一个正方形轮廓</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> turtle
+
+turtle<span class="token punctuation">.</span>goto<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>     <span class="token comment"># 右上角</span>
+turtle<span class="token punctuation">.</span>goto<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span>    <span class="token comment"># 右下角</span>
+turtle<span class="token punctuation">.</span>goto<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span>   <span class="token comment"># 左下角</span>
+turtle<span class="token punctuation">.</span>goto<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>    <span class="token comment"># 左上角</span>
+turtle<span class="token punctuation">.</span>goto<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>         <span class="token comment"># 回到原点</span></code></pre>
+
+<p>这段代码会画出一个边长为200像素的正方形边框。</p>
+<h4 id="2-海龟坐标系（Relative-Coordinate-System）"><a href="#2-海龟坐标系（Relative-Coordinate-System）" class="headerlink" title="2. 海龟坐标系（Relative Coordinate System）"></a>2. 海龟坐标系（Relative Coordinate System）</h4><p>这是以海龟自身为中心的相对坐标系，更符合“移动”的直觉。</p>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>对应函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前进</td>
+<td><code>turtle.fd(distance)</code> 或 <code>forward()</code></td>
+</tr>
+<tr>
+<td>后退</td>
+<td><code>turtle.bk(distance)</code> 或 <code>backward()</code></td>
+</tr>
+<tr>
+<td>左转</td>
+<td><code>turtle.left(angle)</code></td>
+</tr>
+<tr>
+<td>右转</td>
+<td><code>turtle.right(angle)</code></td>
+</tr>
+<tr>
+<td>画圆</td>
+<td><code>turtle.circle(radius, extent=None)</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>🔄 <code>circle()</code> 是以海龟左侧某点为圆心，逆时针画弧。</p>
+</blockquote>
+<p>这些函数基于海龟的当前朝向进行操作，非常适合绘制连续路径。</p>
+<h3 id="四、turtle角度坐标体系"><a href="#四、turtle角度坐标体系" class="headerlink" title="四、turtle角度坐标体系"></a><strong>四、turtle角度坐标体系</strong></h3><p>海龟不仅有位置，还有<strong>朝向（方向）</strong>。</p>
+<h4 id="绝对角度坐标系"><a href="#绝对角度坐标系" class="headerlink" title="绝对角度坐标系"></a>绝对角度坐标系</h4><ul>
+<li>0°：面向X轴正方向（向右）</li>
+<li>90°：面向Y轴正方向（向上）</li>
+<li>180°：面向X轴负方向（向左）</li>
+<li>270°：面向Y轴负方向（向下）</li>
+</ul>
+<p>可以使用 <code>seth()</code> 函数设置海龟的绝对朝向。</p>
+<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><pre class="language-python" data-language="python"><code class="language-python">turtle<span class="token punctuation">.</span>seth<span class="token punctuation">(</span>angle<span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>❗ <code>seth()</code> 只改变方向，不移动位置，也不绘制线条。</p>
+</blockquote>
+<h4 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h4><pre class="language-python" data-language="python"><code class="language-python">turtle<span class="token punctuation">.</span>seth<span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>      <span class="token comment"># 面向东北方向（45度）</span>
+turtle<span class="token punctuation">.</span>fd<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>       <span class="token comment"># 向该方向前进100像素</span>
+
+turtle<span class="token punctuation">.</span>seth<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">135</span><span class="token punctuation">)</span>    <span class="token comment"># 面向西南方向（-135度）</span>
+turtle<span class="token punctuation">.</span>fd<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span></code></pre>
+
+<h4 id="相对角度调整：left-和-right"><a href="#相对角度调整：left-和-right" class="headerlink" title="相对角度调整：left() 和 right()"></a>相对角度调整：<code>left()</code> 和 <code>right()</code></h4><p>除了绝对角度，还可以相对当前方向旋转：</p>
+<pre class="language-python" data-language="python"><code class="language-python">turtle<span class="token punctuation">.</span>left<span class="token punctuation">(</span><span class="token number">90</span><span class="token punctuation">)</span>   <span class="token comment"># 左转90度</span>
+turtle<span class="token punctuation">.</span>right<span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>  <span class="token comment"># 右转45度</span></code></pre>
+
+<h4 id="实战示例：绘制Z形折线"><a href="#实战示例：绘制Z形折线" class="headerlink" title="实战示例：绘制Z形折线"></a>实战示例：绘制Z形折线</h4><p>目标：画一个斜向的“Z”字形。</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> turtle
+
+turtle<span class="token punctuation">.</span>left<span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>        <span class="token comment"># 左转45度（准备画第一斜线）</span>
+turtle<span class="token punctuation">.</span>fd<span class="token punctuation">(</span><span class="token number">150</span><span class="token punctuation">)</span>         <span class="token comment"># 前进150像素</span>
+
+turtle<span class="token punctuation">.</span>right<span class="token punctuation">(</span><span class="token number">135</span><span class="token punctuation">)</span>      <span class="token comment"># 右转135度（转向水平方向）</span>
+turtle<span class="token punctuation">.</span>fd<span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">)</span>         <span class="token comment"># 画中间横线</span>
+
+turtle<span class="token punctuation">.</span>left<span class="token punctuation">(</span><span class="token number">135</span><span class="token punctuation">)</span>       <span class="token comment"># 左转135度（准备画最后一斜线）</span>
+turtle<span class="token punctuation">.</span>fd<span class="token punctuation">(</span><span class="token number">150</span><span class="token punctuation">)</span>         <span class="token comment"># 完成Z形</span>
+
+turtle<span class="token punctuation">.</span>done<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 保持窗口打开（重要！）</span></code></pre>
+
+<blockquote>
+<p>✅ <code>turtle.done()</code>：防止程序结束后窗口立即关闭，确保你能看到绘图结果。</p>
+</blockquote>
+<h3 id="五、RGB色彩体系"><a href="#五、RGB色彩体系" class="headerlink" title="五、RGB色彩体系"></a><strong>五、RGB色彩体系</strong></h3><p>为了让图形更生动，我们需要给线条和填充添加颜色。</p>
+<h4 id="什么是RGB？"><a href="#什么是RGB？" class="headerlink" title="什么是RGB？"></a>什么是RGB？</h4><p>RGB 是 <strong>Red（红）、Green（绿）、Blue（蓝）</strong> 三种颜色通道的组合，是计算机中最常用的色彩模型。</p>
+<ul>
+<li>通过调节三种颜色的强度，可以合成几乎所有可见颜色。</li>
+<li>每个通道的取值范围有两种模式：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>取值范围</th>
+<th>示例（白色）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>整数模式</td>
+<td>0 ~ 255</td>
+<td><code>(255, 255, 255)</code></td>
+</tr>
+<tr>
+<td>小数模式</td>
+<td>0.0 ~ 1.0</td>
+<td><code>(1.0, 1.0, 1.0)</code></td>
+</tr>
+</tbody></table>
+<h4 id="常见颜色对照表："><a href="#常见颜色对照表：" class="headerlink" title="常见颜色对照表："></a>常见颜色对照表：</h4><table>
+<thead>
+<tr>
+<th>颜色</th>
+<th>整数RGB</th>
+<th>小数RGB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>白色</td>
+<td>(255,255,255)</td>
+<td>(1.0,1.0,1.0)</td>
+</tr>
+<tr>
+<td>黑色</td>
+<td>(0,0,0)</td>
+<td>(0.0,0.0,0.0)</td>
+</tr>
+<tr>
+<td>红色</td>
+<td>(255,0,0)</td>
+<td>(1.0,0.0,0.0)</td>
+</tr>
+<tr>
+<td>绿色</td>
+<td>(0,255,0)</td>
+<td>(0.0,1.0,0.0)</td>
+</tr>
+<tr>
+<td>蓝色</td>
+<td>(0,0,255)</td>
+<td>(0.0,0.0,1.0)</td>
+</tr>
+<tr>
+<td>黄色</td>
+<td>(255,255,0)</td>
+<td>(1.0,1.0,0.0)</td>
+</tr>
+<tr>
+<td>紫色</td>
+<td>(160,32,240)</td>
+<td>(0.63,0.13,0.94)</td>
+</tr>
+</tbody></table>
+<h4 id="设置色彩模式：turtle-colormode"><a href="#设置色彩模式：turtle-colormode" class="headerlink" title="设置色彩模式：turtle.colormode()"></a>设置色彩模式：<code>turtle.colormode()</code></h4><p>turtle默认使用<strong>小数模式（0~1.0）</strong>，但我们可以通过 <code>colormode()</code> 切换。</p>
+<h4 id="语法：-2"><a href="#语法：-2" class="headerlink" title="语法："></a>语法：</h4><pre class="language-python" data-language="python"><code class="language-python">turtle<span class="token punctuation">.</span>colormode<span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">)</span>   <span class="token comment"># 使用小数模式</span>
+turtle<span class="token punctuation">.</span>colormode<span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>   <span class="token comment"># 使用整数模式</span></code></pre>
+
+<h4 id="示例：设置画笔颜色"><a href="#示例：设置画笔颜色" class="headerlink" title="示例：设置画笔颜色"></a>示例：设置画笔颜色</h4><pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> turtle
+
+<span class="token comment"># 方法1：使用小数模式</span>
+turtle<span class="token punctuation">.</span>colormode<span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>pencolor<span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span>  <span class="token comment"># 红色</span>
+
+<span class="token comment"># 方法2：使用整数模式</span>
+turtle<span class="token punctuation">.</span>colormode<span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
+turtle<span class="token punctuation">.</span>pencolor<span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">165</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>    <span class="token comment"># 橙色</span></code></pre>
+
+<blockquote>
+<p>🎨 <code>pencolor()</code>：设置画笔颜色<br>🖍️ <code>fillcolor()</code>：设置填充颜色<br>🧱 <code>color()</code>：同时设置画笔和填充颜色</p>
+</blockquote>
+<h3 id="六、单元小结"><a href="#六、单元小结" class="headerlink" title="六、单元小结"></a><strong>六、单元小结</strong></h3><h4 id="本模块核心知识点总结："><a href="#本模块核心知识点总结：" class="headerlink" title="本模块核心知识点总结："></a>本模块核心知识点总结：</h4><table>
+<thead>
+<tr>
+<th>主题</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>turtle库</strong></td>
+<td>Python标准库，用于图形绘制，适合初学者</td>
+</tr>
+<tr>
+<td><strong>窗体设置</strong></td>
+<td><code>setup(width, height, startx, starty)</code> 控制窗口大小与位置</td>
+</tr>
+<tr>
+<td><strong>坐标体系</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>- 绝对坐标</td>
+<td>以 <code>(0,0)</code> 为中心，使用 <code>goto(x,y)</code> 移动</td>
+</tr>
+<tr>
+<td>- 海龟坐标</td>
+<td>相对运动：<code>fd()</code>, <code>bk()</code>, <code>left()</code>, <code>right()</code></td>
+</tr>
+<tr>
+<td><strong>角度体系</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>- 绝对角度</td>
+<td><code>seth(angle)</code> 设置朝向（0°向右）</td>
+</tr>
+<tr>
+<td>- 相对旋转</td>
+<td><code>left()</code>, <code>right()</code> 相对于当前方向旋转</td>
+</tr>
+<tr>
+<td><strong>色彩体系</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>- RGB模型</td>
+<td>红绿蓝三通道合成颜色</td>
+</tr>
+<tr>
+<td>- 取值模式</td>
+<td>整数（0-255）或小数（0.0-1.0）</td>
+</tr>
+<tr>
+<td>- 切换模式</td>
+<td><code>colormode(1.0)</code> 或 <code>colormode(255)</code></td>
+</tr>
+</tbody></table>
+<h4 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h4><ol>
+<li><strong>动手实践</strong>：将每段代码输入IDLE运行，观察效果。</li>
+<li><strong>调试尝试</strong>：修改参数（如角度、距离、颜色），看图形如何变化。</li>
+<li>扩展练习：<ul>
+<li>绘制三角形、五角星</li>
+<li>尝试用循环简化重复代码</li>
+<li>添加颜色和填充效果</li>
+</ul>
+</li>
+</ol>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a><strong>结语</strong></h4><p>恭喜你完成了turtle库的入门学习！</p>
+<p>你现在已掌握了：</p>
+<ul>
+<li>如何打开绘图窗口</li>
+<li>如何控制海龟移动和转向</li>
+<li>如何设置颜色和坐标</li>
+</ul>
+<p>接下来，我们将用这些知识绘制一条“Python蟒蛇”，进一步巩固所学内容。</p>
+<p>记住：<strong>编程不仅是逻辑，也可以是艺术</strong>。用代码画出你的创意吧！</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/01/05/Dotfiles-%E7%AE%A1%E7%90%86%E6%89%8B%E5%86%8C/">Dotfiles 管理手册</a></li>
+                
+                
+                    <li>下一篇: <a href="/2025/10/01/Python-%E7%A8%8B%E5%BA%8F%E8%AF%AD%E6%B3%95%E5%85%83%E7%B4%A0%E5%88%86%E6%9E%90/">Python 程序语法元素分析</a></li>
+                
+            </ul>
+        </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">Gentoo 极致快启：一键内核更新脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E7%A9%B6%E7%AB%9F%E5%9C%A8%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%9B%BA%E4%BB%B6%E6%96%87%E4%BB%B6%E5%90%8D/">Gentoo 如何查看当前系统究竟在用哪一个具体的固件文件名</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-%E7%89%B9%E5%AE%9A%E6%98%BE%E5%8D%A1%E7%9A%84-firmware-%E8%B7%AF%E5%BE%84%E5%AF%B9%E7%85%A7%E8%A1%A8/">Gentoo 特定显卡的 firmware 路径对照表</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-%E9%92%88%E5%AF%B9%E4%BD%A0%E7%9A%84%E5%85%B7%E4%BD%93%E7%A1%AC%E4%BB%B6%E8%BF%9B%E8%A1%8C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E7%9A%84%E5%BE%AE%E8%B0%83/">Gentoo 针对你的具体硬件进行内核参数的微调</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-%E5%A6%82%E4%BD%95%E6%B7%B1%E5%BA%A6%E5%AE%9A%E5%88%B6%E5%86%85%E6%A0%B8%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%9E%81%E8%87%B4%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6/">Gentoo 如何深度定制内核以获得极致启动速度</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Gentoo-Linux-%E6%9E%81%E8%87%B4%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E-Stage3-%E5%88%B0-Plasma-%E6%A1%8C%E9%9D%A2/">Gentoo Linux 极致安装指南：从 Stage3 到 Plasma 桌面</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/arch/" style="font-size: 10px;">arch</a> <a href="/tags/gentoo/" style="font-size: 20px;">gentoo</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

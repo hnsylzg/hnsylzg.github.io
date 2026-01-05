@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>Arch Linux 安装与进阶配置指南 - Hi Folks.</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta property="og:site_name" content="Hi Folks.">
+    <meta property="og:title" content="Arch Linux 安装与进阶配置指南"/>
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Hi Folks.</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a href>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Python/">Python</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Arch Linux 安装与进阶配置指南</h2>
+            <div class="post-meta">
+                <time class="date">2026.01.05</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <h2 id="一、-安装前的准备"><a href="#一、-安装前的准备" class="headerlink" title="一、 安装前的准备"></a>一、 安装前的准备</h2><h3 id="1-1-开启-SSH-远程安装-推荐"><a href="#1-1-开启-SSH-远程安装-推荐" class="headerlink" title="1.1 开启 SSH 远程安装 (推荐)"></a>1.1 开启 SSH 远程安装 (推荐)</h3><p>在实机或虚拟机上，设置 root 密码并开启 SSH，以便从另一台电脑复制命令。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">passwd
+systemctl start sshd
+ip addr  # 查看 IP 地址</code></pre>
+
+<h3 id="1-2-键盘与时间同步"><a href="#1-2-键盘与时间同步" class="headerlink" title="1.2 键盘与时间同步"></a>1.2 键盘与时间同步</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">loadkeys us
+timedatectl set-ntp true</code></pre>
+
+<h2 id="二、-磁盘分区与格式化-UEFI-标准"><a href="#二、-磁盘分区与格式化-UEFI-标准" class="headerlink" title="二、 磁盘分区与格式化 (UEFI 标准)"></a>二、 磁盘分区与格式化 (UEFI 标准)</h2><h3 id="2-1-分区方案-GPT"><a href="#2-1-分区方案-GPT" class="headerlink" title="2.1 分区方案 (GPT)"></a>2.1 分区方案 (GPT)</h3><p>使用 <code>fdisk /dev/sda</code> 创建分区：</p>
+<ul>
+<li><code>/dev/sda1</code>: EFI 分区 (512MB~1GB)</li>
+<li><code>/dev/sda2</code>: Swap 分区 (建议内存的 0.5~1 倍)</li>
+<li><code>/dev/sda3</code>: 根目录 <code>/</code> (剩余全部)</li>
+</ul>
+<h3 id="2-2-格式化与挂载"><a href="#2-2-格式化与挂载" class="headerlink" title="2.2 格式化与挂载"></a>2.2 格式化与挂载</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">mkfs.fat -F 32 &#x2F;dev&#x2F;sda1
+mkswap &#x2F;dev&#x2F;sda2
+swapon &#x2F;dev&#x2F;sda2
+mkfs.ext4 &#x2F;dev&#x2F;sda3
+
+mount &#x2F;dev&#x2F;sda3 &#x2F;mnt
+mount --mkdir &#x2F;dev&#x2F;sda1 &#x2F;mnt&#x2F;boot</code></pre>
+
+<h2 id="三、-核心系统部署"><a href="#三、-核心系统部署" class="headerlink" title="三、 核心系统部署"></a>三、 核心系统部署</h2><h3 id="3-1-安装基础包与必须的固件"><a href="#3-1-安装基础包与必须的固件" class="headerlink" title="3.1 安装基础包与必须的固件"></a>3.1 安装基础包与必须的固件</h3><p><strong>注意：</strong> 必须包含 <code>intel-ucode</code> (Intel) 或 <code>amd-ucode</code> (AMD) 处理器微码。</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">pacstrap -K &#x2F;mnt base linux linux-firmware base-devel networkmanager nano vi intel-ucode 
+genfstab -U &#x2F;mnt &gt;&gt; &#x2F;mnt&#x2F;etc&#x2F;fstab
+arch-chroot &#x2F;mnt</code></pre>
+
+<h2 id="四、-系统初始化配置"><a href="#四、-系统初始化配置" class="headerlink" title="四、 系统初始化配置"></a>四、 系统初始化配置</h2><h3 id="4-1-本地化设置"><a href="#4-1-本地化设置" class="headerlink" title="4.1 本地化设置"></a>4.1 本地化设置</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">ln -sf &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime
+hwclock --systohc
+
+# 编辑 &#x2F;etc&#x2F;locale.gen，取消 en_US.UTF-8 和 zh_CN.UTF-8 的注释
+locale-gen
+echo &quot;LANG&#x3D;en_US.UTF-8&quot; &gt; &#x2F;etc&#x2F;locale.conf</code></pre>
+
+<h3 id="4-2-网络与用户权限"><a href="#4-2-网络与用户权限" class="headerlink" title="4.2 网络与用户权限"></a>4.2 网络与用户权限</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">echo &quot;archlinux&quot; &gt; &#x2F;etc&#x2F;hostname
+systemctl enable NetworkManager
+passwd  # 设置 root 密码
+
+# 创建日常用户
+useradd -m -G wheel,video,audio -s &#x2F;bin&#x2F;bash lzg
+passwd lzg
+# 编辑 sudoers (使用 visudo)
+# 取消注释: %wheel ALL&#x3D;(ALL:ALL) ALL</code></pre>
+
+<h3 id="4-3-GRUB-引导-含双系统检测"><a href="#4-3-GRUB-引导-含双系统检测" class="headerlink" title="4.3 GRUB 引导 (含双系统检测)"></a>4.3 GRUB 引导 (含双系统检测)</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">pacman -S grub efibootmgr os-prober mtools dosfstools
+# 如果是双系统，开启 os-prober
+echo &quot;GRUB_DISABLE_OS_PROBER&#x3D;false&quot; &gt;&gt; &#x2F;etc&#x2F;default&#x2F;grub
+
+# 自动保存菜单选项,菜单不显示子菜单
+nano &#x2F;etc&#x2F;default&#x2F;grub
+GRUB_DISABLE_SUBMENU&#x3D;y
+GRUB_DEFAULT&#x3D;saved
+GRUB_SAVEDEFAULT&#x3D;true
+
+grub-install --target&#x3D;x86_64-efi --efi-directory&#x3D;&#x2F;boot --bootloader-id&#x3D;GRUB
+grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg</code></pre>
+
+<h2 id="五、-桌面环境与驱动安装"><a href="#五、-桌面环境与驱动安装" class="headerlink" title="五、 桌面环境与驱动安装"></a>五、 桌面环境与驱动安装</h2><h3 id="5-1-显卡与音频"><a href="#5-1-显卡与音频" class="headerlink" title="5.1 显卡与音频"></a>5.1 显卡与音频</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none"># 显卡驱动 (根据实际选择)
+pacman -S xf86-video-intel      # Intel
+# pacman -S nvidia-open # Nvidia
+# 使用官方默认内核 (linux)	nvidia-open
+# 使用多个内核（如 linux + linux-lts）	nvidia-open-dkms
+# 使用自定义内核（如 linux-zen, linux-hardened）	nvidia-open-dkms
+
+# 现代音频架构 PipeWire (替代 PulseAudio)
+pacman -S pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber</code></pre>
+
+<h3 id="5-2-安装-KDE-Plasma-或-Xfce"><a href="#5-2-安装-KDE-Plasma-或-Xfce" class="headerlink" title="5.2 安装 KDE Plasma (或 Xfce)"></a>5.2 安装 KDE Plasma (或 Xfce)</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">pacman -S xorg-server sddm plasma-meta konsole dolphin ark gwenview
+systemctl enable sddm</code></pre>
+
+<h2 id="六、-进阶软件源与美化"><a href="#六、-进阶软件源与美化" class="headerlink" title="六、 进阶软件源与美化"></a>六、 进阶软件源与美化</h2><h3 id="6-1-配置-ArchLinuxCN-源与常用工具"><a href="#6-1-配置-ArchLinuxCN-源与常用工具" class="headerlink" title="6.1 配置 ArchLinuxCN 源与常用工具"></a>6.1 配置 ArchLinuxCN 源与常用工具</h3><p>编辑 <code>/etc/pacman.conf</code>，在末尾添加：</p>
+<p>Ini, TOML</p>
+<pre class="language-none"><code class="language-none">[archlinuxcn]
+SigLevel &#x3D; Optional TrustAll
+Server &#x3D; https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;archlinuxcn&#x2F;$arch</code></pre>
+
+<p>安装必备组件：</p>
+<p>Bash</p>
+<pre class="language-none"><code class="language-none">pacman -Sy archlinuxcn-keyring
+pacman -S yay 
+# 安装中文字体与 WPS
+yay -S noto-fonts-cjk noto-fonts-emoji wps-office-cn ttf-wps-fonts</code></pre>
+
+<h3 id="6-2-Zsh-终端美化-Manjaro-风格"><a href="#6-2-Zsh-终端美化-Manjaro-风格" class="headerlink" title="6.2 Zsh 终端美化 (Manjaro 风格)"></a>6.2 Zsh 终端美化 (Manjaro 风格)</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">yay -S zsh manjaro-zsh-config
+# 在 ~&#x2F;.zshrc 中 source &#x2F;usr&#x2F;share&#x2F;zsh&#x2F;manjaro-zsh-config
+chsh -s &#x2F;bin&#x2F;zsh</code></pre>
+
+<h3 id="6-3-中文输入法-Fcitx5"><a href="#6-3-中文输入法-Fcitx5" class="headerlink" title="6.3 中文输入法 (Fcitx5)"></a>6.3 中文输入法 (Fcitx5)</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">pacman -S fcitx5-chinese-addons fcitx-configtool
+# 编辑 &#x2F;etc&#x2F;environment
+echo -e &quot;GTK_IM_MODULE&#x3D;fcitx\nQT_IM_MODULE&#x3D;fcitx\nXMODIFIERS&#x3D;@im&#x3D;fcitx&quot; &gt;&gt; &#x2F;etc&#x2F;environment</code></pre>
+
+<h2 id="七、-虚拟机与系统维护-必须"><a href="#七、-虚拟机与系统维护-必须" class="headerlink" title="七、 虚拟机与系统维护 (必须)"></a>七、 虚拟机与系统维护 (必须)</h2><h3 id="7-1-VMware-优化"><a href="#7-1-VMware-优化" class="headerlink" title="7.1 VMware 优化"></a>7.1 VMware 优化</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">pacman -S open-vm-tools gtkmm3
+systemctl enable --now vmtoolsd
+# 解决分辨率问题：在 &#x2F;etc&#x2F;mkinitcpio.conf 的 MODULES 加上 (vmwgfx)
+mkinitcpio -P</code></pre>
+
+<h3 id="7-2-SSD-维护"><a href="#7-2-SSD-维护" class="headerlink" title="7.2 SSD 维护"></a>7.2 SSD 维护</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">systemctl enable fstrim.timer</code></pre>
+
+<h3 id="7-3-清理孤立包-定期执行"><a href="#7-3-清理孤立包-定期执行" class="headerlink" title="7.3 清理孤立包 (定期执行)"></a>7.3 清理孤立包 (定期执行)</h3><p>Bash</p>
+<pre class="language-none"><code class="language-none">pacman -Qtdq | sudo pacman -Rns -</code></pre>
+
+<p><strong>安装完成，现在可以执行 <code>reboot</code> 重启进入新系统了！</strong></p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2026/01/05/Dotfiles-%E7%AE%A1%E7%90%86%E6%89%8B%E5%86%8C/">Dotfiles 管理手册</a></li>
+                
+            </ul>
+        </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <button class="to-top" href="#"></button>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Arch-Linux-%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9B%E9%98%B6%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/">Arch Linux 安装与进阶配置指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/01/05/Dotfiles-%E7%AE%A1%E7%90%86%E6%89%8B%E5%86%8C/">Dotfiles 管理手册</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/turtle%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">turtle库的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/10/01/Python%E7%A8%8B%E5%BA%8F%E8%AF%AD%E6%B3%95%E5%85%83%E7%B4%A0%E5%88%86%E6%9E%90/">Python程序语法元素分析</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/git/" style="font-size: 10px;">git</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Hi Folks.</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

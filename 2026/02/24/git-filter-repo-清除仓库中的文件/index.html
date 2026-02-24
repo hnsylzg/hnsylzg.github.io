@@ -3,7 +3,7 @@
   <head>
     
     <meta charset="UTF-8">
-    <title>git - Hi Folks.</title>
+    <title>git-filter-repo 清除仓库中的文件 - Hi Folks.</title>
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
     
@@ -15,7 +15,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta property="og:site_name" content="Hi Folks.">
-    <meta property="og:title" content=""/>
+    <meta property="og:title" content="git-filter-repo 清除仓库中的文件"/>
     
 <meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -48,58 +48,103 @@
 
     <main>
     <div class="wrap min">
-        <section class="home-title">
-            
-            <h1>“git”</h1>
-        </section>
-        <section class="home-posts">
-    
-    <div class="post-item">
-        <h2>
-            <a href="/2026/02/24/git-filter-repo-%E6%B8%85%E9%99%A4%E4%BB%93%E5%BA%93%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6/">git-filter-repo 清除仓库中的文件</a>
-        </h2>
-    
-        <p>Git 官方现在推荐使用 yay -S git-filter-repo
-
-删除文件：安装后，运行：
-
-dotfiles filter-repo --path path&amp;#x2F;to&amp;#x2F;...</p>
-    
-        <div class="post-meta">
-            <time class="date">2026.02.24</time>
+        <section class="post-title">
+            <h2>git-filter-repo 清除仓库中的文件</h2>
+            <div class="post-meta">
+                <time class="date">2026.02.24</time>
             
                 <span class="category"><a class="category-link" href="/categories/Linux/">Linux</a></span>
             
-            
-                <span class="tags"><a class="-none-link" href="/tags/git/" rel="tag">git</a></span>
-            
-        </div>
-    </div>
-    
-    <div class="post-item">
-        <h2>
-            <a href="/2026/01/05/Dotfiles-%E7%AE%A1%E7%90%86%E6%89%8B%E5%86%8C/">Dotfiles 管理手册</a>
-        </h2>
-    
-        <p>利用 git --bare 库管理家目录下的配置文件，既能保持目录整洁，又能实现跨设备同步。
-一、 初始化与基础配置1. 远端仓库初始化在 GitHub 或 GitLab 上创建一个名为 dot...</p>
-    
-        <div class="post-meta">
-            <time class="date">2026.01.05</time>
-            
-                <span class="category"><a class="category-link" href="/categories/Linux/">Linux</a></span>
-            
-            
-                <span class="tags"><a class="-none-link" href="/tags/git/" rel="tag">git</a></span>
-            
-        </div>
-    </div>
-    
-</section>
-
-        <section class="page-navigator">
-            <span class="page-number current">1</span>
+            </div>
         </section>
+        <article class="post-content">
+        
+            <p>Git 官方现在推荐使用 <code>yay -S git-filter-repo</code></p>
+<ul>
+<li>删除文件：安装后，运行：</li>
+</ul>
+<pre class="language-none"><code class="language-none">dotfiles filter-repo --path path&#x2F;to&#x2F;big-file.zip --invert-paths
+不行就加上
+dotfiles filter-repo --path path&#x2F;to&#x2F;big-file.zip --invert-paths --force</code></pre>
+
+<p>这会遍历整个提交历史，把涉及该文件的记录全部抹除。</p>
+<p>在清理完成后，你需要重新添加远程地址：</p>
+<pre class="language-none"><code class="language-none"># https
+dotfiles remote add origin https:&#x2F;&#x2F;github.com&#x2F;hnsylzg&#x2F;dotfiles.git
+# ssh
+dotfiles remote add origin git@github.com:hnsylzg&#x2F;dotfiles.git
+# 修改
+dotfiles remote set-url origin git@github.com:hnsylzg&#x2F;dotfiles.git
+强制推送
+dotfiles push --force --all</code></pre>
+
+<p>其他机器同步</p>
+<p>同步所有分支</p>
+<pre class="language-none"><code class="language-none"># 获取远程更新
+dotfiles fetch origin
+# 查看分支，只看到 * main，说明你的 Bare 仓库配置文件（config）里的 fetch 规则可能丢失了。
+dotfiles branch -a
+# 查看远程抓取配置
+dotfiles config --get remote.origin.fetch
+# 如果返回为空
+dotfiles config remote.origin.fetch &quot;+refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*&quot;
+# 然后再次抓取
+dotfiles fetch origin</code></pre>
+
+
+
+<pre class="language-none"><code class="language-none"># 方法1
+dotfiles reset --hard origin&#x2F;main
+dotfiles branch --set-upstream-to&#x3D;origin&#x2F;main main
+# 方法2
+dotfiles fetch origin main
+dotfiles reset --hard FETCH_HEAD
+dotfiles branch --set-upstream-to&#x3D;origin&#x2F;main main</code></pre>
+
+<p>分支</p>
+<pre class="language-none"><code class="language-none"># 1. 强制抓取远程 classic 分支的最新状态
+dotfiles fetch origin classic
+# 2. 强行将本地当前分支重置为远程的 classic
+dotfiles reset --hard FETCH_HEAD
+# 3. 建立（或恢复）追踪关系
+dotfiles branch --set-upstream-to&#x3D;origin&#x2F;classic classic</code></pre>
+
+<p>清理本地库</p>
+<pre><code># 清除所有旧的引用日志
+dotfiles reflog expire --expire=now --all
+# 彻底清理并重新打包数据库（这步最耗时，但最有效）
+dotfiles gc --prune=now --aggressive
+</code></pre>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2026/01/05/Gentoo-%E6%9E%81%E8%87%B4%E5%BF%AB%E5%90%AF%EF%BC%9A%E4%B8%80%E9%94%AE%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC/">Gentoo 极致快启：一键内核更新脚本</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/git/" rel="tag">git</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://sdn.geekzu.org/avatar/d22eb460ecab37fcd7205e6a3c55c228?s=200&r=X&d=" alt="Zhengang Li" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>Zhengang Li</h4>
+                <p>Hello everyone! Welcome to my blog</p>
+            </div>
+        </section>
+    
     </div>
 </main>
 

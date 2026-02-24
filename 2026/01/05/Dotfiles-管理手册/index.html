@@ -61,7 +61,6 @@
         
             <p>利用 <code>git --bare</code> 库管理家目录下的配置文件，既能保持目录整洁，又能实现跨设备同步。</p>
 <h2 id="一、-初始化与基础配置"><a href="#一、-初始化与基础配置" class="headerlink" title="一、 初始化与基础配置"></a>一、 初始化与基础配置</h2><h3 id="1-远端仓库初始化"><a href="#1-远端仓库初始化" class="headerlink" title="1. 远端仓库初始化"></a>1. 远端仓库初始化</h3><p>在 GitHub 或 GitLab 上创建一个名为 <code>dotfiles</code> 的私有仓库，然后在本地执行：</p>
-<p>Bash</p>
 <pre class="language-none"><code class="language-none"># 初始化 Bare 仓库到指定目录
 git init --bare $HOME&#x2F;.dotfiles
 
@@ -76,7 +75,6 @@ dotfiles remote add origin git@github.com:username&#x2F;dotfiles.git
 dotfiles push --set-upstream origin main</code></pre>
 
 <h3 id="2-新机器部署-Clone"><a href="#2-新机器部署-Clone" class="headerlink" title="2. 新机器部署 (Clone)"></a>2. 新机器部署 (Clone)</h3><p>在新环境下快速恢复配置：</p>
-<p>Bash</p>
 <pre class="language-none"><code class="language-none"># 克隆仓库
 git clone --bare git@github.com:username&#x2F;dotfiles.git $HOME&#x2F;.dotfiles
 
@@ -90,8 +88,7 @@ dotfiles checkout</code></pre>
 <p><strong>注意</strong>：如果 checkout 报错提示文件冲突，请先备份或删除本地已存在的同名配置文件。</p>
 </blockquote>
 <h2 id="二、-分支与同步策略"><a href="#二、-分支与同步策略" class="headerlink" title="二、 分支与同步策略"></a>二、 分支与同步策略</h2><p>为了在不同机器或环境下使用不同主题（如 Matugen 动态配色 vs 静态配色），建议采用多分支管理。</p>
-<h3 id="1-分支classic创建与推送"><a href="#1-分支classic创建与推送" class="headerlink" title="1. 分支classic创建与推送"></a>1. 分支classic创建与推送</h3><p>Bash</p>
-<pre class="language-none"><code class="language-none"># 创建并立即切换分支
+<h3 id="1-分支classic创建与推送"><a href="#1-分支classic创建与推送" class="headerlink" title="1. 分支classic创建与推送"></a>1. 分支classic创建与推送</h3><pre class="language-none"><code class="language-none"># 创建并立即切换分支
 dotfiles checkout -b classic &lt;commit-id&gt;
 
 # 只创建分支，不切换
@@ -104,7 +101,6 @@ dotfiles push -u origin classic
 dotfiles push</code></pre>
 
 <h3 id="2-Bare-库分支可见性设置"><a href="#2-Bare-库分支可见性设置" class="headerlink" title="2. Bare 库分支可见性设置"></a>2. Bare 库分支可见性设置</h3><p>由于是 Bare 库，有时无法直接看到远程分支。需要显式配置 fetch 规则：</p>
-<p>Bash</p>
 <pre class="language-none"><code class="language-none"># 修复远程分支追踪关系
 dotfiles config remote.origin.fetch &quot;+refs&#x2F;heads&#x2F;*:refs&#x2F;remotes&#x2F;origin&#x2F;*&quot;
 
@@ -114,13 +110,11 @@ dotfiles checkout classic</code></pre>
 
 <h2 id="三、-跨分支逻辑同步"><a href="#三、-跨分支逻辑同步" class="headerlink" title="三、 跨分支逻辑同步"></a>三、 跨分支逻辑同步</h2><p>当你在 <code>main</code> 分支改进了功能（如快捷键），希望同步到 <code>classic</code> 分支，但又不想要 <code>main</code> 的配色时，可采用以下方案：</p>
 <h3 id="方案-A：精准拣选-Cherry-pick"><a href="#方案-A：精准拣选-Cherry-pick" class="headerlink" title="方案 A：精准拣选 (Cherry-pick)"></a>方案 A：精准拣选 (Cherry-pick)</h3><p>适用于同步某次特定的代码改动。</p>
-<p>Bash</p>
 <pre class="language-none"><code class="language-none">dotfiles checkout classic
 dotfiles cherry-pick &lt;commit-id&gt;  # 仅将该提交的改动应用到当前分支
 dotfiles push</code></pre>
 
 <h3 id="方案-B：覆盖特定文件-Checkout-file"><a href="#方案-B：覆盖特定文件-Checkout-file" class="headerlink" title="方案 B：覆盖特定文件 (Checkout file)"></a>方案 B：覆盖特定文件 (Checkout file)</h3><p>适用于直接同步某个脚本或配置文件的最新版本。</p>
-<p>Bash</p>
 <pre class="language-none"><code class="language-none">dotfiles checkout classic
 # 从 main 分支“借用”特定文件覆盖到当前分支
 dotfiles checkout main -- .config&#x2F;hypr&#x2F;scripts&#x2F;waybar_logic.sh
@@ -141,7 +135,6 @@ source &#x3D; ~&#x2F;.config&#x2F;hypr&#x2F;keybinds.conf
 source &#x3D; ~&#x2F;.config&#x2F;hypr&#x2F;theme.conf</code></pre>
 
 <h3 id="3-同步工作流"><a href="#3-同步工作流" class="headerlink" title="3. 同步工作流"></a>3. 同步工作流</h3><p>当你修改了快捷键逻辑，只需在 <code>classic</code> 分支执行一行命令即可完成完美同步，绝不污染配色：</p>
-<p>Bash</p>
 <pre class="language-none"><code class="language-none">dotfiles checkout main -- .config&#x2F;hypr&#x2F;keybinds.conf</code></pre>
         </article>
         <section class="post-near">

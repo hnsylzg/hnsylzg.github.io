@@ -60,15 +60,17 @@
         <article class="post-content">
         
             <p>Git 官方现在推荐使用 <code>yay -S git-filter-repo</code></p>
-<ul>
+<ol>
 <li>删除文件：安装后，运行：</li>
-</ul>
+</ol>
 <pre class="language-none"><code class="language-none">dotfiles filter-repo --path path&#x2F;to&#x2F;big-file --invert-paths
 不行就加上
 dotfiles filter-repo --path path&#x2F;to&#x2F;big-file --invert-paths --force</code></pre>
 
 <p>这会遍历整个提交历史，把涉及该文件的记录全部抹除。</p>
-<p>在清理完成后，你需要重新添加远程地址，仓房为dotfiles：</p>
+<ol start="2">
+<li>在清理完成后，你需要重新添加远程地址，仓房为dotfiles：</li>
+</ol>
 <pre class="language-none"><code class="language-none"># https
 dotfiles remote add origin https:&#x2F;&#x2F;github.com&#x2F;username&#x2F;dotfiles.git
 # ssh
@@ -78,8 +80,12 @@ dotfiles remote set-url origin git@github.com:username&#x2F;dotfiles.git
 强制推送
 dotfiles push --force --all</code></pre>
 
-<p>其他机器同步</p>
-<p>同步所有分支</p>
+<ol start="3">
+<li>其他机器同步</li>
+</ol>
+<ul>
+<li>同步所有分支</li>
+</ul>
 <pre class="language-none"><code class="language-none"># 获取远程更新
 dotfiles fetch origin
 # 查看分支，只看到 * main，说明你的 Bare 仓库配置文件（config）里的 fetch 规则可能丢失了。
@@ -91,8 +97,9 @@ dotfiles config remote.origin.fetch &quot;+refs&#x2F;heads&#x2F;*:refs&#x2F;remo
 # 然后再次抓取
 dotfiles fetch origin</code></pre>
 
-
-
+<ul>
+<li>强行重置本地分支，重新关联远程仓库</li>
+</ul>
 <pre class="language-none"><code class="language-none"># 方法1
 dotfiles reset --hard origin&#x2F;main
 dotfiles branch --set-upstream-to&#x3D;origin&#x2F;main main
@@ -101,7 +108,9 @@ dotfiles fetch origin main
 dotfiles reset --hard FETCH_HEAD
 dotfiles branch --set-upstream-to&#x3D;origin&#x2F;main main</code></pre>
 
-<p>分支</p>
+<ul>
+<li>同步分支</li>
+</ul>
 <pre class="language-none"><code class="language-none"># 1. 强制抓取远程 classic 分支的最新状态
 dotfiles fetch origin classic
 # 2. 强行将本地当前分支重置为远程的 classic
@@ -109,7 +118,9 @@ dotfiles reset --hard FETCH_HEAD
 # 3. 建立（或恢复）追踪关系
 dotfiles branch --set-upstream-to&#x3D;origin&#x2F;classic classic</code></pre>
 
-<p>清理本地库</p>
+<ol start="4">
+<li>清理本地库</li>
+</ol>
 <pre><code># 清除所有旧的引用日志
 dotfiles reflog expire --expire=now --all
 # 彻底清理并重新打包数据库（这步最耗时，但最有效）

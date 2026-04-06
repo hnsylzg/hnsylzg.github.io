@@ -61,20 +61,20 @@
         
             <h4 id="1-彻底重置-main-和-classic（只留当前快照）"><a href="#1-彻底重置-main-和-classic（只留当前快照）" class="headerlink" title="1. 彻底重置 main 和 classic（只留当前快照）"></a>1. 彻底重置 main 和 classic（只留当前快照）</h4><p>我们不再用 <code>filter-repo</code> 过滤，直接原地“毁档重开”：</p>
 <pre class="language-none"><code class="language-none"># 重置 main
-git checkout main
-git checkout --orphan temp_main
+dotfiles checkout main
+dotfiles checkout --orphan temp_main
 dotfiles add -A
-git commit -m &quot;Final main snapshot&quot;
-git branch -D main
-git branch -m main
+dotfiles commit -m &quot;Final main snapshot&quot;
+dotfiles branch -D main
+dotfiles branch -m main
 
 # 重置 classic
-git checkout classic
-git checkout --orphan temp_classic
-git add -A
-git commit -m &quot;Final classic snapshot&quot;
-git branch -D classic
-git branch -m classic</code></pre>
+dotfiles checkout classic
+dotfiles checkout --orphan temp_classic
+dotfiles add -A
+dotfiles commit -m &quot;Final classic snapshot&quot;
+dotfiles branch -D classic
+dotfiles branch -m classic</code></pre>
 
 <h4 id="2-彻底重置-v0-8-和-v0-9（只留当时快照）"><a href="#2-彻底重置-v0-8-和-v0-9（只留当时快照）" class="headerlink" title="2. 彻底重置 v0.8 和 v0.9（只留当时快照）"></a>2. 彻底重置 v0.8 和 v0.9（只留当时快照）</h4><p>这是解决你“还能 checkout 到旧记录”的关键。我们必须把 Tag 重新打在“孤立点”上。</p>
 <pre class="language-none"><code class="language-none"># 让 v0.8 变成一个没有父节点的独立提交

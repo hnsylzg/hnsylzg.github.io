@@ -63,7 +63,7 @@
 <pre class="language-none"><code class="language-none"># 重置 main
 git checkout main
 git checkout --orphan temp_main
-git add -A
+dotfiles add -A
 git commit -m &quot;Final main snapshot&quot;
 git branch -D main
 git branch -m main
@@ -78,106 +78,106 @@ git branch -m classic</code></pre>
 
 <h4 id="2-彻底重置-v0-8-和-v0-9（只留当时快照）"><a href="#2-彻底重置-v0-8-和-v0-9（只留当时快照）" class="headerlink" title="2. 彻底重置 v0.8 和 v0.9（只留当时快照）"></a>2. 彻底重置 v0.8 和 v0.9（只留当时快照）</h4><p>这是解决你“还能 checkout 到旧记录”的关键。我们必须把 Tag 重新打在“孤立点”上。</p>
 <pre class="language-none"><code class="language-none"># 让 v0.8 变成一个没有父节点的独立提交
-git checkout v0.8
-git checkout --orphan temp_v08
-git add -A
-git commit -m &quot;Final v0.8 snapshot&quot;
-git tag -f v0.8  # 把 v0.8 标签强行移动到这个新点上
-git checkout main
-git branch -D temp_v08
+dotfiles checkout v0.8
+dotfiles checkout --orphan temp_v08
+dotfiles add -A
+dotfiles commit -m &quot;Final v0.8 snapshot&quot;
+dotfiles tag -f v0.8  # 把 v0.8 标签强行移动到这个新点上
+dotfiles checkout main
+dotfiles branch -D temp_v08
 
 # 让 v0.9 同样操作
-git checkout v0.9
-git checkout --orphan temp_v09
-git add -A
-git commit -m &quot;Final v0.9 snapshot&quot;
-git tag -f v0.9
-git checkout main
-git branch -D temp_v09</code></pre>
+dotfiles checkout v0.9
+dotfiles checkout --orphan temp_v09
+dotfiles add -A
+dotfiles commit -m &quot;Final v0.9 snapshot&quot;
+dotfiles tag -f v0.9
+dotfiles checkout main
+dotfiles branch -D temp_v09</code></pre>
 
 <h4 id="3-物理粉碎（解决“为什么还能找到旧哈希”）"><a href="#3-物理粉碎（解决“为什么还能找到旧哈希”）" class="headerlink" title="3. 物理粉碎（解决“为什么还能找到旧哈希”）"></a>3. 物理粉碎（解决“为什么还能找到旧哈希”）</h4><p>执行完上面的步骤，旧的历史在“名义上”已经删了。现在我们要从“硬盘上”抹掉它们：</p>
 <pre class="language-none"><code class="language-none"># 1. 销毁所有操作记录（这是旧提交最后的藏身处）
-rm -rf .git&#x2F;logs&#x2F;
+rm -rf .dotfiles&#x2F;logs&#x2F;
 
 # 2. 强制执行垃圾回收，清理所有无主对象
-git gc --prune&#x3D;now --aggressive</code></pre>
+dotfiles gc --prune&#x3D;now --aggressive</code></pre>
 
 <h3 id="验证清理结果"><a href="#验证清理结果" class="headerlink" title="验证清理结果"></a>验证清理结果</h3><p>执行完上面的 <code>gc</code> 命令后，请做两个测试：</p>
 <ol>
-<li><p><strong>查总数</strong>：运行 <code>git rev-list --all --count</code>。如果结果是 <strong>4</strong>，说明你的目标达成了！全仓库只有 4 个提交。</p>
+<li><p><strong>查总数</strong>：运行 <code>dotfiles rev-list --all --count</code>。如果结果是 <strong>4</strong>，说明你的目标达成了！全仓库只有 4 个提交。</p>
 </li>
 <li><p>如果计数不是 <strong>4</strong>，我们需要把所有“拉住”旧历史的绳子全部剪断。请按照以下步骤执行：</p>
 </li>
 </ol>
 <h3 id="1-找出是谁在“拖后腿”"><a href="#1-找出是谁在“拖后腿”" class="headerlink" title="1. 找出是谁在“拖后腿”"></a>1. 找出是谁在“拖后腿”</h3><p>运行以下命令，看看除了你想要的 4 个东西，还有哪些引用存在：</p>
-<pre class="language-none"><code class="language-none">git show-ref</code></pre>
+<pre class="language-none"><code class="language-none">dotfiles show-ref</code></pre>
 
 <p><strong>你会发现输出里可能包含：</strong></p>
 <ul>
 <li><code>refs/remotes/origin/...</code>（远程仓库的镜像副本）</li>
-<li><code>refs/original/...</code>（<code>git-filter-repo</code> 留下的备份）</li>
-<li><code>refs/pull/...</code>（GitHub 的拉取请求记录）</li>
+<li><code>refs/original/...</code>（<code>dotfiles-filter-repo</code> 留下的备份）</li>
+<li><code>refs/pull/...</code>（dotfilesHub 的拉取请求记录）</li>
 </ul>
 <h3 id="2-彻底大扫除（清理所有非必要引用）"><a href="#2-彻底大扫除（清理所有非必要引用）" class="headerlink" title="2. 彻底大扫除（清理所有非必要引用）"></a>2. 彻底大扫除（清理所有非必要引用）</h3><p>请依次执行以下命令，这会强行删掉除了本地分支和标签以外的所有记录：</p>
 <pre class="language-none"><code class="language-none"># 1. 删除所有远程追踪分支（它们是旧历史的最大藏身处）
-git remote remove origin
+dotfiles remote remove origin
 
-# 2. 删除 git-filter-repo 产生的备份引用
-git for-each-ref --format&#x3D;&quot;%(refname)&quot; refs&#x2F;original&#x2F; | xargs -n 1 git update-ref -d
+# 2. 删除 dotfiles-filter-repo 产生的备份引用
+dotfiles for-each-ref --format&#x3D;&quot;%(refname)&quot; refs&#x2F;original&#x2F; | xargs -n 1 dotfiles update-ref -d
 
 # 3. 再次强制清理 Reflog 和运行 GC
-rm -rf .git&#x2F;logs&#x2F;
-git reflog expire --expire&#x3D;now --all
-git gc --prune&#x3D;now --aggressive</code></pre>
+rm -rf .dotfiles&#x2F;logs&#x2F;
+dotfiles reflog expire --expire&#x3D;now --all
+dotfiles gc --prune&#x3D;now --aggressive</code></pre>
 
 <h3 id="3-再次检查计数"><a href="#3-再次检查计数" class="headerlink" title="3. 再次检查计数"></a>3. 再次检查计数</h3><p>现在再运行：</p>
-<pre class="language-none"><code class="language-none">git rev-list --all --count</code></pre>
+<pre class="language-none"><code class="language-none">dotfiles rev-list --all --count</code></pre>
 
 <p><strong>如果现在的数字变成了 4（或者接近 4 的个位数）：</strong> 说明清理成功了！</p>
 <p>提交到远程</p>
-<h3 id="1-重新关联远程仓库"><a href="#1-重新关联远程仓库" class="headerlink" title="1. 重新关联远程仓库"></a>1. 重新关联远程仓库</h3><p>如果你在清理过程中运行了 <code>git remote remove origin</code>，需要先把它加回来：</p>
-<pre class="language-none"><code class="language-none">git remote add origin &lt;你的远程仓库URL&gt;</code></pre>
+<h3 id="1-重新关联远程仓库"><a href="#1-重新关联远程仓库" class="headerlink" title="1. 重新关联远程仓库"></a>1. 重新关联远程仓库</h3><p>如果你在清理过程中运行了 <code>dotfiles remote remove origin</code>，需要先把它加回来：</p>
+<pre class="language-none"><code class="language-none">dotfiles remote add origin &lt;你的远程仓库URL&gt;</code></pre>
 
 <h3 id="2-检查远程追踪分支（关键）"><a href="#2-检查远程追踪分支（关键）" class="headerlink" title="2. 检查远程追踪分支（关键）"></a>2. 检查远程追踪分支（关键）</h3><p>在推送前，确保本地没有 <code>origin/main</code> 之类的引用还在拉扯旧历史。你可以运行：</p>
-<pre class="language-none"><code class="language-none">git branch -r</code></pre>
+<pre class="language-none"><code class="language-none">dotfiles branch -r</code></pre>
 
 <p>如果还看到很多远程分支，建议先清理它们，防止旧数据被意外带回。</p>
 <h3 id="3-强制推送所有内容"><a href="#3-强制推送所有内容" class="headerlink" title="3. 强制推送所有内容"></a>3. 强制推送所有内容</h3><p>你需要一次性将这 4 个“孤岛”（两个分支，两个标签）强行覆盖到服务器：</p>
 <pre class="language-none"><code class="language-none"># 1. 强制推送所有分支 (main 和 classic)
-git push origin --force --all
+dotfiles push origin --force --all
 
 # 2. 强制推送所有标签 (v0.8 和 v0.9)
-git push origin --force --tags</code></pre>
+dotfiles push origin --force --tags</code></pre>
 
-<p>对于其他机器上的老仓库，由于你已经在远程彻底重写了历史，老仓库的 Git 逻辑会判定这属于**“历史完全无关”**（Unrelated histories），传统的 <code>git pull</code> 会直接报错。</p>
+<p>对于其他机器上的老仓库，由于你已经在远程彻底重写了历史，老仓库的 dotfiles 逻辑会判定这属于**“历史完全无关”**（Unrelated histories），传统的 <code>dotfiles pull</code> 会直接报错。</p>
 <p>这些老机器必须执行“毁档重连”的操作。这里有两种方案，推荐第一种：</p>
 <h3 id="方案一：最简单彻底（推荐）"><a href="#方案一：最简单彻底（推荐）" class="headerlink" title="方案一：最简单彻底（推荐）"></a>方案一：最简单彻底（推荐）</h3><p>如果老机器上没有未提交的代码，直接<strong>删掉文件夹重新 Clone</strong> 是最省心的。</p>
 <pre class="language-none"><code class="language-none">rm -rf &lt;旧仓库目录&gt;
-git clone &lt;仓库地址&gt;</code></pre>
+dotfiles clone &lt;仓库地址&gt;</code></pre>
 
 <h3 id="方案二：保留本地并同步（原地更新）"><a href="#方案二：保留本地并同步（原地更新）" class="headerlink" title="方案二：保留本地并同步（原地更新）"></a>方案二：保留本地并同步（原地更新）</h3><p>如果你不想重新克隆，必须强行让本地的 <code>main</code> 和 <code>classic</code> 指向远程的新“孤岛”。</p>
 <p>请在老机器的仓库目录下执行以下命令：</p>
 <h4 id="1-抓取远程新结构"><a href="#1-抓取远程新结构" class="headerlink" title="1. 抓取远程新结构"></a>1. 抓取远程新结构</h4><pre class="language-none"><code class="language-none"># 强制抓取所有远程更新，忽略历史差异
-git fetch --all --prune</code></pre>
+dotfiles fetch --all --prune</code></pre>
 
 <h4 id="2-强行重置本地分支"><a href="#2-强行重置本地分支" class="headerlink" title="2. 强行重置本地分支"></a>2. 强行重置本地分支</h4><p>不要用 <code>pull</code>，要用 <code>reset</code> 把本地分支直接“钉”在远程的最新提交上：</p>
 <pre class="language-none"><code class="language-none"># 重置本地 main
-git checkout main
-git reset --hard origin&#x2F;main
+dotfiles checkout main
+dotfiles reset --hard origin&#x2F;main
 
 # 重置本地 classic
-git checkout -B classic origin&#x2F;classic</code></pre>
+dotfiles checkout -B classic origin&#x2F;classic</code></pre>
 
-<h4 id="3-更新标签-Tags"><a href="#3-更新标签-Tags" class="headerlink" title="3. 更新标签 (Tags)"></a>3. 更新标签 (Tags)</h4><p>因为 <code>v0.8</code> 和 <code>v0.9</code> 的内容变了但名字没变，本地 Git 默认不会更新已存在的标签。你需要强行覆盖：</p>
-<pre class="language-none"><code class="language-none">git fetch --tags --force</code></pre>
+<h4 id="3-更新标签-Tags"><a href="#3-更新标签-Tags" class="headerlink" title="3. 更新标签 (Tags)"></a>3. 更新标签 (Tags)</h4><p>因为 <code>v0.8</code> 和 <code>v0.9</code> 的内容变了但名字没变，本地 dotfiles 默认不会更新已存在的标签。你需要强行覆盖：</p>
+<pre class="language-none"><code class="language-none">dotfiles fetch --tags --force</code></pre>
 
 <h4 id="4-彻底物理清理老历史"><a href="#4-彻底物理清理老历史" class="headerlink" title="4. 彻底物理清理老历史"></a>4. 彻底物理清理老历史</h4><p>为了让老机器的硬盘也释放那 600 多个提交的空间，最后执行清理：</p>
-<pre class="language-none"><code class="language-none">git reflog expire --expire&#x3D;now --all
-git gc --prune&#x3D;now --aggressive</code></pre>
+<pre class="language-none"><code class="language-none">dotfiles reflog expire --expire&#x3D;now --all
+dotfiles gc --prune&#x3D;now --aggressive</code></pre>
 
 <h3 id="⚠️-注意事项"><a href="#⚠️-注意事项" class="headerlink" title="⚠️ 注意事项"></a>⚠️ 注意事项</h3><ul>
-<li><strong>未提交的代码</strong>：如果老机器上有还没上传的代码，在执行 <code>git reset --hard</code> 前，请务必手动备份。因为这个操作会<strong>抹除</strong>所有未提交的修改。</li>
-<li><strong>孤魂野鬼</strong>：如果不执行 <code>git gc</code>，老机器虽然 log 变干净了，但 <code>.git</code> 文件夹体积依然是旧的大小。</li>
+<li><strong>未提交的代码</strong>：如果老机器上有还没上传的代码，在执行 <code>dotfiles reset --hard</code> 前，请务必手动备份。因为这个操作会<strong>抹除</strong>所有未提交的修改。</li>
+<li><strong>孤魂野鬼</strong>：如果不执行 <code>dotfiles gc</code>，老机器虽然 log 变干净了，但 <code>.dotfiles</code> 文件夹体积依然是旧的大小。</li>
 </ul>
 
         </article>
